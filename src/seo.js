@@ -5,8 +5,10 @@ export function generateSeoTags({ siteConfig, canonicalUrl }) {
   const brandName = siteConfig.brand_name || "XSUR";
   const founderName = siteConfig.founder_name || "Bang Mansur";
   const tagline = siteConfig.tagline || "Enterprise Cybersecurity, Network Engineering & Scalable Automation";
-  const description = `Portal resmi ${companyName} (${brandName}). Dipimpin oleh ${founderName} (S2 Magister Ilmu Komputer). Solusi enterprise: VAPT Cybersecurity, Enterprise MikroTik RouterOS, MTProto Bot Fleet, FinTech PPOB H2H Gateway, & Konsultasi IT Forensik.`;
-  const keywords = [
+  
+  const pageTitle = siteConfig.meta_title || `${brandName} — ${companyName} | Founder ${founderName}`;
+  const description = siteConfig.meta_description || `Portal resmi ${companyName} (${brandName}). Dipimpin oleh ${founderName} (S2 Magister Ilmu Komputer). Solusi enterprise: VAPT Cybersecurity, Enterprise MikroTik RouterOS, MTProto Bot Fleet, FinTech PPOB H2H Gateway, & Konsultasi IT Forensik.`;
+  const keywords = siteConfig.meta_keywords || [
     "Bang Mansur",
     "Mansur",
     "PT Xecure Siber Unggul Resolusi",
@@ -25,6 +27,11 @@ export function generateSeoTags({ siteConfig, canonicalUrl }) {
     "Digital Forensics Indonesia",
     "Startup Cybersecurity Indonesia"
   ].join(", ");
+
+  const ogTitle = siteConfig.og_title || pageTitle;
+  const ogDescription = siteConfig.og_description || description;
+  const ogImage = siteConfig.og_image || `${canonicalUrl}/logo.svg`;
+  const googleVerification = siteConfig.google_site_verification || "";
 
   const schemaJsonLd = {
     "@context": "https://schema.org",
@@ -50,12 +57,13 @@ export function generateSeoTags({ siteConfig, canonicalUrl }) {
           { "@type": "AdministrativeArea", "name": "Global" }
         ],
         "knowsAbout": [
-          "Cybersecurity",
-          "Web Application Penetration Testing",
-          "MikroTik RouterOS",
-          "High Concurrency Telegram Automation",
+          "Cybersecurity & Penetration Testing",
+          "Web & API Security Audits",
+          "Enterprise MikroTik RouterOS & Multi-WAN",
+          "High Concurrency Telegram MTProto Bot Fleet",
           "CEIR IMEI Telecommunication Verification",
-          "FinTech Payment & H2H Gateways"
+          "FinTech Payment & H2H QRIS Gateways",
+          "Digital Incident Forensics & Investigation"
         ],
         "contactPoint": {
           "@type": "ContactPoint",
@@ -70,13 +78,13 @@ export function generateSeoTags({ siteConfig, canonicalUrl }) {
         "@id": `${canonicalUrl}#founder`,
         "name": founderName,
         "alternateName": ["Mansur", "Bang Mansur IT", "Founder XSUR"],
-        "jobTitle": "Founder & Chief Security Architect",
+        "jobTitle": siteConfig.founder_title || "Founder & Chief Security Architect",
         "worksFor": {
           "@id": `${canonicalUrl}#organization`
         },
         "alumniOf": {
           "@type": "EducationalOrganization",
-          "name": "Magister Ilmu Komputer (S2 Computer Science)"
+          "name": siteConfig.founder_edu || "Magister Ilmu Komputer (S2 Computer Science)"
         },
         "image": siteConfig.founder_image || "https://i.ibb.co.com/LXK49TZc/unamed.png",
         "sameAs": [
@@ -85,7 +93,7 @@ export function generateSeoTags({ siteConfig, canonicalUrl }) {
         ],
         "knowsAbout": [
           "Cybersecurity & Penetration Testing",
-          "Distributed Architecture",
+          "Distributed Systems Architecture",
           "Enterprise Network Routing & MikroTik",
           "Reverse Engineering & Digital Forensics"
         ]
@@ -122,10 +130,10 @@ export function generateSeoTags({ siteConfig, canonicalUrl }) {
           },
           {
             "@type": "Question",
-            "name": "Layanan apa saja yang disediakan oleh XSUR?",
+            "name": "Layanan dan proyek apa saja yang disediakan oleh XSUR?",
             "acceptedAnswer": {
               "@type": "Answer",
-              "text": "XSUR melayani: 1) Cybersecurity & Pentest (VAPT), 2) Enterprise Network & MikroTik RouterOS, 3) Telegram Userbot Fleet & Automasi MTProto, 4) FinTech PPOB & QRIS Gateways, 5) Audit IMEI/CEIR Bea Cukai, serta 6) Konsultasi Khusus & Digital Forensics."
+              "text": "XSUR melayani empat klasifikasi spesialisasi enterprise: 1) Jasa & Solusi Cyber Defense (VAPT & Konsultasi MikroTik), 2) Bot & Otomasi High-Throughput (MTProto Userbot Fleet & @cekceirbot), 3) Pemrograman & API Gateway (Aing PPOB H2H & WorkIt Portal), serta 4) Audit Telekomunikasi CEIR & IMEI Bea Cukai."
             }
           }
         ]
@@ -134,26 +142,27 @@ export function generateSeoTags({ siteConfig, canonicalUrl }) {
   };
 
   return `
-    <title>${brandName} — ${companyName} | Founder Bang Mansur</title>
+    <title>${pageTitle}</title>
     <meta name="description" content="${description}">
     <meta name="keywords" content="${keywords}">
     <meta name="author" content="${founderName}">
     <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
     <link rel="canonical" href="${canonicalUrl}">
+    ${googleVerification ? `<meta name="google-site-verification" content="${googleVerification}">` : ''}
     
     <!-- Open Graph / Facebook / Telegram / WhatsApp -->
     <meta property="og:type" content="business.business">
-    <meta property="og:title" content="${brandName} | ${companyName}">
-    <meta property="og:description" content="${description}">
+    <meta property="og:title" content="${ogTitle}">
+    <meta property="og:description" content="${ogDescription}">
     <meta property="og:url" content="${canonicalUrl}">
     <meta property="og:site_name" content="${companyName}">
-    <meta property="og:image" content="${canonicalUrl}/og-image.png">
+    <meta property="og:image" content="${ogImage}">
     
     <!-- Twitter -->
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="${brandName} — ${companyName}">
-    <meta name="twitter:description" content="${description}">
-    <meta name="twitter:image" content="${canonicalUrl}/og-image.png">
+    <meta name="twitter:title" content="${ogTitle}">
+    <meta name="twitter:description" content="${ogDescription}">
+    <meta name="twitter:image" content="${ogImage}">
 
     <!-- Schema.org JSON-LD -->
     <script type="application/ld+json">

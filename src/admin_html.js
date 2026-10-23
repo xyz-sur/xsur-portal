@@ -1,7 +1,8 @@
 // Admin UI for PT Xecure Siber Unggul Resolusi (xsur.my.id/admin)
 import { SVG_HORIZONTAL, SVG_ICON } from "./logo.js";
+import { PROJECT_CATEGORIES, DEFAULT_PROJECTS } from "./projects.js";
 
-export function renderAdminPage({ isAuthenticated, menus, siteConfig, errorMsg }) {
+export function renderAdminPage({ isAuthenticated, menus = [], siteConfig = {}, projects = DEFAULT_PROJECTS, errorMsg }) {
   if (!isAuthenticated) {
     return `<!DOCTYPE html>
 <html lang="id">
@@ -98,12 +99,12 @@ export function renderAdminPage({ isAuthenticated, menus, siteConfig, errorMsg }
     }
     * { box-sizing: border-box; margin: 0; padding: 0; }
     body { background: var(--bg); color: var(--text); font-family: 'Plus Jakarta Sans', sans-serif; min-height: 100vh; }
-    .container { max-width: 1180px; margin: 0 auto; padding: 24px; }
+    .container { max-width: 1220px; margin: 0 auto; padding: 24px; }
     
     /* Topbar */
     .topbar {
       border-bottom: 1px solid var(--border); background: #080b11; padding: 14px 24px;
-      display: flex; align-items: center; justify-content: space-between;
+      display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px;
     }
     .brand-wrap { display: flex; align-items: center; gap: 12px; }
     .brand-wrap svg { height: 32px; width: auto; }
@@ -114,11 +115,13 @@ export function renderAdminPage({ isAuthenticated, menus, siteConfig, errorMsg }
     .btn-logout:hover { border-color: #ef4444; color: #ef4444; }
 
     /* Tabs */
-    .tabs { display: flex; gap: 10px; margin: 28px 0 20px; border-bottom: 1px solid var(--border); padding-bottom: 12px; }
+    .tabs-wrapper { overflow-x: auto; -webkit-overflow-scrolling: touch; margin: 24px 0 20px; border-bottom: 1px solid var(--border); }
+    .tabs { display: inline-flex; gap: 8px; padding-bottom: 10px; }
     .tab-btn {
-      background: transparent; border: none; font-size: 14px; font-weight: 700; color: #64748b;
-      padding: 8px 16px; border-radius: 8px; cursor: pointer; transition: all 0.2s;
+      background: transparent; border: none; font-size: 13.5px; font-weight: 700; color: #64748b;
+      padding: 9px 16px; border-radius: 8px; cursor: pointer; transition: all 0.2s; white-space: nowrap;
     }
+    .tab-btn:hover { color: #fff; background: rgba(255,255,255,0.04); }
     .tab-btn.active { background: var(--cyan-dim); color: var(--cyan); }
 
     /* Cards */
@@ -126,10 +129,11 @@ export function renderAdminPage({ isAuthenticated, menus, siteConfig, errorMsg }
       background: var(--card-bg); border: 1px solid var(--border); border-radius: 16px;
       padding: 24px; margin-bottom: 24px; box-shadow: 0 10px 30px rgba(0,0,0,0.5);
     }
-    .card-head { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; }
+    .card-head { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; flex-wrap: wrap; gap: 12px; }
     .card-title { font-size: 18px; font-weight: 800; color: #fff; }
 
     /* Table */
+    .table-responsive { width: 100%; overflow-x: auto; -webkit-overflow-scrolling: touch; }
     table { width: 100%; border-collapse: collapse; font-size: 13.5px; }
     th { text-align: left; padding: 12px 14px; color: #64748b; font-family: 'JetBrains Mono', monospace; font-size: 11px; text-transform: uppercase; border-bottom: 1px solid var(--border); }
     td { padding: 14px; border-bottom: 1px solid rgba(255,255,255,0.04); vertical-align: middle; }
@@ -141,13 +145,14 @@ export function renderAdminPage({ isAuthenticated, menus, siteConfig, errorMsg }
 
     /* Form */
     .form-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 16px; }
-    .form-group { margin-bottom: 14px; }
+    .form-group { margin-bottom: 16px; }
     .form-label { display: block; font-size: 12px; font-family: 'JetBrains Mono', monospace; color: #cbd5e1; margin-bottom: 6px; }
-    .form-input, .form-select {
+    .form-input, .form-select, .form-textarea {
       width: 100%; padding: 10px 14px; border-radius: 8px; background: #080b11;
       border: 1px solid var(--border); color: #fff; font-size: 13.5px; outline: none;
     }
-    .form-input:focus, .form-select:focus { border-color: var(--cyan); }
+    .form-textarea { min-height: 80px; font-family: 'JetBrains Mono', monospace; line-height: 1.5; resize: vertical; }
+    .form-input:focus, .form-select:focus, .form-textarea:focus { border-color: var(--cyan); }
     
     .btn-action {
       background: #1e293b; border: 1px solid var(--border); color: #fff; padding: 6px 12px;
@@ -161,6 +166,15 @@ export function renderAdminPage({ isAuthenticated, menus, siteConfig, errorMsg }
       padding: 10px 18px; border-radius: 8px; font-weight: 700; font-size: 13.5px; cursor: pointer;
     }
 
+    /* Google Search Preview Card */
+    .serp-card {
+      background: #202124; border: 1px solid #3c4043; border-radius: 12px; padding: 18px 20px;
+      margin-top: 14px; max-width: 650px; font-family: Arial, sans-serif;
+    }
+    .serp-url { font-size: 12px; color: #bdc1c6; display: flex; align-items: center; gap: 6px; margin-bottom: 4px; }
+    .serp-title { font-size: 18px; color: #8ab4f8; text-decoration: none; font-weight: 400; line-height: 1.3; }
+    .serp-desc { font-size: 13.5px; color: #bdc1c6; line-height: 1.5; margin-top: 6px; }
+
     /* Modal */
     .modal-backdrop {
       position: fixed; inset: 0; background: rgba(0,0,0,0.8); backdrop-filter: blur(8px);
@@ -169,7 +183,7 @@ export function renderAdminPage({ isAuthenticated, menus, siteConfig, errorMsg }
     .modal-backdrop.open { display: flex; }
     .modal {
       background: #0d121c; border: 1px solid var(--border); border-radius: 16px;
-      width: 100%; max-width: 540px; padding: 28px; box-shadow: 0 20px 40px rgba(0,0,0,0.8);
+      width: 100%; max-width: 560px; max-height: 90vh; overflow-y: auto; padding: 26px; box-shadow: 0 20px 40px rgba(0,0,0,0.8);
     }
   </style>
 </head>
@@ -179,7 +193,7 @@ export function renderAdminPage({ isAuthenticated, menus, siteConfig, errorMsg }
       <div style="height: 32px; width: 110px;">${SVG_HORIZONTAL}</div>
       <span style="font-size: 12px; font-family: 'JetBrains Mono', monospace; color: var(--cyan); border-left: 1px solid var(--border); padding-left: 12px;">ADMIN CONTROL</span>
     </div>
-    <div style="display: flex; align-items: center; gap: 14px;">
+    <div style="display: flex; align-items: center; gap: 12px;">
       <a href="/" target="_blank" class="btn-logout" style="border-color: var(--cyan); color: var(--cyan);">&rarr; Lihat Web Live</a>
       <form method="POST" action="/api/admin/logout" style="display: inline;">
         <button type="submit" class="btn-logout">Logout</button>
@@ -188,9 +202,13 @@ export function renderAdminPage({ isAuthenticated, menus, siteConfig, errorMsg }
   </div>
 
   <div class="container">
-    <div class="tabs">
-      <button class="tab-btn active" onclick="switchTab('menus')">📋 Pengaturan Navigasi &amp; Dropdown Menu</button>
-      <button class="tab-btn" onclick="switchTab('config')">⚙️ Profil Perusahaan &amp; Kontak</button>
+    <div class="tabs-wrapper">
+      <div class="tabs">
+        <button class="tab-btn active" onclick="switchTab(this, 'menus')">📋 Navigasi &amp; Dropdown Menu</button>
+        <button class="tab-btn" onclick="switchTab(this, 'seo')">🎯 Pengaturan SEO Google</button>
+        <button class="tab-btn" onclick="switchTab(this, 'projects')">🚀 Portofolio &amp; Proyek</button>
+        <button class="tab-btn" onclick="switchTab(this, 'config')">⚙️ Profil Perusahaan &amp; Kontak</button>
+      </div>
     </div>
 
     <!-- Tab 1: Menus Manager -->
@@ -198,52 +216,170 @@ export function renderAdminPage({ isAuthenticated, menus, siteConfig, errorMsg }
       <div class="card">
         <div class="card-head">
           <div>
-            <h2 class="card-title">Struktur Navigasi &amp; Link Eksternal</h2>
+            <h2 class="card-title">Struktur Navigasi &amp; Link Dropdown</h2>
             <p style="font-size: 13px; color: var(--text-muted); margin-top: 4px;">
-              Atur tombol navbar, dropdown menu, tautan blog pribadi (<code style="color:var(--cyan)">xyz-sur.github.io</code>), produk, maupun anchor.
+              Atur tombol navbar, dropdown menu, tautan blog pribadi (<code style="color:var(--cyan)">xyz-sur.github.io</code>), produk, maupun anchor section.
             </p>
           </div>
           <button class="btn-add" onclick="openAddModal()">+ Tambah Menu Baru</button>
         </div>
 
-        <table>
-          <thead>
-            <tr>
-              <th>Urutan</th>
-              <th>Label / Judul</th>
-              <th>URL Tujuan</th>
-              <th>Tipe</th>
-              <th>Target</th>
-              <th>Badge</th>
-              <th>Aksi</th>
-            </tr>
-          </thead>
-          <tbody>
-            ${menus.map(m => `
+        <div class="table-responsive">
+          <table>
+            <thead>
               <tr>
-                <td style="font-family: 'JetBrains Mono', monospace; font-weight: 700; color: var(--cyan);">${m.sort_order}</td>
-                <td>
-                  <strong style="color: #fff;">${m.parent_id ? '&nbsp;&nbsp;&bull;&nbsp;' : ''}${m.label}</strong>
-                  ${m.description ? `<div style="font-size: 11.5px; color: #64748b;">${m.description}</div>` : ''}
-                </td>
-                <td><code style="font-size: 12px; color: #94a3b8;">${m.url}</code></td>
-                <td>
-                  ${m.is_dropdown ? `<span class="badge parent">DROPDOWN</span>` : (m.parent_id ? `<span class="badge sub">SUB-MENU</span>` : `<span class="badge">REGULAR</span>`)}
-                </td>
-                <td style="font-family: 'JetBrains Mono', monospace; font-size: 12px;">${m.target}</td>
-                <td>${m.badge ? `<span class="badge" style="background:rgba(255,255,255,0.1);">${m.badge}</span>` : '-'}</td>
-                <td>
-                  <button class="btn-action" onclick='editMenu(${JSON.stringify(m)})'>Edit</button>
-                  <button class="btn-action del" onclick="deleteMenu(${m.id})">Hapus</button>
-                </td>
+                <th>Urutan</th>
+                <th>Label / Judul</th>
+                <th>URL Tujuan</th>
+                <th>Tipe</th>
+                <th>Target</th>
+                <th>Badge</th>
+                <th>Aksi</th>
               </tr>
-            `).join('')}
-          </tbody>
-        </table>
+            </thead>
+            <tbody>
+              ${menus.map(m => `
+                <tr>
+                  <td style="font-family: 'JetBrains Mono', monospace; font-weight: 700; color: var(--cyan);">${m.sort_order}</td>
+                  <td>
+                    <strong style="color: #fff;">${m.parent_id ? '&nbsp;&nbsp;&bull;&nbsp;' : ''}${m.label}</strong>
+                    ${m.description ? `<div style="font-size: 11.5px; color: #64748b;">${m.description}</div>` : ''}
+                  </td>
+                  <td><code style="font-size: 12px; color: #94a3b8;">${m.url}</code></td>
+                  <td>
+                    ${m.is_dropdown ? `<span class="badge parent">DROPDOWN</span>` : (m.parent_id ? `<span class="badge sub">SUB-MENU</span>` : `<span class="badge">REGULAR</span>`)}
+                  </td>
+                  <td style="font-family: 'JetBrains Mono', monospace; font-size: 12px;">${m.target}</td>
+                  <td>${m.badge ? `<span class="badge" style="background:rgba(255,255,255,0.1);">${m.badge}</span>` : '-'}</td>
+                  <td>
+                    <button class="btn-action" onclick='editMenu(${JSON.stringify(m)})'>Edit</button>
+                    <button class="btn-action del" onclick="deleteMenu(${m.id})">Hapus</button>
+                  </td>
+                </tr>
+              `).join('')}
+            </tbody>
+          </table>
+        </div>
       </div>
     </div>
 
-    <!-- Tab 2: Site Config -->
+    <!-- Tab 2: SEO Management -->
+    <div id="tab-seo" class="tab-content" style="display: none;">
+      <div class="card">
+        <div class="card-head">
+          <div>
+            <h2 class="card-title">Pengaturan SEO &amp; Mesin Pencari Google</h2>
+            <p style="font-size: 13px; color: var(--text-muted); margin-top: 4px;">
+              Optimalkan ranking pencarian Google untuk <strong>Bang Mansur</strong>, <strong>PT Xecure Siber Unggul Resolusi</strong>, dan proyek-proyek terkait.
+            </p>
+          </div>
+        </div>
+
+        <form id="form-seo" onsubmit="saveSeoConfig(event)">
+          <div class="form-grid">
+            <div class="form-group" style="grid-column: 1 / -1;">
+              <label class="form-label">META TITLE GOOGLE (PAGE TITLE)</label>
+              <input type="text" name="meta_title" id="seo-input-title" class="form-input" 
+                value="${siteConfig.meta_title || 'PT Xecure Siber Unggul Resolusi — Cyber Defense &amp; Scalable Automation | Founder Bang Mansur'}" 
+                oninput="updateSerpPreview()" required>
+            </div>
+
+            <div class="form-group" style="grid-column: 1 / -1;">
+              <label class="form-label">META DESCRIPTION (DESKRIPSI SNIPPET GOOGLE)</label>
+              <textarea name="meta_description" id="seo-input-desc" class="form-textarea" 
+                oninput="updateSerpPreview()" required>${siteConfig.meta_description || 'Portal resmi PT Xecure Siber Unggul Resolusi (XSUR). Dipimpin oleh Bang Mansur (S2 Magister Ilmu Komputer). Solusi enterprise: VAPT Cybersecurity, Enterprise MikroTik RouterOS, MTProto Bot Fleet, FinTech PPOB H2H Gateway, &amp; Konsultasi IT Forensik.'}</textarea>
+            </div>
+
+            <div class="form-group" style="grid-column: 1 / -1;">
+              <label class="form-label">META KEYWORDS (KATA KUNCI UTAMA PENCARIAN)</label>
+              <textarea name="meta_keywords" class="form-textarea" placeholder="Pisahkan dengan koma...">${siteConfig.meta_keywords || 'Bang Mansur, Mansur, PT Xecure Siber Unggul Resolusi, XSUR, xsur.my.id, Cybersecurity Specialist Indonesia, Jasa Pentest Web API, Vulnerability Assessment Indonesia, Konsultan MikroTik Enterprise, RouterOS BGP OVPN, Arsitek Telegram Bot, MTProto Fleet Automation, Cek CEIR IMEI Audit, PPOB H2H Gateway, Cloudflare Workers Edge, Digital Forensics Indonesia'}</textarea>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label">OPENGRAPH TITLE (SHARE SOCIAL)</label>
+              <input type="text" name="og_title" class="form-input" value="${siteConfig.og_title || 'XSUR | PT Xecure Siber Unggul Resolusi'}">
+            </div>
+
+            <div class="form-group">
+              <label class="form-label">OPENGRAPH IMAGE URL (THUMBNAIL)</label>
+              <input type="text" name="og_image" class="form-input" value="${siteConfig.og_image || 'https://xsur.my.id/logo.svg'}">
+            </div>
+
+            <div class="form-group" style="grid-column: 1 / -1;">
+              <label class="form-label">GOOGLE SITE VERIFICATION (SEARCH CONSOLE TOKEN)</label>
+              <input type="text" name="google_site_verification" class="form-input" placeholder="Contoh: gv-abc123xyz-code..." value="${siteConfig.google_site_verification || ''}">
+            </div>
+          </div>
+
+          <!-- Live Google Search Engine Preview -->
+          <div style="margin-top: 20px;">
+            <label class="form-label">SIMULASI TAMPILAN GOOGLE SEARCH SNIPPET (LIVE PREVIEW)</label>
+            <div class="serp-card">
+              <div class="serp-url">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+                <span>https://xsur.my.id</span>
+              </div>
+              <div class="serp-title" id="serp-title-preview">PT Xecure Siber Unggul Resolusi — Cyber Defense &amp; Scalable Automation</div>
+              <div class="serp-desc" id="serp-desc-preview">Portal resmi PT Xecure Siber Unggul Resolusi (XSUR). Dipimpin oleh Bang Mansur (S2 Magister Ilmu Komputer)...</div>
+            </div>
+          </div>
+
+          <div style="margin-top: 24px;">
+            <button type="submit" class="btn-add">SIMPAN PENGATURAN SEO</button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <!-- Tab 3: Projects Manager -->
+    <div id="tab-projects" class="tab-content" style="display: none;">
+      <div class="card">
+        <div class="card-head">
+          <div>
+            <h2 class="card-title">Portofolio &amp; Layanan Terklasifikasi</h2>
+            <p style="font-size: 13px; color: var(--text-muted); margin-top: 4px;">
+              Hanya proyek profesional skala enterprise yang ditampilkan (Jasa, Bot Telegram, Pemrograman Web/API, Telekomunikasi).
+            </p>
+          </div>
+          <button class="btn-add" onclick="openAddProjectModal()">+ Tambah Proyek</button>
+        </div>
+
+        <div class="table-responsive">
+          <table>
+            <thead>
+              <tr>
+                <th>Kategori</th>
+                <th>Judul Proyek / Layanan</th>
+                <th>Badge</th>
+                <th>Tech Stack</th>
+                <th>Link Tujuan</th>
+                <th>Aksi</th>
+              </tr>
+            </thead>
+            <tbody>
+              ${projects.map(p => `
+                <tr>
+                  <td><span class="badge parent">${p.category.toUpperCase()}</span></td>
+                  <td>
+                    <strong style="color: #fff;">${p.title}</strong>
+                    <div style="font-size: 12px; color: #94a3b8; margin-top: 3px; max-width: 380px;">${p.summary}</div>
+                  </td>
+                  <td><span class="badge" style="background:rgba(255,255,255,0.1);">${p.badge || '-'}</span></td>
+                  <td style="font-family:'JetBrains Mono', monospace; font-size: 11px; color:#cbd5e1;">${Array.isArray(p.tech_stack) ? p.tech_stack.join(', ') : p.tech_stack}</td>
+                  <td><code style="font-size: 11.5px; color: var(--cyan);">${p.url}</code></td>
+                  <td>
+                    <button class="btn-action" onclick='editProject(${JSON.stringify(p)})'>Edit</button>
+                    <button class="btn-action del" onclick="deleteProject(${p.id})">Hapus</button>
+                  </td>
+                </tr>
+              `).join('')}
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- Tab 4: Site Profile Config -->
     <div id="tab-config" class="tab-content" style="display: none;">
       <div class="card">
         <div class="card-head">
@@ -261,7 +397,7 @@ export function renderAdminPage({ isAuthenticated, menus, siteConfig, errorMsg }
             </div>
             <div class="form-group">
               <label class="form-label">TAGLINE UTAMA</label>
-              <input type="text" name="tagline" class="form-input" value="${siteConfig.tagline || ''}">
+              <input type="text" name="tagline" class="form-input" value="${siteConfig.tagline || 'High-Tier Cybersecurity, Network Engineering &amp; Scalable Automation'}">
             </div>
             <div class="form-group">
               <label class="form-label">NAMA FOUNDER</label>
@@ -289,7 +425,7 @@ export function renderAdminPage({ isAuthenticated, menus, siteConfig, errorMsg }
             </div>
           </div>
           <div style="margin-top: 20px;">
-            <button type="submit" class="btn-add">SIMPAN PENGATURAN</button>
+            <button type="submit" class="btn-add">SIMPAN PROFIL PERUSAHAAN</button>
           </div>
         </form>
       </div>
@@ -318,7 +454,7 @@ export function renderAdminPage({ isAuthenticated, menus, siteConfig, errorMsg }
         </div>
         <div class="form-group">
           <label class="form-label">URL TUJUAN</label>
-          <input type="text" name="url" id="m-url" class="form-input" placeholder="Contoh: https://xyz-sur.github.io atau #services" required>
+          <input type="text" name="url" id="m-url" class="form-input" placeholder="Contoh: https://xyz-sur.github.io atau #projects" required>
         </div>
         <div class="form-grid">
           <div class="form-group">
@@ -358,13 +494,84 @@ export function renderAdminPage({ isAuthenticated, menus, siteConfig, errorMsg }
     </div>
   </div>
 
+  <!-- Modal Add/Edit Project -->
+  <div id="project-modal" class="modal-backdrop">
+    <div class="modal">
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+        <h3 id="proj-modal-title" style="font-size: 18px; font-weight: 800; color: #fff;">Tambah Proyek Enterprise</h3>
+        <button onclick="closeProjectModal()" style="background: none; border: none; color: #64748b; font-size: 20px; cursor: pointer;">&times;</button>
+      </div>
+      <form id="form-project" onsubmit="saveProject(event)">
+        <input type="hidden" name="id" id="p-id">
+        <div class="form-group">
+          <label class="form-label">KLASIFIKASI KATEGORI</label>
+          <select name="category" id="p-cat" class="form-select" required>
+            <option value="jasa">🛡️ Jasa &amp; Layanan Enterprise</option>
+            <option value="bot">🤖 Bot &amp; Otomasi Telegram</option>
+            <option value="pemrograman">💻 Pemrograman &amp; API Gateway</option>
+            <option value="telekomunikasi">📡 Telekomunikasi &amp; CEIR</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label class="form-label">JUDUL PROYEK</label>
+          <input type="text" name="title" id="p-title" class="form-input" placeholder="Contoh: Aing PPOB & FinTech API Gateway" required>
+        </div>
+        <div class="form-group">
+          <label class="form-label">RINGKASAN PROYEK</label>
+          <textarea name="summary" id="p-summary" class="form-textarea" placeholder="Deskripsi profesional tentang teknologi dan manfaat..." required></textarea>
+        </div>
+        <div class="form-grid">
+          <div class="form-group">
+            <label class="form-label">BADGE STATUS</label>
+            <input type="text" name="badge" id="p-badge" class="form-input" placeholder="Contoh: LIVE API / ENTERPRISE">
+          </div>
+          <div class="form-group">
+            <label class="form-label">URUTAN (SORT)</label>
+            <input type="number" name="sort_order" id="p-sort" class="form-input" value="1" required>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="form-label">TECH STACK (PISAHKAN DENGAN KOMA)</label>
+          <input type="text" name="tech_stack" id="p-tech" class="form-input" placeholder="Contoh: Cloudflare Workers, Node.js, REST API">
+        </div>
+        <div class="form-grid">
+          <div class="form-group">
+            <label class="form-label">URL TUJUAN</label>
+            <input type="text" name="url" id="p-url" class="form-input" placeholder="https://... atau #contact" required>
+          </div>
+          <div class="form-group">
+            <label class="form-label">TARGET KLIK</label>
+            <select name="target" id="p-target" class="form-select">
+              <option value="_blank">Tab Baru (_blank)</option>
+              <option value="_self">Tab yang Sama (_self)</option>
+            </select>
+          </div>
+        </div>
+        <div style="display: flex; justify-content: flex-end; gap: 10px; margin-top: 24px;">
+          <button type="button" onclick="closeProjectModal()" class="btn-action">Batal</button>
+          <button type="submit" class="btn-add">Simpan Proyek</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
   <script>
-    function switchTab(name) {
+    function switchTab(btn, name) {
       document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
-      event.target.classList.add('active');
-      document.getElementById('tab-menus').style.display = (name === 'menus' ? 'block' : 'none');
-      document.getElementById('tab-config').style.display = (name === 'config' ? 'block' : 'none');
+      btn.classList.add('active');
+      document.querySelectorAll('.tab-content').forEach(c => c.style.display = 'none');
+      const target = document.getElementById('tab-' + name);
+      if (target) target.style.display = 'block';
     }
+
+    function updateSerpPreview() {
+      const t = document.getElementById('seo-input-title').value;
+      const d = document.getElementById('seo-input-desc').value;
+      document.getElementById('serp-title-preview').innerText = t || 'PT Xecure Siber Unggul Resolusi';
+      document.getElementById('serp-desc-preview').innerText = d || 'Portal resmi XSUR...';
+    }
+    // init preview
+    updateSerpPreview();
 
     function openAddModal() {
       document.getElementById('modal-title').innerText = 'Tambah Menu Baru';
@@ -427,6 +634,90 @@ export function renderAdminPage({ isAuthenticated, menus, siteConfig, errorMsg }
         location.reload();
       } else {
         alert('Gagal menghapus menu.');
+      }
+    }
+
+    // Projects Manager
+    function openAddProjectModal() {
+      document.getElementById('proj-modal-title').innerText = 'Tambah Proyek Enterprise';
+      document.getElementById('form-project').reset();
+      document.getElementById('p-id').value = '';
+      document.getElementById('project-modal').classList.add('open');
+    }
+
+    function editProject(item) {
+      document.getElementById('proj-modal-title').innerText = 'Edit Proyek: ' + item.title;
+      document.getElementById('p-id').value = item.id;
+      document.getElementById('p-cat').value = item.category;
+      document.getElementById('p-title').value = item.title;
+      document.getElementById('p-summary').value = item.summary;
+      document.getElementById('p-badge').value = item.badge || '';
+      document.getElementById('p-sort').value = item.sort_order || 1;
+      document.getElementById('p-tech').value = Array.isArray(item.tech_stack) ? item.tech_stack.join(', ') : (item.tech_stack || '');
+      document.getElementById('p-url').value = item.url;
+      document.getElementById('p-target').value = item.target || '_blank';
+      document.getElementById('project-modal').classList.add('open');
+    }
+
+    function closeProjectModal() {
+      document.getElementById('project-modal').classList.remove('open');
+    }
+
+    async function saveProject(e) {
+      e.preventDefault();
+      const form = e.target;
+      const data = {
+        id: form.id.value ? parseInt(form.id.value) : null,
+        category: form.category.value,
+        title: form.title.value,
+        summary: form.summary.value,
+        badge: form.badge.value,
+        sort_order: parseInt(form.sort_order.value),
+        tech_stack: form.tech_stack.value,
+        url: form.url.value,
+        target: form.target.value
+      };
+
+      const res = await fetch('/api/admin/projects', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data)
+      });
+      if (res.ok) {
+        alert('Proyek berhasil disimpan!');
+        location.reload();
+      } else {
+        const err = await res.json();
+        alert('Gagal menyimpan proyek: ' + (err.error || 'Terjadi kesalahan'));
+      }
+    }
+
+    async function deleteProject(id) {
+      if (!confirm('Hapus proyek ini dari katalog?')) return;
+      const res = await fetch('/api/admin/projects/' + id, { method: 'DELETE' });
+      if (res.ok) {
+        location.reload();
+      } else {
+        alert('Gagal menghapus proyek.');
+      }
+    }
+
+    async function saveSeoConfig(e) {
+      e.preventDefault();
+      const form = e.target;
+      const data = {};
+      new FormData(form).forEach((v, k) => data[k] = v);
+
+      const res = await fetch('/api/admin/config', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data)
+      });
+      if (res.ok) {
+        alert('Pengaturan SEO Google berhasil disimpan & aktif!');
+        location.reload();
+      } else {
+        alert('Gagal menyimpan pengaturan SEO.');
       }
     }
 

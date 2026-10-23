@@ -2,6 +2,7 @@
 import { renderPublicPage } from "./html.js";
 import { renderAdminPage } from "./admin_html.js";
 import { SVG_HORIZONTAL, SVG_ICON } from "./logo.js";
+import { DEFAULT_PROJECTS } from "./projects.js";
 
 // SHA-256 helper for password verification
 async function sha256(str) {
@@ -67,18 +68,18 @@ export default {
     <loc>https://xsur.my.id/#about</loc>
     <lastmod>${new Date().toISOString().split("T")[0]}</lastmod>
     <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
+    <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://xsur.my.id/#services</loc>
-    <lastmod>${new Date().toISOString().split("T")[0]}</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://xsur.my.id/#products</loc>
+    <loc>https://xsur.my.id/#projects</loc>
     <lastmod>${new Date().toISOString().split("T")[0]}</lastmod>
     <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://xsur.my.id/#contact</loc>
+    <lastmod>${new Date().toISOString().split("T")[0]}</lastmod>
+    <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
 </urlset>`;
@@ -98,6 +99,8 @@ export default {
     // 2. Fetch Dynamic Data from D1 Database
     let menus = [];
     let siteConfig = {};
+    let projects = [];
+
     try {
       const menuRows = await env.DB.prepare(
         "SELECT * FROM xsur_nav_menus WHERE is_active = 1 ORDER BY sort_order ASC"
@@ -108,15 +111,27 @@ export default {
       (configRows.results || []).forEach(r => {
         siteConfig[r.key] = r.value;
       });
+
+      const projRows = await env.DB.prepare(
+        "SELECT * FROM xsur_projects WHERE is_active = 1 ORDER BY sort_order ASC"
+      ).all();
+      if (projRows.results && projRows.results.length > 0) {
+        projects = projRows.results;
+      } else {
+        projects = DEFAULT_PROJECTS;
+      }
     } catch (e) {
       console.error("D1 Fetch Error:", e);
+      projects = DEFAULT_PROJECTS;
     }
 
     // 3. Admin Authentication & Dashboard
     if (path === "/admin") {
       const isAuth = await verifyAdminAuth(request, env);
       const allMenus = isAuth ? (await env.DB.prepare("SELECT * FROM xsur_nav_menus ORDER BY sort_order ASC").all()).results || [] : [];
-      const html = renderAdminPage({ isAuthenticated: isAuth, menus: allMenus, siteConfig });
+      const allProjects = isAuth ? (await env.DB.prepare("SELECT * FROM xsur_projects ORDER BY sort_order ASC").all()).results || [] : [];
+      const displayProjects = allProjects.length > 0 ? allProjects : projects;
+      const html = renderAdminPage({ isAuthenticated: isAuth, menus: allMenus, siteConfig, projects: displayProjects });
       return new Response(html, { headers: { "Content-Type": "text/html; charset=utf-8" } });
     }
 
@@ -150,6 +165,7 @@ export default {
           isAuthenticated: false,
           menus: [],
           siteConfig,
+          projects: DEFAULT_PROJECTS,
           errorMsg: "Kunci keamanan salah. Akses ditolak!"
         });
         return new Response(html, { status: 401, headers: { "Content-Type": "text/html; charset=utf-8" } });
@@ -200,7 +216,33 @@ export default {
         return Response.json({ success: true });
       }
 
-      // Site Config Update
+      // Projects CRUD
+      if (path === "/api/admin/projects" && method === "POST") {
+        const body = await request.json();
+        const { id, category, title, summary, badge, sort_order, tech_stack, url, target } = body;
+
+        if (id) {
+          await env.DB.prepare(`
+            UPDATE xsur_projects
+            SET category = ?, title = ?, summary = ?, badge = ?, sort_order = ?, tech_stack = ?, url = ?, target = ?
+            WHERE id = ?
+          `).bind(category, title, summary, badge || "", sort_order || 1, tech_stack || "", url, target || "_blank", id).run();
+        } else {
+          await env.DB.prepare(`
+            INSERT INTO xsur_projects (category, title, summary, badge, sort_order, tech_stack, url, target, is_active)
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?, 1)
+          `).bind(category, title, summary, badge || "", sort_order || 1, tech_stack || "", url, target || "_blank").run();
+        }
+        return Response.json({ success: true });
+      }
+
+      if (path.startsWith("/api/admin/projects/") && method === "DELETE") {
+        const id = parseInt(path.split("/").pop());
+        await env.DB.prepare("DELETE FROM xsur_projects WHERE id = ?").bind(id).run();
+        return Response.json({ success: true });
+      }
+
+      // Site Config & SEO Update
       if (path === "/api/admin/config" && method === "POST") {
         const body = await request.json();
         for (const [k, v] of Object.entries(body)) {
@@ -216,7 +258,7 @@ export default {
 
     // 5. Default Public Landing Page
     const canonicalUrl = `https://xsur.my.id`;
-    const publicHtml = renderPublicPage({ menus, siteConfig, canonicalUrl });
+    const publicHtml = renderPublicPage({ menus, siteConfig, projects, canonicalUrl });
     return new Response(publicHtml, {
       headers: {
         "Content-Type": "text/html; charset=utf-8",

@@ -68,7 +68,7 @@ export function generateSeoTags({ siteConfig, canonicalUrl }) {
         "contactPoint": {
           "@type": "ContactPoint",
           "contactType": "Customer Support & Technical Consultation",
-          "url": siteConfig.contact_telegram || "https://t.me/msr77",
+          "url": siteConfig.contact_telegram || "https://t.me/premium2in",
           "email": siteConfig.contact_email || "contact@xsur.my.id",
           "availableLanguage": ["Indonesian", "English"]
         }

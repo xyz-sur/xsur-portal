@@ -11,9 +11,11 @@ export function renderPublicPage({ menus, siteConfig, projects = DEFAULT_PROJECT
   const founderTitle = siteConfig.founder_title || "Founder & Chief Security Architect";
   const founderEdu = siteConfig.founder_edu || "Master of Computer Science (S2 Magister Ilmu Komputer)";
   const founderImg = siteConfig.founder_image || "https://i.ibb.co.com/LXK49TZc/unamed.png";
-  const waUrl = siteConfig.contact_whatsapp || "https://wa.me/6285156176433";
-  const tgUrl = siteConfig.contact_telegram || "https://t.me/msr77";
+  const waUrl = siteConfig.contact_whatsapp || "https://wa.me/62857100055554";
+  const tgUrl = siteConfig.contact_telegram || "https://t.me/premium2in";
   const email = siteConfig.contact_email || "contact@xsur.my.id";
+  const intergramChatId = siteConfig.intergram_chat_id || "682723201";
+  const intergramEnabled = siteConfig.intergram_enabled !== "0";
 
   // Build Desktop & Mobile Menus
   const parentMenus = menus.filter(m => !m.parent_id);
@@ -99,289 +101,823 @@ export function renderPublicPage({ menus, siteConfig, projects = DEFAULT_PROJECT
       --cyan-dim: rgba(0, 242, 254, 0.12);
       --cyan-glow: rgba(0, 242, 254, 0.25);
       --white: #ffffff;
-      --radius: 14px;
       --font-sans: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
       --font-mono: 'JetBrains Mono', monospace;
     }
 
     * { box-sizing: border-box; margin: 0; padding: 0; }
-    html { scroll-behavior: smooth; background-color: var(--bg); color: var(--text); font-family: var(--font-sans); }
-    body { min-height: 100vh; overflow-x: hidden; line-height: 1.6; }
+    html { scroll-behavior: smooth; background-color: var(--bg); }
+    body {
+      background-color: var(--bg);
+      color: var(--text);
+      font-family: var(--font-sans);
+      overflow-x: hidden;
+      line-height: 1.5;
+      -webkit-font-smoothing: antialiased;
+      position: relative;
+    }
 
-    /* Cyber Matrix Ambient Grid */
     .ambient-bg {
-      position: fixed; inset: 0; pointer-events: none; z-index: -1;
-      background: radial-gradient(circle at 50% 0%, rgba(0, 242, 254, 0.08), transparent 45%),
-                  radial-gradient(circle at 85% 30%, rgba(30, 41, 59, 0.4), transparent 50%),
-                  linear-gradient(to bottom, #07090e, #090d15);
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: radial-gradient(circle at 15% 15%, rgba(0, 242, 254, 0.04) 0%, transparent 40%),
+                  radial-gradient(circle at 85% 85%, rgba(0, 114, 255, 0.04) 0%, transparent 40%),
+                  radial-gradient(circle at 50% 50%, rgba(2, 6, 23, 0.8) 0%, transparent 100%);
+      pointer-events: none;
+      z-index: 0;
     }
+
     .grid-overlay {
-      position: fixed; inset: 0; pointer-events: none; z-index: -1; opacity: 0.15;
-      background-size: 40px 40px;
-      background-image: linear-gradient(to right, rgba(255,255,255,0.05) 1px, transparent 1px),
-                        linear-gradient(to bottom, rgba(255,255,255,0.05) 1px, transparent 1px);
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background-image: linear-gradient(rgba(255, 255, 255, 0.015) 1px, transparent 1px),
+                        linear-gradient(90deg, rgba(255, 255, 255, 0.015) 1px, transparent 1px);
+      background-size: 50px 50px;
+      pointer-events: none;
+      z-index: 0;
     }
 
-    /* Container */
-    .container { max-width: 1240px; margin: 0 auto; padding: 0 24px; }
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 24px;
+      position: relative;
+      z-index: 1;
+    }
 
-    /* Header / Navbar */
+    /* Header & Navigation */
     header {
-      position: sticky; top: 0; z-index: 1000;
-      backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px);
-      background: rgba(7, 9, 14, 0.88); border-bottom: 1px solid var(--border);
-      height: 74px; display: flex; align-items: center;
-    }
-    .nav-inner { display: flex; align-items: center; justify-content: space-between; width: 100%; }
-    .brand-link { display: flex; align-items: center; gap: 12px; text-decoration: none; color: inherit; }
-    .brand-logo-svg { height: 38px; width: auto; max-width: 160px; display: block; }
-
-    .nav-links { display: flex; align-items: center; gap: 8px; }
-    .nav-item {
-      padding: 9px 15px; font-size: 13.5px; font-weight: 600; color: #cbd5e1;
-      text-decoration: none; border-radius: 8px; transition: all 0.2s ease;
-      background: transparent; border: none; cursor: pointer; display: inline-flex; align-items: center; gap: 6px;
-    }
-    .nav-item:hover { color: var(--white); background: rgba(255, 255, 255, 0.05); }
-
-    /* Dropdown Menus */
-    .nav-dropdown-wrapper { position: relative; }
-    .dropdown-arrow { transition: transform 0.2s ease; }
-    .nav-dropdown-wrapper:hover .dropdown-arrow { transform: rotate(180deg); }
-    .nav-dropdown-menu {
-      position: absolute; top: calc(100% + 8px); left: 0; min-width: 290px;
-      background: #0d121c; border: 1px solid var(--border); border-radius: 12px;
-      padding: 8px; box-shadow: 0 16px 36px rgba(0,0,0,0.6); opacity: 0; visibility: hidden;
-      transform: translateY(6px); transition: all 0.2s ease; z-index: 200;
-    }
-    .nav-dropdown-wrapper:hover .nav-dropdown-menu { opacity: 1; visibility: visible; transform: translateY(0); }
-    .dropdown-item {
-      display: flex; align-items: flex-start; gap: 12px; padding: 10px 12px;
-      border-radius: 8px; text-decoration: none; color: var(--text); transition: background 0.15s ease;
-    }
-    .dropdown-item:hover { background: rgba(0, 242, 254, 0.08); }
-    .dropdown-item-title { display: flex; align-items: center; gap: 8px; font-size: 13.5px; font-weight: 700; color: var(--white); }
-    .dropdown-item-desc { font-size: 11.5px; color: var(--text-muted); line-height: 1.4; margin-top: 2px; }
-
-    /* Badges */
-    .badge {
-      font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px;
-      padding: 2px 7px; border-radius: 999px; font-family: var(--font-mono);
-      background: rgba(255, 255, 255, 0.1); color: var(--white); white-space: nowrap;
-    }
-    .badge.live { background: rgba(16, 185, 129, 0.15); color: #10b981; border: 1px solid rgba(16, 185, 129, 0.3); }
-    .badge.popular, .badge.hot { background: rgba(245, 158, 11, 0.15); color: #f59e0b; border: 1px solid rgba(245, 158, 11, 0.3); }
-    .badge.pro, .badge.core, .badge.enterprise { background: rgba(0, 242, 254, 0.15); color: var(--cyan); border: 1px solid rgba(0, 242, 254, 0.3); }
-
-    .btn-header-cta {
-      padding: 9px 18px; font-size: 13.5px; font-weight: 700; border-radius: 8px;
-      background: var(--white); color: #000; text-decoration: none; transition: all 0.2s ease;
-      display: inline-flex; align-items: center; gap: 6px;
-    }
-    .btn-header-cta:hover { background: #e2e8f0; transform: translateY(-1px); }
-
-    /* Mobile Hamburger Button */
-    .btn-hamburger {
-      display: none; background: transparent; border: 1px solid var(--border);
-      border-radius: 8px; padding: 8px; color: #fff; cursor: pointer;
-    }
-    .btn-hamburger svg { display: block; }
-
-    /* Mobile Drawer */
-    .mobile-drawer {
-      display: none; position: fixed; top: 74px; inset-x: 0; bottom: 0;
-      background: rgba(7, 9, 14, 0.98); backdrop-filter: blur(20px);
-      z-index: 999; padding: 20px; overflow-y: auto; flex-direction: column; gap: 12px;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      background: rgba(7, 9, 14, 0.85);
       border-bottom: 1px solid var(--border);
     }
-    .mobile-drawer.open { display: flex; }
+    .nav-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 72px;
+    }
+    .brand-link {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      text-decoration: none;
+      color: var(--white);
+    }
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 18px;
+    }
+    .nav-item {
+      color: var(--text-muted);
+      text-decoration: none;
+      font-size: 13.5px;
+      font-weight: 600;
+      transition: color 0.2s ease;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      padding: 6px 10px;
+      border-radius: 6px;
+      background: none;
+      border: none;
+      cursor: pointer;
+      font-family: inherit;
+    }
+    .nav-item:hover { color: var(--cyan); }
+
+    /* Dropdown */
+    .nav-dropdown-wrapper { position: relative; }
+    .nav-dropdown-menu {
+      position: absolute;
+      top: calc(100% + 8px);
+      left: 0;
+      min-width: 290px;
+      background: rgba(14, 19, 29, 0.98);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 8px;
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.7);
+      backdrop-filter: blur(20px);
+      display: none;
+      z-index: 110;
+      animation: fadeIn 0.18s ease;
+    }
+    .nav-dropdown-wrapper:hover .nav-dropdown-menu,
+    .nav-dropdown-wrapper:focus-within .nav-dropdown-menu { display: block; }
+    .dropdown-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      padding: 10px 12px;
+      border-radius: 8px;
+      text-decoration: none;
+      transition: all 0.15s ease;
+    }
+    .dropdown-item:hover { background: rgba(0, 242, 254, 0.08); }
+    .dropdown-item-title {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 13.5px;
+      font-weight: 600;
+      color: var(--white);
+    }
+    .dropdown-item:hover .dropdown-item-title { color: var(--cyan); }
+    .dropdown-item-desc {
+      font-size: 12px;
+      color: #64748b;
+      margin-top: 3px;
+      line-height: 1.4;
+    }
+
+    .badge {
+      font-size: 10px;
+      font-weight: 700;
+      padding: 2px 7px;
+      border-radius: 4px;
+      letter-spacing: 0.5px;
+      font-family: var(--font-mono);
+      display: inline-block;
+    }
+    .badge.portal { background: rgba(0, 242, 254, 0.15); color: var(--cyan); border: 1px solid rgba(0, 242, 254, 0.3); }
+    .badge.enterprise, .badge.high-throughput { background: rgba(56, 189, 248, 0.15); color: #38bdf8; border: 1px solid rgba(56, 189, 248, 0.3); }
+    .badge.official, .badge.resmi { background: rgba(34, 197, 94, 0.15); color: #4ade80; border: 1px solid rgba(34, 197, 94, 0.3); }
+    .badge.fintech { background: rgba(234, 179, 8, 0.15); color: #facc15; border: 1px solid rgba(234, 179, 8, 0.3); }
+
+    .btn-header-cta {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--cyan-dim);
+      border: 1px solid var(--border-focus);
+      color: var(--cyan);
+      padding: 8px 18px;
+      border-radius: 8px;
+      font-size: 13px;
+      font-weight: 700;
+      text-decoration: none;
+      transition: all 0.2s ease;
+      font-family: var(--font-mono);
+    }
+    .btn-header-cta:hover {
+      background: var(--cyan);
+      color: #07090e;
+      box-shadow: 0 0 20px var(--cyan-glow);
+    }
+
+    /* Mobile Hamburger & Drawer */
+    .btn-hamburger {
+      display: none;
+      background: none;
+      border: 1px solid var(--border);
+      color: var(--text);
+      padding: 7px;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+    .mobile-drawer {
+      display: none;
+      position: fixed;
+      top: 72px;
+      left: 0;
+      right: 0;
+      background: rgba(10, 14, 22, 0.98);
+      border-bottom: 1px solid var(--border);
+      padding: 20px;
+      z-index: 99;
+      box-shadow: 0 30px 60px rgba(0, 0, 0, 0.9);
+      backdrop-filter: blur(20px);
+      max-height: calc(100vh - 72px);
+      overflow-y: auto;
+    }
+    .mobile-drawer.open { display: block; animation: slideDown 0.2s ease; }
     .mob-nav-link {
-      padding: 14px 16px; font-size: 15px; font-weight: 700; color: #fff;
-      text-decoration: none; border-radius: 10px; background: rgba(255,255,255,0.03);
-      border: 1px solid var(--border); display: block;
+      display: block;
+      padding: 12px 14px;
+      color: #fff;
+      text-decoration: none;
+      font-size: 15px;
+      font-weight: 600;
+      border-radius: 8px;
+      margin-bottom: 6px;
     }
-    .mob-dropdown-group {
-      background: rgba(255,255,255,0.02); border: 1px solid var(--border); border-radius: 10px; overflow: hidden;
-    }
+    .mob-nav-link:hover { background: rgba(255, 255, 255, 0.05); color: var(--cyan); }
+    .mob-dropdown-group { margin-bottom: 8px; border-radius: 8px; overflow: hidden; background: rgba(255, 255, 255, 0.02); }
     .mob-dropdown-header {
-      padding: 14px 16px; font-size: 15px; font-weight: 700; color: #fff;
-      display: flex; justify-content: space-between; align-items: center; cursor: pointer;
+      padding: 12px 14px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      color: #fff;
+      font-size: 15px;
+      font-weight: 600;
+      cursor: pointer;
     }
-    .mob-arrow { transition: transform 0.2s ease; }
-    .mob-dropdown-group.active .mob-arrow { transform: rotate(180deg); }
-    .mob-dropdown-body { display: none; padding: 8px 12px 14px; flex-direction: column; gap: 8px; border-top: 1px solid var(--border); }
-    .mob-dropdown-group.active .mob-dropdown-body { display: flex; }
+    .mob-dropdown-body { display: none; padding: 4px 12px 12px; }
+    .mob-dropdown-group.active .mob-dropdown-body { display: block; }
     .mob-dropdown-link {
-      padding: 10px 12px; background: rgba(255,255,255,0.03); border-radius: 8px;
-      text-decoration: none; display: block;
+      display: block;
+      padding: 10px;
+      text-decoration: none;
+      border-radius: 6px;
+      margin-bottom: 4px;
+      background: rgba(0, 0, 0, 0.2);
     }
 
     /* Hero Section */
-    .hero { padding: 80px 0 50px; text-align: left; }
-    .hero-grid { display: grid; grid-template-columns: 1.15fr 0.85fr; gap: 44px; align-items: center; }
-    
+    .hero {
+      padding: 90px 0 60px;
+      position: relative;
+    }
     .hero-tag {
-      display: inline-flex; align-items: center; gap: 8px; font-family: var(--font-mono);
-      font-size: 11.5px; font-weight: 600; color: var(--cyan); background: var(--cyan-dim);
-      border: 1px solid rgba(0, 242, 254, 0.25); border-radius: 999px; padding: 6px 14px; margin-bottom: 22px;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 6px 14px;
+      border-radius: 999px;
+      background: rgba(0, 242, 254, 0.08);
+      border: 1px solid rgba(0, 242, 254, 0.25);
+      color: var(--cyan);
+      font-family: var(--font-mono);
+      font-size: 12px;
+      font-weight: 600;
+      margin-bottom: 24px;
+      letter-spacing: 0.5px;
     }
-    .pulse-dot { width: 7px; height: 7px; border-radius: 50%; background: var(--cyan); box-shadow: 0 0 10px var(--cyan); animation: pulse 2s infinite; }
-    @keyframes pulse { 0% { opacity: 0.4; } 50% { opacity: 1; } 100% { opacity: 0.4; } }
-
+    .hero-tag .dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: var(--cyan);
+      box-shadow: 0 0 8px var(--cyan);
+      animation: pulse 2s infinite;
+    }
     .hero-title {
-      font-size: clamp(32px, 5vw, 48px); font-weight: 800; line-height: 1.15; letter-spacing: -1.2px; margin-bottom: 20px;
-      background: linear-gradient(135deg, #ffffff 0%, #cbd5e1 50%, #64748b 100%);
-      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+      font-size: clamp(34px, 5.5vw, 64px);
+      font-weight: 800;
+      letter-spacing: -1.5px;
+      line-height: 1.08;
+      color: var(--white);
+      max-width: 950px;
+      margin-bottom: 24px;
     }
-    .hero-sub {
-      font-size: clamp(14.5px, 2vw, 16.5px); color: var(--text-muted); line-height: 1.65; margin-bottom: 30px; max-width: 580px;
+    .hero-title .gradient-text {
+      background: linear-gradient(135deg, #ffffff 40%, var(--cyan) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
     }
-    .hero-actions { display: flex; flex-wrap: wrap; gap: 12px; }
-    
+    .hero-desc {
+      font-size: clamp(16px, 2vw, 18px);
+      color: var(--text-muted);
+      max-width: 760px;
+      line-height: 1.6;
+      margin-bottom: 36px;
+    }
+    .hero-actions {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      flex-wrap: wrap;
+      margin-bottom: 48px;
+    }
     .btn-primary {
-      padding: 12px 24px; border-radius: 10px; font-size: 14px; font-weight: 700;
-      background: linear-gradient(135deg, #00f2fe, #0077fe); color: #000;
-      text-decoration: none; display: inline-flex; align-items: center; gap: 8px;
-      transition: all 0.2s ease; box-shadow: 0 4px 20px var(--cyan-glow);
-    }
-    .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 25px var(--cyan-glow); }
-
-    .btn-secondary {
-      padding: 12px 22px; border-radius: 10px; font-size: 14px; font-weight: 600;
-      background: rgba(255, 255, 255, 0.05); color: var(--white);
-      border: 1px solid var(--border); text-decoration: none; display: inline-flex; align-items: center; gap: 8px;
+      background: var(--cyan);
+      color: #07090e;
+      padding: 14px 28px;
+      border-radius: 8px;
+      font-weight: 700;
+      font-size: 14.5px;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      box-shadow: 0 0 25px var(--cyan-glow);
       transition: all 0.2s ease;
+      cursor: pointer;
+      border: none;
     }
-    .btn-secondary:hover { background: rgba(255, 255, 255, 0.1); border-color: rgba(255, 255, 255, 0.2); }
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 0 35px rgba(0, 242, 254, 0.5);
+    }
+    .btn-secondary {
+      background: rgba(255, 255, 255, 0.04);
+      color: var(--white);
+      border: 1px solid var(--border);
+      padding: 14px 26px;
+      border-radius: 8px;
+      font-weight: 600;
+      font-size: 14.5px;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      transition: all 0.2s ease;
+      cursor: pointer;
+    }
+    .btn-secondary:hover {
+      background: rgba(255, 255, 255, 0.08);
+      border-color: rgba(255, 255, 255, 0.2);
+    }
 
-    /* Live Telemetry Terminal Card */
-    .telemetry-card {
-      background: #090d14; border: 1px solid var(--border); border-radius: var(--radius);
-      box-shadow: 0 20px 40px rgba(0,0,0,0.7); overflow: hidden; font-family: var(--font-mono);
+    /* Live Telemetry Bar */
+    .telemetry-bar {
+      display: flex;
+      align-items: center;
+      gap: 24px;
+      padding: 14px 22px;
+      background: rgba(14, 19, 29, 0.6);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      font-family: var(--font-mono);
+      font-size: 12px;
+      color: #64748b;
+      flex-wrap: wrap;
     }
-    .term-header {
-      background: #0e131d; padding: 12px 16px; display: flex; align-items: center; justify-content: space-between;
-      border-bottom: 1px solid var(--border); font-size: 12px; color: var(--text-muted);
-    }
-    .term-dots { display: flex; gap: 6px; }
-    .term-dot { width: 10px; height: 10px; border-radius: 50%; background: #334155; }
-    .term-body { padding: 18px; font-size: 12.5px; line-height: 1.7; color: #94a3b8; }
-    .term-body .term-line { display: flex; justify-content: space-between; margin-bottom: 6px; flex-wrap: wrap; gap: 4px; }
-    .term-body .term-line span:first-child { color: #64748b; }
-    .term-body .term-line span:last-child { color: var(--white); font-weight: 600; }
-    .text-cyan { color: var(--cyan) !important; }
-    .text-emerald { color: #10b981 !important; }
+    .telemetry-item { display: flex; align-items: center; gap: 8px; }
+    .telemetry-val { color: var(--cyan); font-weight: 600; }
 
     /* Section Headers */
-    .section-head { text-align: center; max-width: 720px; margin: 80px auto 40px; }
-    .section-tag {
-      font-family: var(--font-mono); font-size: 11.5px; font-weight: 700; color: var(--cyan);
-      letter-spacing: 1.5px; text-transform: uppercase; margin-bottom: 10px; display: block;
+    .section-head {
+      margin-top: 80px;
+      margin-bottom: 36px;
     }
-    .section-title { font-size: clamp(26px, 4vw, 34px); font-weight: 800; letter-spacing: -0.8px; margin-bottom: 12px; }
-    .section-desc { font-size: 15px; color: var(--text-muted); line-height: 1.6; }
+    .section-tag {
+      font-family: var(--font-mono);
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--cyan);
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      margin-bottom: 8px;
+      display: block;
+    }
+    .section-title {
+      font-size: clamp(26px, 3.5vw, 38px);
+      font-weight: 800;
+      color: var(--white);
+      letter-spacing: -0.5px;
+      margin-bottom: 12px;
+    }
+    .section-desc {
+      font-size: 15px;
+      color: var(--text-muted);
+      max-width: 680px;
+      line-height: 1.6;
+    }
 
-    /* Category Filter Navigation Bar (Touch & Scroll Friendly) */
+    /* Founder Card (Monochrome Anonymous) */
+    .founder-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 36px;
+      display: grid;
+      grid-template-columns: 240px 1fr;
+      gap: 36px;
+      align-items: center;
+      position: relative;
+      overflow: hidden;
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
+    }
+    .founder-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0; height: 1px;
+      background: linear-gradient(90deg, transparent, var(--cyan), transparent);
+    }
+    .founder-img-box {
+      position: relative;
+      width: 220px;
+      height: 220px;
+      border-radius: 50%;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .founder-halo {
+      position: absolute;
+      top: -8px; left: -8px; right: -8px; bottom: -8px;
+      border-radius: 50%;
+      border: 1.5px dashed rgba(0, 242, 254, 0.4);
+      animation: rotateHalo 25s linear infinite;
+    }
+    .founder-img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      border-radius: 50%;
+      filter: grayscale(100%) contrast(125%) brightness(95%);
+      border: 2px solid rgba(255, 255, 255, 0.15);
+      background: #000;
+    }
+    .founder-badge-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 16px;
+    }
+    .founder-pill {
+      font-family: var(--font-mono);
+      font-size: 11.5px;
+      padding: 4px 10px;
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      color: #cbd5e1;
+    }
+
+    /* Standards & Frameworks Matrix */
+    .standards-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 20px;
+      margin-top: 24px;
+    }
+    .standard-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 24px;
+      transition: all 0.25s ease;
+      position: relative;
+      overflow: hidden;
+    }
+    .standard-card:hover {
+      border-color: var(--border-focus);
+      transform: translateY(-3px);
+      box-shadow: 0 10px 30px rgba(0, 242, 254, 0.08);
+    }
+    .standard-icon {
+      width: 44px;
+      height: 44px;
+      border-radius: 10px;
+      background: rgba(0, 242, 254, 0.08);
+      border: 1px solid rgba(0, 242, 254, 0.25);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--cyan);
+      margin-bottom: 16px;
+      font-size: 20px;
+    }
+    .standard-title {
+      font-size: 16px;
+      font-weight: 700;
+      color: #fff;
+      margin-bottom: 8px;
+    }
+    .standard-desc {
+      font-size: 13px;
+      color: var(--text-muted);
+      line-height: 1.55;
+    }
+
+    /* Interactive Category Filter */
     .filter-wrapper {
-      display: flex; justify-content: center; margin-bottom: 34px; overflow-x: auto;
-      padding: 4px 0 10px; -webkit-overflow-scrolling: touch;
+      margin-top: 24px;
+      margin-bottom: 28px;
+      overflow-x: auto;
+      padding-bottom: 8px;
     }
     .filter-bar {
-      display: inline-flex; gap: 8px; background: rgba(14, 19, 29, 0.85);
-      border: 1px solid var(--border); padding: 6px; border-radius: 12px;
-      backdrop-filter: blur(10px);
+      display: inline-flex;
+      background: rgba(14, 19, 29, 0.8);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 5px;
+      gap: 4px;
     }
     .filter-pill {
-      background: transparent; border: none; color: #94a3b8; padding: 8px 16px;
-      font-size: 13px; font-weight: 700; border-radius: 8px; cursor: pointer;
-      display: inline-flex; align-items: center; gap: 8px; white-space: nowrap;
+      background: none;
+      border: none;
+      color: #94a3b8;
+      font-family: inherit;
+      font-size: 13px;
+      font-weight: 600;
+      padding: 8px 16px;
+      border-radius: 8px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 8px;
       transition: all 0.2s ease;
+      white-space: nowrap;
     }
-    .filter-pill:hover { color: #fff; background: rgba(255,255,255,0.05); }
-    .filter-pill.active { background: var(--cyan); color: #000; box-shadow: 0 2px 10px var(--cyan-glow); }
+    .filter-pill:hover { color: #fff; }
+    .filter-pill.active {
+      background: var(--cyan-dim);
+      color: var(--cyan);
+      border: 1px solid rgba(0, 242, 254, 0.3);
+      box-shadow: 0 0 15px rgba(0, 242, 254, 0.2);
+    }
 
     /* Projects Grid */
     .projects-grid {
-      display: grid; grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
-      gap: 22px;
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+      gap: 24px;
     }
     .project-card-item {
-      background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius);
-      padding: 26px; transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1); display: flex; flex-direction: column;
-      justify-content: space-between; text-decoration: none; color: inherit; position: relative;
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 24px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      text-decoration: none;
+      transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+      position: relative;
+      overflow: hidden;
     }
     .project-card-item:hover {
-      transform: translateY(-4px); border-color: var(--border-focus);
-      box-shadow: 0 14px 30px rgba(0,0,0,0.6);
+      border-color: var(--border-focus);
+      transform: translateY(-4px);
+      box-shadow: 0 15px 35px rgba(0, 242, 254, 0.1);
     }
-    .proj-card-top { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 14px; }
+    .proj-card-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 14px;
+    }
     .proj-cat-badge {
-      font-size: 11px; font-family: var(--font-mono); color: var(--cyan);
-      background: var(--cyan-dim); padding: 3px 10px; border-radius: 6px; font-weight: 600;
+      font-family: var(--font-mono);
+      font-size: 10px;
+      font-weight: 700;
+      color: var(--cyan);
+      letter-spacing: 1px;
     }
-    .proj-title { font-size: 18px; font-weight: 700; color: #fff; line-height: 1.35; margin-bottom: 10px; }
-    .proj-summary { font-size: 13.5px; color: var(--text-muted); line-height: 1.6; margin-bottom: 18px; flex-grow: 1; }
-    .proj-tech-wrap { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 20px; }
+    .proj-title {
+      font-size: 17px;
+      font-weight: 700;
+      color: #fff;
+      margin-bottom: 8px;
+      line-height: 1.35;
+    }
+    .proj-summary {
+      font-size: 13.5px;
+      color: #94a3b8;
+      line-height: 1.55;
+      margin-bottom: 18px;
+    }
+    .proj-tech-wrap {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-bottom: 20px;
+    }
     .proj-tech-chip {
-      font-size: 10.5px; font-family: var(--font-mono); background: rgba(255,255,255,0.05);
-      border: 1px solid rgba(255,255,255,0.08); padding: 2px 7px; border-radius: 4px; color: #cbd5e1;
+      font-family: var(--font-mono);
+      font-size: 10.5px;
+      padding: 3px 8px;
+      border-radius: 4px;
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      color: #cbd5e1;
     }
     .proj-footer {
-      display: flex; justify-content: space-between; align-items: center; border-top: 1px solid rgba(255,255,255,0.05);
-      padding-top: 14px; font-size: 12.5px; font-weight: 600; color: var(--cyan);
+      border-top: 1px solid var(--border);
+      padding-top: 14px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--cyan);
+      font-family: var(--font-mono);
     }
 
-    /* Founder Profile Section (Black and White Anonymous) */
-    .founder-card {
-      background: var(--bg-card); border: 1px solid var(--border); border-radius: 20px;
-      padding: 40px; display: grid; grid-template-columns: 260px 1fr; gap: 40px; align-items: center;
-      position: relative; overflow: hidden; backdrop-filter: blur(12px);
+    /* Live Edge Diagnostics Sandbox */
+    .diag-box {
+      background: #080c14;
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      overflow: hidden;
+      margin-top: 24px;
+      box-shadow: 0 15px 40px rgba(0, 0, 0, 0.6);
     }
-    .founder-img-box { position: relative; width: 220px; height: 220px; margin: 0 auto; }
-    .founder-img {
-      width: 100%; height: 100%; object-fit: cover; border-radius: 18px;
-      filter: grayscale(100%) contrast(140%) brightness(90%);
-      border: 1px solid rgba(255, 255, 255, 0.15);
-      box-shadow: 0 0 30px rgba(0, 242, 254, 0.15);
+    .diag-header {
+      background: rgba(255, 255, 255, 0.03);
+      border-bottom: 1px solid var(--border);
+      padding: 14px 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-family: var(--font-mono);
+      font-size: 12px;
     }
-    .founder-halo {
-      position: absolute; inset: -8px; border-radius: 24px; border: 1.5px dashed rgba(0, 242, 254, 0.35);
-      pointer-events: none; animation: spin-slow 40s linear infinite;
+    .diag-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 16px;
+      padding: 20px;
+      background: rgba(0, 0, 0, 0.2);
+      border-bottom: 1px solid var(--border);
     }
-    @keyframes spin-slow { 100% { transform: rotate(360deg); } }
+    .diag-item {
+      font-family: var(--font-mono);
+      font-size: 12px;
+    }
+    .diag-label { color: #64748b; margin-bottom: 4px; font-size: 11px; }
+    .diag-val { color: var(--cyan); font-weight: 700; word-break: break-all; }
+    .diag-terminal {
+      padding: 20px;
+      font-family: var(--font-mono);
+      font-size: 12.5px;
+      color: #a7f3d0;
+      line-height: 1.6;
+      min-height: 140px;
+      max-height: 240px;
+      overflow-y: auto;
+      background: #05080e;
+    }
 
-    .founder-badge-grid { display: flex; flex-wrap: wrap; gap: 8px; margin: 18px 0; }
-    .founder-pill {
-      font-size: 11.5px; font-family: var(--font-mono); padding: 5px 12px; border-radius: 6px;
-      background: rgba(255, 255, 255, 0.04); border: 1px solid var(--border); color: #cbd5e1;
+    /* Solution Estimator */
+    .calc-box {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 32px;
+      margin-top: 24px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 32px;
+    }
+    .calc-label {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--cyan);
+      letter-spacing: 0.5px;
+      margin-bottom: 10px;
+      display: block;
+    }
+    .calc-btn-group {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 20px;
+    }
+    .calc-pill {
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid var(--border);
+      color: #94a3b8;
+      font-family: inherit;
+      font-size: 12.5px;
+      font-weight: 600;
+      padding: 8px 14px;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+    .calc-pill:hover { color: #fff; }
+    .calc-pill.active {
+      background: var(--cyan-dim);
+      border-color: rgba(0, 242, 254, 0.4);
+      color: var(--cyan);
+    }
+    .calc-result-box {
+      background: #05080e;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 24px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
     }
 
     /* Gemini Logo Showcase */
     .logo-showcase {
-      background: linear-gradient(180deg, rgba(14, 19, 29, 0.8), rgba(9, 13, 20, 0.95));
-      border: 1px solid var(--border); border-radius: 20px; padding: 40px; margin: 70px 0;
-      display: grid; grid-template-columns: 220px 1fr; gap: 40px; align-items: center;
+      background: linear-gradient(135deg, rgba(14, 18, 27, 0.9) 0%, rgba(7, 9, 14, 0.95) 100%);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 32px;
+      margin-top: 60px;
+      display: grid;
+      grid-template-columns: 140px 1fr;
+      gap: 32px;
+      align-items: center;
     }
-    .logo-render-box { width: 100%; max-width: 180px; margin: 0 auto; }
+    .logo-render-box {
+      width: 120px;
+      height: 120px;
+      border-radius: 16px;
+      background: rgba(0, 242, 254, 0.04);
+      border: 1px solid rgba(0, 242, 254, 0.2);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 0 25px rgba(0, 242, 254, 0.1);
+    }
 
-    /* Consultation / Contact */
+    /* Consultation CTA Card */
     .contact-card {
-      background: radial-gradient(circle at 50% 0%, rgba(0, 242, 254, 0.1), transparent 70%), #0c1018;
-      border: 1px solid var(--border); border-radius: 20px; padding: 50px 24px; text-align: center; margin-bottom: 70px;
+      background: radial-gradient(circle at 50% 0%, rgba(0, 242, 254, 0.1) 0%, rgba(14, 18, 27, 0.8) 70%);
+      border: 1px solid rgba(0, 242, 254, 0.2);
+      border-radius: 16px;
+      padding: 50px 30px;
+      text-align: center;
+      margin-top: 80px;
+      margin-bottom: 80px;
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
     }
 
     /* Footer */
     footer {
-      border-top: 1px solid var(--border); padding: 36px 0; font-size: 13px; color: #64748b;
+      border-top: 1px solid var(--border);
+      padding: 36px 0;
       background: #05070a;
+      font-size: 13px;
+      color: #64748b;
     }
-    .footer-inner { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 16px; }
-    .footer-admin-link { color: #475569; text-decoration: none; font-family: var(--font-mono); font-size: 12px; }
+    .footer-inner {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 16px;
+    }
+    .footer-admin-link {
+      color: #64748b;
+      text-decoration: none;
+      font-family: var(--font-mono);
+      font-size: 12px;
+      transition: color 0.2s ease;
+    }
     .footer-admin-link:hover { color: var(--cyan); }
 
-    /* Animation */
+    /* Intergram Live Chat Widget Custom Styling */
+    #intergramRoot {
+      font-family: var(--font-sans) !important;
+      z-index: 2147483647 !important;
+    }
+    #intergramRoot > div {
+      box-shadow: 0 0 25px rgba(0, 242, 254, 0.5) !important;
+      border: 1px solid rgba(0, 242, 254, 0.4) !important;
+      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1) !important;
+    }
+    #intergramRoot > div:hover {
+      transform: scale(1.08) !important;
+      box-shadow: 0 0 35px rgba(0, 242, 254, 0.8) !important;
+    }
+    .intergram-hint {
+      position: fixed;
+      bottom: 84px;
+      right: 22px;
+      background: rgba(10, 14, 23, 0.94);
+      border: 1px solid rgba(0, 242, 254, 0.4);
+      color: var(--cyan);
+      padding: 6px 14px;
+      border-radius: 20px;
+      font-size: 11px;
+      font-family: var(--font-mono);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.6);
+      z-index: 9999;
+      cursor: pointer;
+      backdrop-filter: blur(10px);
+      transition: all 0.25s ease;
+    }
+    .intergram-hint:hover {
+      border-color: var(--cyan);
+      box-shadow: 0 0 20px rgba(0, 242, 254, 0.6);
+      transform: translateY(-2px);
+    }
+    .intergram-hint .pulse-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: var(--cyan);
+      box-shadow: 0 0 8px var(--cyan);
+      animation: pulse 1.8s infinite;
+    }
+
+    /* Animations */
+    @keyframes pulse {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.4; transform: scale(0.9); }
+    }
+    @keyframes rotateHalo {
+      from { transform: rotate(0deg); }
+      to { transform: rotate(360deg); }
+    }
     @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(6px); }
+      from { opacity: 0; transform: translateY(-6px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes slideDown {
+      from { opacity: 0; transform: translateY(-10px); }
       to { opacity: 1; transform: translateY(0); }
     }
 
@@ -389,17 +925,19 @@ export function renderPublicPage({ menus, siteConfig, projects = DEFAULT_PROJECT
     @media (max-width: 900px) {
       .nav-links { display: none; }
       .btn-hamburger { display: block; }
-      .hero-grid { grid-template-columns: 1fr; gap: 32px; }
-      .founder-card { grid-template-columns: 1fr; text-align: center; padding: 28px 20px; }
+      .founder-card { grid-template-columns: 1fr; text-align: center; }
+      .founder-img-box { margin: 0 auto; }
       .founder-badge-grid { justify-content: center; }
-      .logo-showcase { grid-template-columns: 1fr; text-align: center; padding: 30px 20px; }
-      .filter-wrapper { justify-content: flex-start; }
-      .projects-grid { grid-template-columns: 1fr; }
+      .calc-box { grid-template-columns: 1fr; }
+      .logo-showcase { grid-template-columns: 1fr; text-align: center; }
+      .logo-render-box { margin: 0 auto; }
     }
-    @media (max-width: 480px) {
+    @media (max-width: 600px) {
+      .projects-grid { grid-template-columns: 1fr; }
       .container { padding: 0 16px; }
       .hero-actions a { width: 100%; justify-content: center; }
       .founder-img-box { width: 180px; height: 180px; }
+      .intergram-hint { display: none; }
     }
   </style>
 </head>
@@ -419,6 +957,9 @@ export function renderPublicPage({ menus, siteConfig, projects = DEFAULT_PROJECT
       <!-- Desktop Navigation -->
       <nav class="nav-links">
         ${navHtml}
+        <a href="#standards" class="nav-item">Standar Siber</a>
+        <a href="#diagnostic" class="nav-item">Audit Edge</a>
+        <a href="#calculator" class="nav-item">Estimator</a>
         <a href="${waUrl}" target="_blank" class="btn-header-cta">
           <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
           Diskusi Teknis
@@ -435,12 +976,15 @@ export function renderPublicPage({ menus, siteConfig, projects = DEFAULT_PROJECT
   <!-- Mobile Drawer -->
   <div id="mobile-drawer" class="mobile-drawer">
     ${mobileNavHtml}
+    <a href="#standards" class="mob-nav-link" onclick="closeMobMenu()">🛡️ Standar Siber Global</a>
+    <a href="#diagnostic" class="mob-nav-link" onclick="closeMobMenu()">⚡ Live Edge Diagnostics</a>
+    <a href="#calculator" class="mob-nav-link" onclick="closeMobMenu()">📊 Solution Estimator</a>
     <div style="margin-top: 10px; display: flex; flex-direction: column; gap: 8px;">
       <a href="${waUrl}" target="_blank" class="btn-primary" style="justify-content: center; width: 100%;">
-        Konsultasi WhatsApp Langsung
+        WhatsApp Direct (+62 857-1000-55554)
       </a>
       <a href="${tgUrl}" target="_blank" class="btn-secondary" style="justify-content: center; width: 100%;">
-        Telegram Founder (@msr77)
+        Telegram DM (@premium2in)
       </a>
       <a href="/admin" class="btn-secondary" style="justify-content: center; width: 100%; font-size: 12px; color: #64748b;">
         ⚙️ Akses Panel Admin
@@ -451,50 +995,48 @@ export function renderPublicPage({ menus, siteConfig, projects = DEFAULT_PROJECT
   <main class="container">
     <!-- Hero Section -->
     <section class="hero" id="hero">
-      <div class="hero-grid">
-        <div>
-          <div class="hero-tag">
-            <span class="pulse-dot"></span>
-            <span>ENTERPRISE CYBER DEFENSE &amp; SCALABLE AUTOMATION</span>
-          </div>
-          <h1 class="hero-title">${companyName}</h1>
-          <p class="hero-sub">
-            Menyatukan riset mendalam <strong>keamanan siber</strong>, rekayasa jaringan <strong>enterprise MikroTik</strong>, serta arsitektur <strong>otomasi terdistribusi</strong>. Dirancang untuk keandalan produksi tanpa kompromi.
-          </p>
-          <div class="hero-actions">
-            <a href="${waUrl}" target="_blank" class="btn-primary">
-              <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
-              Konsultasi WhatsApp
-            </a>
-            <a href="${tgUrl}" target="_blank" class="btn-secondary">
-              <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21.198 2.433a2.242 2.242 0 0 0-1.022.215l-16.7 6.46a2.234 2.234 0 0 0-.17 4.17l4.08 1.48 1.5 4.63a1.5 1.5 0 0 0 2.37.58l2.5-2.07 4.45 3.3a1.5 1.5 0 0 0 2.38-.85l3.2-15.5a2.24 2.24 0 0 0-2.59-2.41z"/></svg>
-              Telegram Founder
-            </a>
-            <a href="#projects" class="btn-secondary">Katalog Portofolio</a>
-          </div>
-        </div>
+      <div class="hero-tag">
+        <span class="dot"></span>
+        <span>EDGE-DEPLOYED ZERO TRUST INFRASTRUCTURE</span>
+      </div>
+      <h1 class="hero-title">
+        Rekayasa Pertahanan Siber, Jaringan Terdistribusi &amp; <span class="gradient-text">Otomasi Skala Tinggi</span>
+      </h1>
+      <p class="hero-desc">
+        PT Xecure Siber Unggul Resolusi menghadirkan audit penetrasi (VAPT) mendalam, arsitektur MikroTik enterprise multi-WAN berlatensi rendah, serta bot MTProto dan API Gateway berkapasitas throughput masif yang dipimpin langsung oleh Bang Mansur, S2 Magister Ilmu Komputer.
+      </p>
 
-        <!-- Telemetry Card -->
-        <div class="telemetry-card">
-          <div class="term-header">
-            <div class="term-dots">
-              <div class="term-dot"></div>
-              <div class="term-dot"></div>
-              <div class="term-dot"></div>
-            </div>
-            <span>xsur-edge-v4.9.sys</span>
-          </div>
-          <div class="term-body">
-            <div class="term-line"><span>GATEWAY PROTOCOL:</span> <span class="text-emerald">CONNECTED (HTTP/3 QUIC)</span></div>
-            <div class="term-line"><span>PROTECTION MATRIX:</span> <span class="text-cyan">ZERO-TRUST SECURE</span></div>
-            <div class="term-line"><span>EDGE DATACENTER:</span> <span id="tele-colo">CLOUDFLARE GLOBAL</span></div>
-            <div class="term-line"><span>CIPHER ALGORITHM:</span> <span>AES-256-GCM / TLS 1.3</span></div>
-            <div class="term-line"><span>REALTIME LATENCY:</span> <span id="tele-lat" class="text-cyan">&lt; 15 ms</span></div>
-            <div class="term-line"><span>SECURITY ARCHITECT:</span> <span class="text-emerald">VERIFIED BY BANG MANSUR</span></div>
-            <div style="margin-top: 14px; padding-top: 10px; border-top: 1px dashed #1e293b; font-size: 11px; color: #64748b;">
-              &gt; PT XECURE SIBER UNGGUL RESOLUSI [ACTIVE PROTOCOL]
-            </div>
-          </div>
+      <div class="hero-actions">
+        <a href="#projects" class="btn-primary">
+          <span>Jelajahi Portofolio &amp; Solusi</span>
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </a>
+        <a href="#diagnostic" class="btn-secondary">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+          <span>Uji Diagnostik Edge</span>
+        </a>
+        <a href="${waUrl}" target="_blank" class="btn-secondary">
+          <span>Konsultasi Langsung</span>
+        </a>
+      </div>
+
+      <!-- Live Edge Telemetry Bar -->
+      <div class="telemetry-bar">
+        <div class="telemetry-item">
+          <span>EDGE NODE:</span>
+          <span class="telemetry-val" id="tele-colo">SIN (Singapore)</span>
+        </div>
+        <div class="telemetry-item">
+          <span>ROUND-TRIP:</span>
+          <span class="telemetry-val" id="tele-lat">~14 ms</span>
+        </div>
+        <div class="telemetry-item">
+          <span>SECURITY CONTEXT:</span>
+          <span class="telemetry-val">WAF &bull; TLS 1.3 Strict &bull; HTTP/3</span>
+        </div>
+        <div class="telemetry-item">
+          <span>INTEGRITY:</span>
+          <span class="telemetry-val">Zero Plaintext Leaks</span>
         </div>
       </div>
     </section>
@@ -527,12 +1069,45 @@ export function renderPublicPage({ menus, siteConfig, projects = DEFAULT_PROJECT
           <span class="founder-pill">💳 FinTech &amp; H2H Gateway</span>
           <span class="founder-pill">🔍 Reverse Engineering &amp; Forensics</span>
         </div>
-        <div style="margin-top: 16px;">
+        <div style="margin-top: 16px; display: flex; gap: 10px; flex-wrap: wrap;">
           <a href="https://github.com/xyz-sur" target="_blank" class="btn-secondary" style="padding: 7px 15px; font-size: 12.5px;">
             <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z"/></svg>
-            GitHub Portofolio @xyz-sur
+            GitHub @xyz-sur
+          </a>
+          <a href="https://t.me/premium2in" target="_blank" class="btn-secondary" style="padding: 7px 15px; font-size: 12.5px;">
+            Telegram @premium2in
           </a>
         </div>
+      </div>
+    </div>
+
+    <!-- Standards & Frameworks Matrix Section -->
+    <section class="section-head" id="standards">
+      <span class="section-tag">COMPLIANCE &amp; METHODOLOGY</span>
+      <h2 class="section-title">Standar Siber &amp; Kerangka Kerja Global</h2>
+      <p class="section-desc">Setiap solusi dan audit yang kami kerjakan mengacu secara ketat pada metodologi pengujian keamanan internasional dan rekayasa jaringan berstandar industri.</p>
+    </section>
+
+    <div class="standards-grid">
+      <div class="standard-card">
+        <div class="standard-icon">🛡️</div>
+        <h3 class="standard-title">NIST CSF 2.0 &amp; SP 800-115</h3>
+        <p class="standard-desc">Kerangka pengujian keamanan teknis menyeluruh mencakup fase Identifikasi, Proteksi, Deteksi anomali, Mitigasi respon insiden, hingga Pemulihan sistem secara cepat.</p>
+      </div>
+      <div class="standard-card">
+        <div class="standard-icon">🔍</div>
+        <h3 class="standard-title">OWASP ASVS &amp; Top 10 API</h3>
+        <p class="standard-desc">Standardisasi audit kerentanan aplikasi web dan REST/GraphQL microservices dari Broken Object Level Authorization (BOLA), SQLi, SSRF, hingga Race Condition.</p>
+      </div>
+      <div class="standard-card">
+        <div class="standard-icon">🌐</div>
+        <h3 class="standard-title">MikroTik RouterOS v7 Core</h3>
+        <p class="standard-desc">Arsitektur perutean enterprise berbasis dynamic routing BGP/OSPF, multi-WAN auto failover &lt;1 detik, bandwidth HTB Queue Tree, serta tunnel WireGuard &amp; OVPN terisolasi.</p>
+      </div>
+      <div class="standard-card">
+        <div class="standard-icon">⚡</div>
+        <h3 class="standard-title">Zero-Trust &amp; CAS Concurrency</h3>
+        <p class="standard-desc">Pola transaksi atomik Compare-And-Swap (CAS) untuk pencegahan double-spend saldo, enkripsi sesi MTProto bot anti-spam, serta deployment edge Cloudflare tanpa cold-start.</p>
       </div>
     </div>
 
@@ -578,6 +1153,102 @@ export function renderPublicPage({ menus, siteConfig, projects = DEFAULT_PROJECT
       `).join('')}
     </div>
 
+    <!-- Live Edge Diagnostics Sandbox -->
+    <section class="section-head" id="diagnostic">
+      <span class="section-tag">LIVE EDGE SANDBOX</span>
+      <h2 class="section-title">Diagnostik Edge &amp; Keamanan Peramban</h2>
+      <p class="section-desc">Periksa integritas jaringan dan parameter keamanan koneksi Anda langsung dari node edge terdekat Cloudflare.</p>
+    </section>
+
+    <div class="diag-box">
+      <div class="diag-header">
+        <span>CLIENT_TELEMETRY_INSPECTOR // ACTIVE</span>
+        <button onclick="runSecurityAuditSimulation()" class="btn-primary" style="padding: 6px 14px; font-size: 11.5px;">
+          ▶ Jalankan Audit Keamanan
+        </button>
+      </div>
+      <div class="diag-grid">
+        <div class="diag-item">
+          <div class="diag-label">CLIENT IP ADDRESS</div>
+          <div class="diag-val" id="diag-ip">Mendeteksi...</div>
+        </div>
+        <div class="diag-item">
+          <div class="diag-label">DATACENTER EDGE (COLO)</div>
+          <div class="diag-val" id="diag-colo">Mendeteksi...</div>
+        </div>
+        <div class="diag-item">
+          <div class="diag-label">TRANSPORT PROTOCOL</div>
+          <div class="diag-val" id="diag-proto">HTTP/3 (QUIC)</div>
+        </div>
+        <div class="diag-item">
+          <div class="diag-label">CIPHER SUITE</div>
+          <div class="diag-val" id="diag-cipher">TLS_AES_128_GCM_SHA256</div>
+        </div>
+      </div>
+      <div class="diag-terminal" id="diag-console">
+        &gt; Inisialisasi inspeksi koneksi edge...<br>
+        &gt; Membaca header keamanan dan integritas sesi pengguna...<br>
+        &gt; Node Anycast operasional tanpa anomali. Klik [Jalankan Audit Keamanan] untuk simulasi inspeksi header.
+      </div>
+    </div>
+
+    <!-- Interactive Solution Estimator -->
+    <section class="section-head" id="calculator">
+      <span class="section-tag">CONSULTATION ESTIMATOR</span>
+      <h2 class="section-title">Kalkulator Estimasi Kebutuhan Solusi</h2>
+      <p class="section-desc">Pilih pilar spesialisasi dan skala sistem Anda untuk mendapatkan ringkasan metodologi kerja dan menyusun draft konsultasi instan.</p>
+    </section>
+
+    <div class="calc-box">
+      <div>
+        <span class="calc-label">1. PILIH PILAR SPESIALISASI</span>
+        <div class="calc-btn-group" id="calc-solution-group">
+          <button class="calc-pill active" onclick="selectSolution(this, 'vapt')">🛡️ VAPT &amp; Web/API</button>
+          <button class="calc-pill" onclick="selectSolution(this, 'mikrotik')">🌐 MikroTik Enterprise</button>
+          <button class="calc-pill" onclick="selectSolution(this, 'bot')">⚡ Bot &amp; Userbot MTProto</button>
+          <button class="calc-pill" onclick="selectSolution(this, 'fintech')">💳 FinTech &amp; API H2H</button>
+        </div>
+
+        <span class="calc-label">2. PILIH SKALA INFRASTRUKTUR</span>
+        <div class="calc-btn-group" id="calc-scale-group">
+          <button class="calc-pill active" onclick="selectScale(this, 'startup')">🚀 Startup / UMKM</button>
+          <button class="calc-pill" onclick="selectScale(this, 'corp')">🏢 Korporasi / Multi-Branch</button>
+          <button class="calc-pill" onclick="selectScale(this, 'mission')">🛡️ High-Throughput Critical</button>
+        </div>
+
+        <div style="font-size: 13px; color: #94a3b8; line-height: 1.5; margin-top: 15px;">
+          Setiap proyek didampingi Non-Disclosure Agreement (NDA) resmi untuk menjamin kerahasiaan data sensitif dan arsitektur bisnis klien.
+        </div>
+      </div>
+
+      <div class="calc-result-box">
+        <div>
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
+            <span style="font-family: var(--font-mono); font-size: 11px; color: var(--cyan);">ESTIMASI LINGKUP &amp; SLA</span>
+            <span class="badge official" id="calc-badge">STANDARD ENTERPRISE</span>
+          </div>
+          <h4 id="calc-res-title" style="font-size: 18px; font-weight: 800; color: #fff; margin-bottom: 10px;">
+            Audit Penetrasi Keamanan Siber (VAPT)
+          </h4>
+          <p id="calc-res-desc" style="font-size: 13.5px; color: #94a3b8; line-height: 1.55; margin-bottom: 14px;">
+            Audit menyeluruh web application, REST API backend, dan infrastruktur cloud berdasarkan OWASP Top 10 dan NIST SP 800-115.
+          </p>
+          <div style="font-family: var(--font-mono); font-size: 12px; color: #cbd5e1; margin-bottom: 16px;">
+            <div>&bull; Deliverable: <span id="calc-res-deliv" style="color: var(--cyan);">Laporan Audit Eksekutif, Bukti Eksploitasi (PoC), &amp; Panduan Remediasi</span></div>
+            <div style="margin-top: 4px;">&bull; Respon SLA: <span id="calc-res-sla" style="color: #4ade80;">&lt; 2 Jam Tanggap Prioritas</span></div>
+          </div>
+        </div>
+        <div style="display: flex; gap: 10px; flex-wrap: wrap;">
+          <a id="calc-wa-btn" href="https://wa.me/62857100055554" target="_blank" class="btn-primary" style="flex: 1; justify-content: center; font-size: 13px; padding: 10px;">
+            Kirim Draft via WhatsApp
+          </a>
+          <a id="calc-tg-btn" href="${tgUrl}" target="_blank" class="btn-secondary" style="flex: 1; justify-content: center; font-size: 13px; padding: 10px;">
+            Diskusi via Telegram
+          </a>
+        </div>
+      </div>
+    </div>
+
     <!-- Gemini Logo Showcase -->
     <div class="logo-showcase">
       <div class="logo-render-box">
@@ -610,10 +1281,10 @@ export function renderPublicPage({ menus, siteConfig, projects = DEFAULT_PROJECT
       </p>
       <div style="display: flex; justify-content: center; gap: 12px; flex-wrap: wrap;">
         <a href="${waUrl}" target="_blank" class="btn-primary" style="font-size: 14px; padding: 13px 26px;">
-          WhatsApp Direct Konsultasi
+          WhatsApp Direct (+62 857-1000-55554)
         </a>
         <a href="${tgUrl}" target="_blank" class="btn-secondary" style="font-size: 14px; padding: 13px 24px;">
-          Telegram DM (@msr77)
+          Telegram DM (@premium2in)
         </a>
         <a href="mailto:${email}" class="btn-secondary" style="font-size: 14px; padding: 13px 24px;">
           Kirim Email Resmi
@@ -628,7 +1299,7 @@ export function renderPublicPage({ menus, siteConfig, projects = DEFAULT_PROJECT
       <div>
         <strong>${companyName}</strong> (${brandName}) &bull; &copy; ${new Date().getFullYear()} All Rights Reserved.
         <div style="font-size: 12px; color: #475569; margin-top: 4px;">
-          Infrastruktur dilindungi Cloudflare Enterprise Edge &bull; ISO/IEC &amp; NIST Framework Compliant
+          Infrastruktur dilindungi Cloudflare Enterprise Edge &bull; ISO/IEC &amp; NIST Framework Compliant &bull; WhatsApp +62 857-1000-55554
         </div>
       </div>
       <div>
@@ -637,10 +1308,40 @@ export function renderPublicPage({ menus, siteConfig, projects = DEFAULT_PROJECT
     </div>
   </footer>
 
+  ${intergramEnabled ? `
+  <!-- Intergram Floating Live Chat Configuration -->
   <script>
-    // Live Telemetry ping
+    window.intergramId = "${intergramChatId}";
+    window.intergramCustomizations = {
+      titleClosed: 'Chat Bang Mansur',
+      titleOpen: 'Konsultasi Siber — Bang Mansur',
+      closedStyle: 'button',
+      closedChatAvatarUrl: 'https://i.ibb.co.com/LXK49TZc/unamed.png',
+      cookieExpiration: 2,
+      introMessage: 'Halo! Ada yang bisa kami bantu terkait audit keamanan siber (VAPT), arsitektur MikroTik, bot Telegram, atau FinTech API?',
+      autoResponse: 'Pesan Anda telah diteruskan langsung ke Telegram Bang Mansur (ID ${intergramChatId}). Mohon tunggu balasan sejenak...',
+      autoNoResponse: 'Jika belum terbalas, silakan langsung hubungi Telegram @premium2in atau WhatsApp +62 857-1000-55554.',
+      placeholderText: 'Ketik pesan konsultasi Anda...',
+      displayMessageTime: true,
+      mainColor: "#00f2fe",
+      alwaysUseFloatingButton: true,
+      disableLoadmill: true,
+      desktopHeight: 520,
+      desktopWidth: 380
+    };
+  </script>
+  <script id="intergram" type="text/javascript" src="https://www.intergram.xyz/js/widget.js" defer></script>
+
+  <div class="intergram-hint" onclick="document.querySelector('#intergramRoot > div')?.click()" title="Chat langsung ke Telegram Bang Mansur">
+    <span class="pulse-dot"></span>
+    <span>Live Chat Bang Mansur</span>
+  </div>
+  ` : ''}
+
+  <script>
+    // Live Telemetry ping & inspect
     const start = performance.now();
-    fetch('/api/public/ping')
+    fetch('/api/public/inspect')
       .then(r => r.json())
       .then(d => {
         const lat = Math.round(performance.now() - start);
@@ -648,6 +1349,16 @@ export function renderPublicPage({ menus, siteConfig, projects = DEFAULT_PROJECT
         if (latEl) latEl.innerText = lat + ' ms';
         const coloEl = document.getElementById('tele-colo');
         if (coloEl && d.colo) coloEl.innerText = d.colo + ' (' + (d.country || 'ID') + ')';
+
+        // Update Diagnostic Sandbox
+        const ipEl = document.getElementById('diag-ip');
+        if (ipEl && d.ip) ipEl.innerText = d.ip;
+        const diagColo = document.getElementById('diag-colo');
+        if (diagColo && d.colo) diagColo.innerText = d.colo + ' - ' + (d.city || 'Anycast');
+        const protoEl = document.getElementById('diag-proto');
+        if (protoEl && d.httpProtocol) protoEl.innerText = d.httpProtocol;
+        const cipherEl = document.getElementById('diag-cipher');
+        if (cipherEl && d.tlsCipher) cipherEl.innerText = d.tlsCipher;
       })
       .catch(() => {});
 
@@ -665,6 +1376,90 @@ export function renderPublicPage({ menus, siteConfig, projects = DEFAULT_PROJECT
           c.style.display = 'none';
         }
       });
+    }
+
+    // Security Audit Simulation in Diagnostic Sandbox
+    function runSecurityAuditSimulation() {
+      const consoleBox = document.getElementById('diag-console');
+      consoleBox.innerHTML = '<span style="color: #00f2fe;">&gt; Menjalankan Automated Security Scanner...</span><br>';
+      
+      const steps = [
+        '[OK] Memvalidasi TLS 1.3 Strict Cipher Handshake: AEAD AES-GCM 128-bit terverifikasi.',
+        '[OK] Memeriksa DNSSEC & BGP Route Hijacking Prevention: Cloudflare Anycast aktif.',
+        '[OK] Verifikasi Atribut HSTS (Strict-Transport-Security) & Max-Age: Terpasang.',
+        '[OK] Audit Isolasi Sesi & Proteksi Header Referrer: Strict-Origin-When-Cross-Origin.',
+        '[OK] Evaluasi Transaksi Backend: Compare-And-Swap (CAS) Atomic Concurrency locking aktif.',
+        '<span style="color: #4ade80; font-weight: bold;">&gt;&gt;&gt; AUDIT STATUS: 100% SECURE. Tidak ada celah perimeter terdeteksi.</span>'
+      ];
+
+      let delay = 300;
+      steps.forEach((s, idx) => {
+        setTimeout(() => {
+          consoleBox.innerHTML += '&gt; ' + s + '<br>';
+          consoleBox.scrollTop = consoleBox.scrollHeight;
+        }, delay);
+        delay += 400;
+      });
+    }
+
+    // Solution Estimator Logic
+    let currentSol = 'vapt';
+    let currentScale = 'startup';
+
+    const solutionData = {
+      vapt: {
+        title: 'Audit Penetrasi Keamanan Siber (VAPT)',
+        desc: 'Audit menyeluruh web application, REST API backend, dan infrastruktur cloud berdasarkan OWASP Top 10 dan NIST SP 800-115.',
+        deliv: 'Laporan Audit Eksekutif, Bukti Eksploitasi (PoC), & Panduan Remediasi'
+      },
+      mikrotik: {
+        title: 'Arsitektur Jaringan MikroTik RouterOS v7 Enterprise',
+        desc: 'Konfigurasi Multi-WAN failover otomatis &lt;1 detik, bandwidth QoS Hierarchical Token Bucket, perutean dinamis BGP/OSPF, dan WireGuard VPN site-to-site.',
+        deliv: 'File Konfigurasi .rsc Teruji, Skema Topologi, & Monitoring Latensi'
+      },
+      bot: {
+        title: 'Distributed Telegram MTProto Automation Fleet',
+        desc: 'Pengembangan userbot dan bot worker berkecepatan tinggi dengan isolasi sesi MTProto, load balancing anti-flood, dan daemon background tangguh.',
+        deliv: 'Source Code Python/Telethon, Modul Anti-Spam, & Systemd Service Daemons'
+      },
+      fintech: {
+        title: 'PPOB & FinTech Transaction Engine',
+        desc: 'Sistem API gateway pembayaran dan transaksi digital dengan mutasi bank otomatis, transaksi atomik Compare-And-Swap (CAS), dan 2FA OTP Telegram.',
+        deliv: 'RESTful API Documentation, Database Schema D1/Postgres, & Dashboard Admin'
+      }
+    };
+
+    const scaleData = {
+      startup: { badge: 'STANDARD ENTERPRISE', sla: '&lt; 2 Jam Tanggap Prioritas' },
+      corp: { badge: 'MULTI-BRANCH SCALE', sla: '&lt; 1 Jam Tanggap Darurat' },
+      mission: { badge: 'MISSION CRITICAL 24/7', sla: '&lt; 15 Menit Dedicated Hotline' }
+    };
+
+    function selectSolution(btn, sol) {
+      document.querySelectorAll('#calc-solution-group .calc-pill').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      currentSol = sol;
+      updateCalcOutput();
+    }
+
+    function selectScale(btn, scale) {
+      document.querySelectorAll('#calc-scale-group .calc-pill').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      currentScale = scale;
+      updateCalcOutput();
+    }
+
+    function updateCalcOutput() {
+      const sol = solutionData[currentSol];
+      const sc = scaleData[currentScale];
+      document.getElementById('calc-res-title').innerHTML = sol.title;
+      document.getElementById('calc-res-desc').innerHTML = sol.desc;
+      document.getElementById('calc-res-deliv').innerHTML = sol.deliv;
+      document.getElementById('calc-badge').innerText = sc.badge;
+      document.getElementById('calc-res-sla').innerHTML = sc.sla;
+
+      const waMsg = encodeURIComponent('Halo Bang Mansur, saya ingin berkonsultasi mengenai ' + sol.title + ' untuk skala ' + sc.badge + '. Mohon informasi jadwal diskusi teknis dan NDA.');
+      document.getElementById('calc-wa-btn').href = 'https://wa.me/62857100055554?text=' + waMsg;
     }
 
     // Mobile Hamburger Menu

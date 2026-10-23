@@ -53,7 +53,7 @@ export const DEFAULT_PROJECTS = [
     summary: "Arsitektur userbot multi-worker berskala tinggi dengan isolasi sesi MTProto via proxy rotasi, queue load balancer anti-flood, dan auto-sniffer percakapan cerdas tanpa terkena pembatasan spam Telegram.",
     badge: "HIGH-THROUGHPUT",
     tech_stack: ["Python", "Telethon MTProto", "Systemd Daemons", "Flood Mitigation"],
-    url: "https://t.me/msr77",
+    url: "https://t.me/premium2in",
     target: "_blank",
     is_featured: 1
   },

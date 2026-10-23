@@ -413,15 +413,23 @@ export function renderAdminPage({ isAuthenticated, menus = [], siteConfig = {}, 
             </div>
             <div class="form-group">
               <label class="form-label">WHATSAPP DIRECT LINK</label>
-              <input type="text" name="contact_whatsapp" class="form-input" value="${siteConfig.contact_whatsapp || 'https://wa.me/6285156176433'}">
+              <input type="text" name="contact_whatsapp" class="form-input" value="${siteConfig.contact_whatsapp || 'https://wa.me/62857100055554'}">
             </div>
             <div class="form-group">
               <label class="form-label">TELEGRAM DIRECT LINK</label>
-              <input type="text" name="contact_telegram" class="form-input" value="${siteConfig.contact_telegram || 'https://t.me/msr77'}">
+              <input type="text" name="contact_telegram" class="form-input" value="${siteConfig.contact_telegram || 'https://t.me/premium2in'}">
             </div>
             <div class="form-group">
               <label class="form-label">EMAIL PERUSAHAAN</label>
               <input type="text" name="contact_email" class="form-input" value="${siteConfig.contact_email || 'contact@xsur.my.id'}">
+            </div>
+            <div class="form-group">
+              <label class="form-label">INTERGRAM TELEGRAM CHAT ID (FLOATING LIVE CHAT)</label>
+              <input type="text" name="intergram_chat_id" class="form-input" value="${siteConfig.intergram_chat_id || '682723201'}">
+            </div>
+            <div class="form-group">
+              <label class="form-label">STATUS INTERGRAM WIDGET (1 = AKTIF, 0 = NONAKTIF)</label>
+              <input type="text" name="intergram_enabled" class="form-input" value="${siteConfig.intergram_enabled || '1'}">
             </div>
           </div>
           <div style="margin-top: 20px;">

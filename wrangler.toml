@@ -1,0 +1,14 @@
+name = "xsur-portal"
+main = "src/index.js"
+compatibility_date = "2024-09-23"
+compatibility_flags = ["nodejs_compat"]
+workers_dev = true
+
+routes = [
+  { pattern = "xsur.my.id", custom_domain = true }
+]
+
+[[d1_databases]]
+binding = "DB"
+database_name = "multicek_db"
+database_id = "4b524f42-c8d3-4558-a7f3-182fec9e82c5"

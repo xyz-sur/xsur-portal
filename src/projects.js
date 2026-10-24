@@ -4,7 +4,7 @@ export const PROJECT_CATEGORIES = [
   { id: "all", label: "Semua Portofolio", icon: "🌐" },
   { id: "jasa", label: "Jasa & Layanan Enterprise", icon: "🛡️" },
   { id: "bot", label: "Bot & Otomasi Telegram", icon: "🤖" },
-  { id: "pemrograman", label: "Pemrograman & API Gateway", icon: "💻" },
+  { id: "pemrograman", label: "Pemrograman & FinTech", icon: "💻" },
   { id: "telekomunikasi", label: "Telekomunikasi & CEIR", icon: "📡" }
 ];
 
@@ -16,10 +16,11 @@ export const DEFAULT_PROJECTS = [
     title: "Vulnerability Assessment & Penetration Testing (VAPT)",
     summary: "Audit keamanan aplikasi web, microservices API, dan server cloud sesuai standar OWASP Top 10 & NIST. Mengidentifikasi kerentanan zero-day, business logic flaw, dan penguatan benteng pertahanan.",
     badge: "TIER-1 AUDIT",
-    tech_stack: ["OWASP", "Burp Suite Pro", "Cloudflare WAF", "Linux Hardening"],
+    tech_stack: ["OWASP Top 10", "Burp Suite Pro", "Cloudflare WAF", "Linux Hardening"],
     url: "#contact",
     target: "_self",
-    is_featured: 1
+    is_featured: 1,
+    sort_order: 1
   },
   {
     id: 2,
@@ -31,7 +32,8 @@ export const DEFAULT_PROJECTS = [
     tech_stack: ["RouterOS v7", "OVPN Tunnel", "WireGuard", "BGP Failover", "QoS Tree"],
     url: "#contact",
     target: "_self",
-    is_featured: 1
+    is_featured: 1,
+    sort_order: 2
   },
   {
     id: 3,
@@ -43,70 +45,154 @@ export const DEFAULT_PROJECTS = [
     tech_stack: ["Incident Response", "Memory Forensics", "Packet Inspection", "S2 Academic"],
     url: "#contact",
     target: "_self",
-    is_featured: 1
+    is_featured: 1,
+    sort_order: 3
   },
   {
     id: 4,
-    category: "bot",
-    category_label: "Bot & Otomasi High-Throughput",
-    title: "Distributed Telegram MTProto Automation Fleet",
-    summary: "Arsitektur userbot multi-worker berskala tinggi dengan isolasi sesi MTProto via proxy rotasi, queue load balancer anti-flood, dan auto-sniffer percakapan cerdas tanpa terkena pembatasan spam Telegram.",
-    badge: "HIGH-THROUGHPUT",
-    tech_stack: ["Python", "Telethon MTProto", "Systemd Daemons", "Flood Mitigation"],
-    url: "https://t.me/premium2in",
-    target: "_blank",
-    is_featured: 1
+    category: "jasa",
+    category_label: "Jasa & Solusi Enterprise",
+    title: "Proxmox Hybrid Cloud & Multi-WAN OmniRoute Infrastructure",
+    summary: "Infrastruktur virtualisasi privat berbasis Proxmox VE dengan isolasi LXC micro-services, arsitektur failover otomatis multi-WAN via OmniRoute, static subnetting dual-stack, dan pemantauan sistem otomatis.",
+    badge: "HYBRID CLOUD",
+    tech_stack: ["Proxmox VE", "Debian LXC", "OmniRoute Multi-WAN", "Tailscale Mesh", "Watchdog"],
+    url: "#contact",
+    target: "_self",
+    is_featured: 1,
+    sort_order: 4
   },
   {
     id: 5,
+    category: "jasa",
+    category_label: "Jasa & Solusi Enterprise",
+    title: "MiKoCokViera RouterOS v7 Core & OVPN Cloud Tunnel",
+    summary: "Topologi edge router enterprise MikroTik hEX RB750Gr3 dengan manajemen bandwidth cerdas, OVPN cloud tunnel multi-hop tanpa tabrakan subnet IP, isolated WAN gateway, dan pemantauan sistem 24/7.",
+    badge: "ROUTEROS CORE",
+    tech_stack: ["RouterOS v7.19.6", "OVPN Tunnel", "Dynamic DDNS", "DHCP Snooping", "FastPath QoS"],
+    url: "#contact",
+    target: "_self",
+    is_featured: 1,
+    sort_order: 5
+  },
+  {
+    id: 6,
+    category: "bot",
+    category_label: "Bot & Otomasi High-Throughput",
+    title: "Distributed Telegram MTProto Automation Fleet",
+    summary: "Arsitektur userbot multi-worker berskala tinggi dengan isolasi sesi MTProto per-worker, proxy rotasi, queue load balancer anti-flood, dan auto-broadcast cerdas tanpa terkena pembatasan spam Telegram.",
+    badge: "HIGH-THROUGHPUT",
+    tech_stack: ["Python", "Telethon MTProto", "Systemd Daemons", "Anti-Flood Queue", "Session Isolation"],
+    url: "https://t.me/jasangiklan",
+    target: "_blank",
+    is_featured: 1,
+    sort_order: 6
+  },
+  {
+    id: 7,
     category: "bot",
     category_label: "Bot & Otomasi High-Throughput",
     title: "@cekceirbot — Automated CEIR Verification Engine",
     summary: "Bot Telegram audit telekomunikasi berkecepatan tinggi terhubung langsung ke official CeirGO API (5 format resmi: cek IMEI, Bea Cukai, validitas, riwayat, dan Iphossy) dengan payment flow atomik.",
     badge: "TELEGRAM BOT",
-    tech_stack: ["Cloudflare Workers", "CeirGO Official API", "Dynamic QRIS", "CAS Lock"],
+    tech_stack: ["Cloudflare Workers", "CeirGO Official API", "Dynamic QRIS", "CAS Concurrency Lock"],
     url: "https://t.me/cekceirbot",
     target: "_blank",
-    is_featured: 1
+    is_featured: 1,
+    sort_order: 7
   },
   {
-    id: 6,
+    id: 8,
+    category: "bot",
+    category_label: "Bot & Otomasi High-Throughput",
+    title: "Hermes Autonomous AI Agent & Local LLM Load-Balancer Cluster",
+    summary: "Orkestrator agen AI otonom tingkat lanjut terintegrasi dengan gateway proxy 9Router lokal, auto-healing background daemons, persistent cross-session memory, serta automasi pipeline IT & DevSecOps secara end-to-end.",
+    badge: "AUTONOMOUS AI OPS",
+    tech_stack: ["Hermes Agent", "Python", "9Router Local Balancer", "SQLite State", "Telegram Gateway"],
+    url: "https://xsur.my.id",
+    target: "_blank",
+    is_featured: 1,
+    sort_order: 8
+  },
+  {
+    id: 9,
+    category: "bot",
+    category_label: "Bot & Otomasi High-Throughput",
+    title: "@aingatlh2hbot — Atlantic H2H Telegram Bot & Reseller Portal",
+    summary: "Bot Telegram proxy resmi distributor pulsa dan PPOB terhubung ke server upstream Atlantic H2H dengan pengecekan saldo live, top-up otomatis, mutasi real-time, dan verifikasi profil instan.",
+    badge: "H2H RESELLER BOT",
+    tech_stack: ["Cloudflare Workers", "Atlantic H2H API", "Telegram Bot Webhook", "D1 Database"],
+    url: "https://t.me/aingatlh2hbot",
+    target: "_blank",
+    is_featured: 1,
+    sort_order: 9
+  },
+  {
+    id: 10,
     category: "pemrograman",
-    category_label: "Pemrograman & API Gateway",
+    category_label: "Pemrograman & FinTech",
     title: "Aing PPOB & FinTech API Gateway",
     summary: "Infrastruktur transaksi produk digital, top-up pulsa, paket data, dan validasi akun massal dengan sistem mutasi perbankan otomatis, verifikasi QRIS dinamis, dan dashboard admin berproteksi Telegram 2FA OTP.",
     badge: "LIVE CORE API",
     tech_stack: ["Node.js", "Cloudflare Workers Edge", "REST API Gateway", "Telegram 2FA OTP"],
     url: "https://apiaing.msr.my.id",
     target: "_blank",
-    is_featured: 1
+    is_featured: 1,
+    sort_order: 10
   },
   {
-    id: 7,
+    id: 11,
     category: "pemrograman",
-    category_label: "Pemrograman & API Gateway",
+    category_label: "Pemrograman & FinTech",
+    title: "QiosPay Dual-Saldo Settlement & Automated E-Wallet Bridge",
+    summary: "Engine otomasi FinTech cerdas pemantau saldo ganda (Saldo QRIS & Saldo Aplikasi QiosPay), auto-settlement mutasi QRIS instan, notifikasi Telegram real-time, dan auto-withdrawal ke e-wallet (DANA) via dedicated IPv4 tunneling bridge.",
+    badge: "FINTECH AUTOMATION",
+    tech_stack: ["Cloudflare Workers", "D1 SQL", "Node.js IPv4 Bridge", "Dynamic QRIS", "Cloudflared Tunnel"],
+    url: "https://qiospay-automation.mansyurj168.workers.dev",
+    target: "_blank",
+    is_featured: 1,
+    sort_order: 11
+  },
+  {
+    id: 12,
+    category: "pemrograman",
+    category_label: "Pemrograman & FinTech",
+    title: "Atlantic H2H Digital Transaction & Reseller Proxy Service",
+    summary: "High-performance API gateway dan bot manajemen transaksi PPOB terhubung ke upstream Atlantic H2H dengan autentikasi multi-tier, proteksi Cloudflare edge, live balance sync, dan admin web dashboard.",
+    badge: "H2H CORE ENGINE",
+    tech_stack: ["Cloudflare Workers", "D1 Database", "Telegram Bot Webhook", "Upstream H2H API", "SHA-256 HMAC"],
+    url: "https://aingatlh2hbot.msr.my.id/admin",
+    target: "_blank",
+    is_featured: 1,
+    sort_order: 12
+  },
+  {
+    id: 13,
+    category: "pemrograman",
+    category_label: "Pemrograman & FinTech",
     title: "WorkIt Enterprise Workflow & Encrypted Voucher Portal",
     summary: "Sistem platform terpusat pengelolaan alur kerja operasional terdistribusi, validasi voucher terenkripsi, serta otomasi pelaporan berkeamanan tinggi.",
     badge: "ENTERPRISE PORTAL",
     tech_stack: ["Cloudflare Workers", "D1 SQL Database", "SubtleCrypto", "Edge Caching"],
     url: "https://workit.msr.my.id",
     target: "_blank",
-    is_featured: 1
+    is_featured: 1,
+    sort_order: 13
   },
   {
-    id: 8,
+    id: 14,
     category: "pemrograman",
-    category_label: "Pemrograman & API Gateway",
+    category_label: "Pemrograman & FinTech",
     title: "XSUR Zero-Trust Edge Portal",
     summary: "Portal resmi PT Xecure Siber Unggul Resolusi dengan edge-rendered micro-architecture, integrasi D1, manajemen menu dinamis, dan pipeline CI/CD GitHub Actions terotomasi.",
     badge: "OFFICIAL PORTAL",
     tech_stack: ["Cloudflare Workers", "D1 SQL Database", "GitHub Actions CI/CD", "JSON-LD SEO"],
     url: "https://xsur.my.id",
     target: "_blank",
-    is_featured: 1
+    is_featured: 1,
+    sort_order: 14
   },
   {
-    id: 9,
+    id: 15,
     category: "telekomunikasi",
     category_label: "Telekomunikasi & CEIR",
     title: "Platform Cek CEIR & Audit IMEI Bea Cukai",
@@ -115,6 +201,20 @@ export const DEFAULT_PROJECTS = [
     tech_stack: ["CeirGO Ecosystem", "Cloudflare D1", "CAS Concurrency Lock", "QRIS Instan"],
     url: "https://cekimei.my.id",
     target: "_blank",
-    is_featured: 1
+    is_featured: 1,
+    sort_order: 15
+  },
+  {
+    id: 16,
+    category: "telekomunikasi",
+    category_label: "Telekomunikasi & CEIR",
+    title: "MultiCek Unified Telecom API & Fast Checkout Engine",
+    summary: "Ekosistem verifikasi perangkat telekomunikasi terpadu dengan integrasi gateway pembayaran QRIS otomatis, callback webhook atomik, dan proteksi anti-replay attack.",
+    badge: "TELECOM SUITE",
+    tech_stack: ["Cloudflare Workers", "D1 SQL", "Multi-Provider QRIS", "HMAC Webhooks"],
+    url: "https://cekimei.my.id",
+    target: "_blank",
+    is_featured: 1,
+    sort_order: 16
   }
 ];

@@ -3,6 +3,7 @@ import { renderPublicPage } from "./html.js";
 import { renderAdminPage } from "./admin_html.js";
 import { SVG_HORIZONTAL, SVG_ICON } from "./logo.js";
 import { DEFAULT_PROJECTS } from "./projects.js";
+import { OG_BANNER_BASE64, LOGO_PNG_BASE64, base64ToUint8Array } from "./assets.js";
 
 // SHA-256 helper for password verification
 async function sha256(str) {
@@ -37,7 +38,29 @@ export default {
     const path = url.pathname;
     const method = request.method;
 
-    // 1. Static Assets & Telemetry
+    // 1. High-Performance Static Binary Assets for Google Indexing & Social Cards
+    if (path === "/og-banner.png" || path === "/og-image.png") {
+      const bytes = base64ToUint8Array(OG_BANNER_BASE64);
+      return new Response(bytes, {
+        headers: {
+          "Content-Type": "image/png",
+          "Cache-Control": "public, max-age=604800, immutable",
+          "Content-Length": bytes.length.toString()
+        }
+      });
+    }
+
+    if (path === "/logo.png") {
+      const bytes = base64ToUint8Array(LOGO_PNG_BASE64);
+      return new Response(bytes, {
+        headers: {
+          "Content-Type": "image/png",
+          "Cache-Control": "public, max-age=604800, immutable",
+          "Content-Length": bytes.length.toString()
+        }
+      });
+    }
+
     if (path === "/logo.svg") {
       return new Response(SVG_HORIZONTAL, {
         headers: { "Content-Type": "image/svg+xml", "Cache-Control": "public, max-age=86400" }
@@ -50,40 +73,106 @@ export default {
       });
     }
 
+    // Googlebot, Bingbot, Yandex SEO crawler control
     if (path === "/robots.txt") {
-      const robots = `User-agent: *\nAllow: /\nDisallow: /admin\nDisallow: /api/admin/\nSitemap: https://xsur.my.id/sitemap.xml\n`;
-      return new Response(robots, { headers: { "Content-Type": "text/plain" } });
+      const robots = `User-agent: *
+Allow: /
+Allow: /og-banner.png
+Allow: /logo.png
+Allow: /logo.svg
+Allow: /llms.txt
+Disallow: /admin
+Disallow: /api/admin/
+
+User-agent: Googlebot
+Allow: /
+Allow: /og-banner.png
+Allow: /logo.png
+Allow: /logo.svg
+Disallow: /admin
+Disallow: /api/admin/
+
+User-agent: Googlebot-Image
+Allow: /og-banner.png
+Allow: /logo.png
+Allow: /logo.svg
+
+User-agent: Bingbot
+Allow: /
+Allow: /og-banner.png
+Allow: /logo.png
+Disallow: /admin
+Disallow: /api/admin/
+
+Host: https://xsur.my.id
+Sitemap: https://xsur.my.id/sitemap.xml
+`;
+      return new Response(robots, {
+        headers: { "Content-Type": "text/plain; charset=utf-8", "Cache-Control": "public, max-age=86400" }
+      });
     }
 
+    // Standards-Compliant XML Sitemap for Google Search Console with Google Image Extension
     if (path === "/sitemap.xml") {
+      const today = new Date().toISOString().split("T")[0];
       const sitemap = `<?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:image="http://www.google.com/schemas/sitemap-image/1.1"
+        xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
     <loc>https://xsur.my.id/</loc>
-    <lastmod>${new Date().toISOString().split("T")[0]}</lastmod>
-    <changefreq>weekly</changefreq>
+    <lastmod>${today}</lastmod>
+    <changefreq>daily</changefreq>
     <priority>1.0</priority>
+    <xhtml:link rel="alternate" hreflang="id" href="https://xsur.my.id/" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://xsur.my.id/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://xsur.my.id/" />
+    <image:image>
+      <image:loc>https://xsur.my.id/og-banner.png</image:loc>
+      <image:title>PT Xecure Siber Unggul Resolusi (XSUR) - Keamanan Siber, MikroTik Enterprise &amp; Otomasi</image:title>
+      <image:caption>Layanan audit keamanan siber VAPT, arsitektur MikroTik enterprise, dan bot Telegram MTProto oleh Bang Mansur</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://xsur.my.id/logo.png</image:loc>
+      <image:title>Logo Resmi PT Xecure Siber Unggul Resolusi</image:title>
+      <image:caption>Identitas resmi PT Xecure Siber Unggul Resolusi (XSUR)</image:caption>
+    </image:image>
   </url>
   <url>
-    <loc>https://xsur.my.id/#about</loc>
-    <lastmod>${new Date().toISOString().split("T")[0]}</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.9</priority>
-  </url>
-  <url>
-    <loc>https://xsur.my.id/#projects</loc>
-    <lastmod>${new Date().toISOString().split("T")[0]}</lastmod>
+    <loc>https://mail.xsur.my.id/</loc>
+    <lastmod>${today}</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.9</priority>
-  </url>
-  <url>
-    <loc>https://xsur.my.id/#contact</loc>
-    <lastmod>${new Date().toISOString().split("T")[0]}</lastmod>
-    <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
 </urlset>`;
-      return new Response(sitemap, { headers: { "Content-Type": "application/xml" } });
+      return new Response(sitemap, {
+        headers: { "Content-Type": "application/xml; charset=utf-8", "Cache-Control": "public, max-age=86400" }
+      });
+    }
+
+    // Modern 2026 AI Search Crawler Reference (ChatGPT Search, Perplexity, Gemini, Claude, Google AI Overview)
+    if (path === "/llms.txt" || path === "/llms-full.txt") {
+      const llmsText = `# PT Xecure Siber Unggul Resolusi (XSUR)
+
+> Firma Keamanan Siber, Rekayasa Jaringan MikroTik Enterprise & Otomasi Skala Tinggi
+
+- **Perusahaan**: PT Xecure Siber Unggul Resolusi
+- **Brand / Singkatan**: XSUR
+- **Founder & Chief Security Architect**: Bang Mansur, S2 Magister Ilmu Komputer (mansyurj168@gmail.com)
+- **Website Resmi**: https://xsur.my.id
+- **Webmail & Temp Mail Suite**: https://mail.xsur.my.id
+- **Kontak Resmi**: WhatsApp +62 857-1000-55554 | Telegram @cspremium2in / @jasangiklan | Email contact@xsur.my.id
+
+## Layanan Utama (Core Competencies)
+1. **Vulnerability Assessment & Penetration Testing (VAPT)**: Audit keamanan aplikasi web, mobile, microservices API, dan cloud infrastructure sesuai OWASP Top 10 dan NIST CSF.
+2. **Arsitektur Jaringan MikroTik Enterprise & Distributed Multi-WAN**: Perancangan topologi multi-WAN failover otomatis BGP, OVPN cloud tunneling, dan manajemen bandwidth QoS.
+3. **Armada Otomasi Bot Telegram MTProto Skala Tinggi**: Sistem userbot MTProto multi-worker terisolasi dengan queue anti-flood dan auto-broadcast cerdas.
+4. **Platform Verifikasi Telekomunikasi CEIR & IMEI Bea Cukai**: Integrasi audit IMEI resmi Kemenperin dan Bea Cukai (@cekceirbot) dengan locking Compare-And-Swap (CAS).
+5. **XSUR Webmail & Disposable Temp Mail Suite**: Platform email korporat mandiri terpadu dan layanan email sementara multi-domain berbasis Cloudflare Workers edge (mail.xsur.my.id).
+`;
+      return new Response(llmsText, {
+        headers: { "Content-Type": "text/markdown; charset=utf-8", "Cache-Control": "public, max-age=86400" }
+      });
     }
 
     if (path === "/api/public/ping" || path === "/api/public/inspect") {

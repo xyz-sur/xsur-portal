@@ -216,5 +216,18 @@ export const DEFAULT_PROJECTS = [
     target: "_blank",
     is_featured: 1,
     sort_order: 16
+  },
+  {
+    id: 17,
+    category: "pemrograman",
+    category_label: "Pemrograman & FinTech",
+    title: "XSUR Private Webmail & Disposable Temp Mail Suite",
+    summary: "Platform email korporat mandiri terpadu dan layanan email sementara multi-domain berbasis Cloudflare Workers edge. Dilengkapi audit inbox superadmin, enkripsi PBKDF2 SHA-256, dan parsing RFC822 real-time.",
+    badge: "EDGE EMAIL SUITE",
+    tech_stack: ["Cloudflare Workers", "D1 SQL Engine", "Postal-Mime RFC822", "PBKDF2 SHA-256", "Temp Mail API"],
+    url: "https://mail.xsur.my.id",
+    target: "_blank",
+    is_featured: 1,
+    sort_order: 17
   }
 ];

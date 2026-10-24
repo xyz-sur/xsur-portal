@@ -83,9 +83,12 @@ export function renderPublicPage({ menus, siteConfig, projects = DEFAULT_PROJECT
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
-  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml;utf8,${encodeURIComponent(SVG_ICON)}">
+  <link rel="icon" type="image/png" sizes="32x32" href="/logo.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="/logo.png">
+  <link rel="icon" type="image/svg+xml" href="/logo.svg">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="dns-prefetch" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   ${seoHead}
   <style>
@@ -921,6 +924,60 @@ export function renderPublicPage({ menus, siteConfig, projects = DEFAULT_PROJECT
       to { opacity: 1; transform: translateY(0); }
     }
 
+    /* FAQ Rich Accordion Styles (Google Structured Data & UX) */
+    .faq-grid {
+      display: grid;
+      gap: 14px;
+      max-width: 900px;
+      margin: 0 auto 60px;
+    }
+    details.faq-item {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 18px 22px;
+      transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    details.faq-item[open] {
+      border-color: rgba(0, 242, 254, 0.4);
+      background: rgba(14, 19, 29, 0.95);
+      box-shadow: 0 8px 32px rgba(0, 242, 254, 0.08);
+    }
+    details.faq-item summary {
+      font-weight: 700;
+      font-size: 15px;
+      color: var(--white);
+      cursor: pointer;
+      list-style: none;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      user-select: none;
+    }
+    details.faq-item summary::-webkit-details-marker {
+      display: none;
+    }
+    details.faq-item summary::after {
+      content: "+";
+      font-family: var(--font-mono);
+      font-size: 20px;
+      line-height: 1;
+      color: var(--cyan);
+      flex-shrink: 0;
+      transition: transform 0.2s ease;
+    }
+    details.faq-item[open] summary::after {
+      content: "−";
+      color: #38bdf8;
+    }
+    details.faq-item p {
+      margin-top: 14px;
+      font-size: 14px;
+      line-height: 1.7;
+      color: #94a3b8;
+    }
+
     /* Responsive Breakpoints */
     @media (max-width: 900px) {
       .nav-links { display: none; }
@@ -960,6 +1017,8 @@ export function renderPublicPage({ menus, siteConfig, projects = DEFAULT_PROJECT
         <a href="#standards" class="nav-item">Standar Siber</a>
         <a href="#diagnostic" class="nav-item">Audit Edge</a>
         <a href="#calculator" class="nav-item">Estimator</a>
+        <a href="#faq" class="nav-item">FAQ</a>
+        <a href="https://mail.xsur.my.id" target="_blank" class="nav-item" style="color: var(--cyan); font-weight: 600;">Webmail ↗</a>
         <a href="${waUrl}" target="_blank" class="btn-header-cta">
           <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
           Diskusi Teknis
@@ -979,6 +1038,8 @@ export function renderPublicPage({ menus, siteConfig, projects = DEFAULT_PROJECT
     <a href="#standards" class="mob-nav-link" onclick="closeMobMenu()">🛡️ Standar Siber Global</a>
     <a href="#diagnostic" class="mob-nav-link" onclick="closeMobMenu()">⚡ Live Edge Diagnostics</a>
     <a href="#calculator" class="mob-nav-link" onclick="closeMobMenu()">📊 Solution Estimator</a>
+    <a href="#faq" class="mob-nav-link" onclick="closeMobMenu()">❓ Tanya Jawab (FAQ)</a>
+    <a href="https://mail.xsur.my.id" target="_blank" class="mob-nav-link" onclick="closeMobMenu()" style="color: var(--cyan);">✉️ XSUR Webmail Suite ↗</a>
     <div style="margin-top: 10px; display: flex; flex-direction: column; gap: 8px;">
       <a href="${waUrl}" target="_blank" class="btn-primary" style="justify-content: center; width: 100%;">
         WhatsApp Direct (+62 857-1000-55554)
@@ -1000,10 +1061,10 @@ export function renderPublicPage({ menus, siteConfig, projects = DEFAULT_PROJECT
         <span>EDGE-DEPLOYED ZERO TRUST INFRASTRUCTURE</span>
       </div>
       <h1 class="hero-title">
-        Rekayasa Pertahanan Siber, Jaringan Terdistribusi &amp; <span class="gradient-text">Otomasi Skala Tinggi</span>
+        PT Xecure Siber Unggul Resolusi <span class="gradient-text">— Keamanan Siber, MikroTik &amp; Otomasi Enterprise</span>
       </h1>
       <p class="hero-desc">
-        PT Xecure Siber Unggul Resolusi menghadirkan audit penetrasi (VAPT) mendalam, arsitektur MikroTik enterprise multi-WAN berlatensi rendah, serta bot MTProto dan API Gateway berkapasitas throughput masif yang dipimpin langsung oleh Bang Mansur, S2 Magister Ilmu Komputer.
+        PT Xecure Siber Unggul Resolusi (XSUR) menghadirkan audit penetrasi (VAPT OWASP), arsitektur MikroTik enterprise multi-WAN berlatensi rendah, serta bot Telegram MTProto dan API Gateway berkapasitas throughput masif yang dipimpin langsung oleh Bang Mansur, S2 Magister Ilmu Komputer.
       </p>
 
       <div class="hero-actions">
@@ -1270,6 +1331,59 @@ export function renderPublicPage({ menus, siteConfig, projects = DEFAULT_PROJECT
       </div>
     </div>
 
+    <!-- FAQ Section (Google Rich Snippets & User Authority) -->
+    <section class="section-head" id="faq" style="margin-top: 60px;">
+      <span class="section-tag">PERTANYAAN UMUM &amp; KONSULTASI</span>
+      <h2 class="section-title">Pertanyaan Umum Seputar Layanan XSUR</h2>
+      <p class="section-sub">
+        Informasi esensial mengenai legalitas entitas, metodologi audit keamanan siber, arsitektur jaringan MikroTik, dan prosedur konsultasi bersama Bang Mansur.
+      </p>
+    </section>
+
+    <div class="faq-grid">
+      <details class="faq-item" open>
+        <summary>Apa itu PT Xecure Siber Unggul Resolusi (XSUR)?</summary>
+        <p>
+          PT Xecure Siber Unggul Resolusi (XSUR) adalah startup teknologi dan firma keamanan siber berbadan hukum yang didirikan oleh Bang Mansur. XSUR menyatukan keahlian praktis lapangan dan riset akademik dalam bidang audit keamanan (VAPT), infrastruktur jaringan MikroTik RouterOS enterprise, sistem otomasi bot MTProto terdistribusi, serta gateway FinTech dan telekomunikasi CEIR.
+        </p>
+      </details>
+
+      <details class="faq-item">
+        <summary>Siapa Founder dan Chief Security Architect di balik XSUR?</summary>
+        <p>
+          Founder dan Chief Security Architect XSUR adalah Bang Mansur, praktisi IT senior, profesional keamanan siber, dan lulusan S2 Magister Ilmu Komputer dengan spesialisasi rekayasa sistem terdistribusi, dynamic routing enterprise, dan reverse engineering.
+        </p>
+      </details>
+
+      <details class="faq-item">
+        <summary>Layanan dan spesialisasi apa saja yang disediakan oleh PT Xecure Siber Unggul Resolusi?</summary>
+        <p>
+          XSUR menyediakan 5 pilar spesialisasi enterprise: 1) Vulnerability Assessment &amp; Penetration Testing (VAPT OWASP Top 10), 2) Arsitektur Jaringan MikroTik RouterOS Multi-WAN &amp; OVPN Cloud Tunneling, 3) Otomasi High-Throughput Telegram MTProto Userbot Fleet, 4) Integrasi Gateway Telekomunikasi CEIR &amp; IMEI Bea Cukai (@cekceirbot), serta 5) XSUR Webmail &amp; Disposable Temp Mail Suite (mail.xsur.my.id).
+        </p>
+      </details>
+
+      <details class="faq-item">
+        <summary>Bagaimana metodologi audit keamanan siber (VAPT) yang diterapkan oleh XSUR?</summary>
+        <p>
+          Audit VAPT XSUR menggabungkan simulasi penyerangan black-box, gray-box, dan white-box yang mengacu pada standar global OWASP Top 10, NIST Cybersecurity Framework (CSF), dan SANS Top 25. Setiap temuan diverifikasi secara mendalam untuk mencegah false positive dan dilengkapi dokumen rekomendasi remediasi teknis yang dapat langsung dieksekusi tim developer.
+        </p>
+      </details>
+
+      <details class="faq-item">
+        <summary>Apakah XSUR melayani perancangan jaringan MikroTik enterprise dan multi-WAN antar kantor cabang?</summary>
+        <p>
+          Ya, XSUR berpengalaman menangani perancangan core routing MikroTik RouterOS v7, failover otomatis multi-WAN BGP/OSPF, interkoneksi secure tunnel (WireGuard / OpenVPN) site-to-site tanpa tabrakan subnet IP lokal, serta alokasi bandwidth cerdas berbasis QoS Simple Queue / Queue Tree.
+        </p>
+      </details>
+
+      <details class="faq-item">
+        <summary>Bagaimana cara melakukan konsultasi teknis atau memulai kerjasama proyek dengan XSUR?</summary>
+        <p>
+          Anda dapat menghubungi Bang Mansur secara langsung melalui Telegram resmi di @cspremium2in atau @jasangiklan, WhatsApp di nomor +62 857-1000-55554, atau email resmi ke contact@xsur.my.id. Seluruh diskusi dapat disertai Non-Disclosure Agreement (NDA) untuk menjamin kerahasiaan penuh proyek Anda.
+        </p>
+      </details>
+    </div>
+
     <!-- Consultation CTA -->
     <section class="contact-card" id="contact">
       <span class="section-tag">MULAI KERJASAMA</span>
@@ -1300,6 +1414,12 @@ export function renderPublicPage({ menus, siteConfig, projects = DEFAULT_PROJECT
         <strong>${companyName}</strong> (${brandName}) &bull; &copy; ${new Date().getFullYear()} All Rights Reserved.
         <div style="font-size: 12px; color: #475569; margin-top: 4px;">
           Infrastruktur dilindungi Cloudflare Enterprise Edge &bull; ISO/IEC &amp; NIST Framework Compliant &bull; WhatsApp +62 857-1000-55554
+        </div>
+        <div style="font-size: 12px; color: #64748b; margin-top: 6px; display: flex; gap: 14px; flex-wrap: wrap;">
+          <a href="https://mail.xsur.my.id" target="_blank" style="color: var(--cyan); text-decoration: none;">✉️ Webmail &amp; Temp Mail</a>
+          <a href="/sitemap.xml" target="_blank" style="color: #94a3b8; text-decoration: none;">🗺️ Sitemap XML</a>
+          <a href="/llms.txt" target="_blank" style="color: #94a3b8; text-decoration: none;">🤖 LLMs.txt</a>
+          <a href="/robots.txt" target="_blank" style="color: #94a3b8; text-decoration: none;">🤖 Robots.txt</a>
         </div>
       </div>
       <div>

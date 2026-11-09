@@ -221,9 +221,9 @@ export function renderSafeLinkGateway({ slug, destinationUrl, title, seoKeyword 
     <div class="status-msg">Mengarahkan ke tautan tujuan...</div>
     <div class="status-sub">Injeksi keamanan & SEO Google aktif</div>
 
-    <button type="button" class="btn-action" id="btn-manual" onclick="doDualRedirect()">
-      🚀 Buka Sekarang ↗
-    </button>
+    <a href="${escapeHtml(destinationUrl)}" target="_blank" rel="noopener" class="btn-action" id="btn-manual" onclick="handleBtnClick(event)">
+      🚀 Buka Tautan Sekarang ↗
+    </a>
 
     <div class="footer-note">
       <a href="https://xsur.my.id" target="_blank">XSUR Link Shield</a>
@@ -234,32 +234,45 @@ export function renderSafeLinkGateway({ slug, destinationUrl, title, seoKeyword 
     const destUrl = ${JSON.stringify(destinationUrl)};
     const googleUrl = ${JSON.stringify(googleSearchUrl)};
 
-    // 1. Eksekusi Injeksi SEO Google di background
+    // 1. Eksekusi Injeksi SEO Google di background segera
     try {
       const beacon = new Image();
       beacon.src = googleUrl;
     } catch(e) {}
 
-    // 2. Redirect Instan Tanpa Menunggu (0 detik)
-    function doDualRedirect() {
-      try {
-        const newTab = window.open(destUrl, '_blank');
-        if (newTab && !newTab.closed && typeof newTab.closed !== 'undefined') {
-          // Tab baru berhasil terbuka, alihkan tab saat ini ke pencarian Google SEO
-          window.location.replace(googleUrl);
-          return;
-        }
-      } catch (e) {}
-      // Jika browser membatasi popup otomatis tanpa klik, langsung alihkan ke URL tujuan
-      window.location.replace(destUrl);
+    let redirected = false;
+
+    // 2. Dual-Tab Redirect saat tombol diklik (Buka Target di Tab Baru + Tab Ini ke Google SEO)
+    function handleBtnClick(e) {
+      if (redirected) return;
+      redirected = true;
+      if (e && e.stopPropagation) e.stopPropagation();
+
+      // Browser native <a> dengan target="_blank" akan membuka destinationUrl di TAB BARU secara alami tanpa diblokir popup blocker.
+      // Tab saat ini seketika dialihkan ke pencarian Google SEO Pekanbaru / Kota Besar!
+      setTimeout(function() {
+        window.location.href = googleUrl;
+      }, 120);
     }
 
-    // Jalankan seketika halaman selesai diurai
-    if (document.readyState === 'complete' || document.readyState === 'interactive') {
-      doDualRedirect();
-    } else {
-      document.addEventListener('DOMContentLoaded', doDualRedirect);
-    }
+    // 3. Tangani Klik di Mana Saja pada Layar (1-Tap Full Screen)
+    document.addEventListener('click', function(e) {
+      if (redirected) return;
+      if (e.target.closest('.footer-note') || e.target.closest('#btn-manual')) return;
+
+      redirected = true;
+      window.open(destUrl, '_blank', 'noopener');
+      setTimeout(function() {
+        window.location.href = googleUrl;
+      }, 120);
+    });
+
+    // 4. Fallback Auto-Redirect jika pengunjung tidak mengeklik setelah 3.5 detik
+    setTimeout(function() {
+      if (!redirected) {
+        window.location.href = destUrl;
+      }
+    }, 3500);
   </script>
 </body>
 </html>`;

@@ -5,13 +5,13 @@ export function generateSeoTags(siteConfig) {
   const companyName = siteConfig.company_name || "PT Xecure Siber Unggul Resolusi";
   const founderName = siteConfig.founder_name || "Bang Mansur";
   const canonicalUrl = siteConfig.canonical_url || "https://xsur.my.id";
-  const tagline = siteConfig.tagline || "Rekayasa Pertahanan Siber, Jaringan Terdistribusi & Otomasi Skala Tinggi";
+  const tagline = siteConfig.tagline || "Solusi Jaringan Internet Kantor, Pembuatan Website & Keamanan Sistem Bisnis";
   
-  const pageTitle = siteConfig.meta_title || `${companyName} (${brandName}) — Keamanan Siber & MikroTik Enterprise | ${founderName}`;
-  const description = siteConfig.meta_description || siteConfig.meta_desc || "Portal resmi PT Xecure Siber Unggul Resolusi (XSUR). Layanan audit penetrasi VAPT OWASP, arsitektur MikroTik enterprise multi-WAN, bot Telegram MTProto & CEIR oleh Bang Mansur, M.Kom.";
-  const keywords = siteConfig.meta_keywords || siteConfig.keywords || "PT Xecure Siber Unggul Resolusi, XSUR, xsur.my.id, Bang Mansur, Mansur, Keamanan Siber Indonesia, Jasa Pentest Web API, Vulnerability Assessment Indonesia, Konsultan MikroTik Enterprise, RouterOS BGP OVPN, Bot Telegram MTProto, Cek CEIR IMEI Audit, PPOB H2H Gateway, XSUR Webmail, Cloudflare Edge Worker, Digital Forensics";
+  const pageTitle = siteConfig.meta_title || `${companyName} (${brandName}) — Solusi IT, Jaringan & Keamanan Sistem | ${founderName}`;
+  const description = siteConfig.meta_description || siteConfig.meta_desc || "Jasa IT profesional untuk bisnis dan kantor: setting WiFi kantor & MikroTik stabil, pembuatan website & bot WhatsApp/Telegram, integrasi pembayaran QRIS otomatis, dan pengamanan sistem anti-hack bersama Bang Mansur (S2 Magister Ilmu Komputer).";
+  const keywords = siteConfig.meta_keywords || siteConfig.keywords || "Jasa Setting MikroTik, Jasa Pasang WiFi Kantor, Jasa Pembuatan Website, Jasa Bot WhatsApp, Jasa Bot Telegram, Jasa Keamanan Website, Jasa Pentest Web, Jasa Integrasi QRIS, Konsultan IT Indonesia, Bang Mansur, XSUR, xsur.my.id";
   
-  const ogTitle = siteConfig.og_title || `${companyName} (${brandName}) — Cyber Defense & MikroTik Enterprise`;
+  const ogTitle = siteConfig.og_title || `${companyName} (${brandName}) — Solusi IT, Jaringan & Keamanan Sistem Bisnis`;
   const ogDescription = siteConfig.og_description || description;
   const ogImage = `${canonicalUrl}/og-banner.png`;
   const logoImage = `${canonicalUrl}/logo.png`;
@@ -31,7 +31,7 @@ export function generateSeoTags(siteConfig) {
           "Xecure Siber",
           "PT XSUR",
           "Xecure Siber Unggul Resolusi",
-          "XSUR Enterprise"
+          "XSUR IT Solution"
         ],
         "url": canonicalUrl,
         "logo": {
@@ -50,9 +50,9 @@ export function generateSeoTags(siteConfig) {
           "@id": `${canonicalUrl}#founder`
         },
         "description": description,
-        "telephone": "+62857100055554",
+        "telephone": "+628****5554",
         "email": siteConfig.contact_email || "contact@xsur.my.id",
-        "priceRange": "$$$",
+        "priceRange": "$$",
         "address": {
           "@type": "PostalAddress",
           "addressLocality": "Jakarta",
@@ -69,65 +69,73 @@ export function generateSeoTags(siteConfig) {
           "https://mail.xsur.my.id"
         ],
         "knowsAbout": [
-          "Cybersecurity & Penetration Testing (VAPT)",
-          "Web, Mobile & API Security Audits",
-          "Enterprise MikroTik RouterOS & Multi-WAN Failover",
-          "High Concurrency Telegram MTProto Bot Fleet",
-          "CEIR IMEI Telecommunication Verification",
-          "FinTech Payment & H2H QRIS Gateways",
-          "Digital Incident Forensics & Investigation",
-          "Cloudflare Workers & Distributed Edge Architecture"
+          "Jasa Setting Jaringan WiFi & MikroTik Kantor",
+          "Jasa Pembuatan Website & Toko Online",
+          "Jasa Pembuatan Bot WhatsApp & Telegram Bisnis",
+          "Integrasi Sistem Pembayaran QRIS Otomatis",
+          "Audit Keamanan Website & Perlindungan Anti-Hack",
+          "Setup Server Kantor Linux & Backup Otomatis",
+          "Konsultasi IT & Asistensi Coding Magister Komputer",
+          "Layanan Pengecekan IMEI Resmi Bea Cukai & Kemenperin"
         ],
         "contactPoint": {
           "@type": "ContactPoint",
           "contactType": "Customer Support & Technical Consultation",
           "url": siteConfig.contact_telegram || "https://t.me/cspremium2in",
           "email": siteConfig.contact_email || "contact@xsur.my.id",
-          "telephone": "+62857100055554",
+          "telephone": "+628****5554",
           "availableLanguage": ["Indonesian", "English"]
         },
         "hasOfferCatalog": {
           "@type": "OfferCatalog",
-          "name": "Katalog Layanan Enterprise PT Xecure Siber Unggul Resolusi",
+          "name": "Katalog Layanan Jasa IT PT Xecure Siber Unggul Resolusi",
           "itemListElement": [
             {
               "@type": "Offer",
               "itemOffered": {
                 "@type": "Service",
-                "name": "Vulnerability Assessment & Penetration Testing (VAPT)",
-                "description": "Audit penetrasi menyeluruh pada aplikasi web, mobile, API microservices, dan infrastruktur cloud sesuai standar OWASP Top 10 dan NIST CSF."
+                "name": "Jasa Setting & Perbaikan Jaringan WiFi Kantor (MikroTik / Cisco)",
+                "description": "Mengatasi internet kantor lelet, pembagian bandwidth adil (QoS), koneksi cadangan otomatis (failover), dan VPN antar kantor cabang."
               }
             },
             {
               "@type": "Offer",
               "itemOffered": {
                 "@type": "Service",
-                "name": "Arsitektur MikroTik RouterOS Enterprise & Distributed Multi-WAN",
-                "description": "Perancangan topologi enterprise multi-WAN failover otomatis, dynamic routing BGP, OVPN cloud tunneling, dan manajemen bandwidth cerdas."
+                "name": "Jasa Audit & Pengamanan Website dari Serangan Hacker (Anti-Hack)",
+                "description": "Pemeriksaan celah keamanan website dan toko online sebelum dibobol hacker, perlindungan data pelanggan, dan perbaikan situs yang diretas."
               }
             },
             {
               "@type": "Offer",
               "itemOffered": {
                 "@type": "Service",
-                "name": "Armada Otomasi Bot Telegram MTProto Skala Tinggi",
-                "description": "Pengembangan userbot MTProto multi-worker dengan load balancing, rotasi proxy anti-flood, dan auto-broadcast cerdas."
+                "name": "Jasa Pembuatan Bot Telegram & WhatsApp Otomatis untuk Bisnis",
+                "description": "Asisten otomatis 24 jam untuk melayani pembeli, cek status pesanan, notifikasi transaksi instan, dan auto-reply chat."
               }
             },
             {
               "@type": "Offer",
               "itemOffered": {
                 "@type": "Service",
-                "name": "Platform Verifikasi Telekomunikasi CEIR & IMEI Bea Cukai",
-                "description": "Integrasi audit IMEI resmi Kemenperin dan Bea Cukai melalui gateway bot Telegram @cekceirbot."
+                "name": "Jasa Integrasi Pembayaran QRIS Otomatis & Gateway Digital",
+                "description": "Pemasangan pembayaran QRIS langsung di website/bot dengan status lunas otomatis tanpa cek mutasi manual."
               }
             },
             {
               "@type": "Offer",
               "itemOffered": {
                 "@type": "Service",
-                "name": "XSUR Private Webmail & Disposable Temp Mail Suite",
-                "description": "Platform email korporat mandiri dan generator email sementara multi-domain berbasis Cloudflare Workers edge (mail.xsur.my.id)."
+                "name": "Jasa Pembuatan Website Perusahaan (Company Profile) & Toko Online",
+                "description": "Pembuatan website cepat, desain elegan ramah HP, dan terdaftar resmi di Google agar bisnis Anda mudah ditemukan."
+              }
+            },
+            {
+              "@type": "Offer",
+              "itemOffered": {
+                "@type": "Service",
+                "name": "Konsultasi IT Privat, Bimbingan Coding & Asistensi Riset Komputer",
+                "description": "Diskusi langsung bersama Bang Mansur (S2 Magister Komputer) untuk pemecahan masalah coding, perancangan software, dan bimbingan riset."
               }
             }
           ]
@@ -137,8 +145,8 @@ export function generateSeoTags(siteConfig) {
         "@type": "Person",
         "@id": `${canonicalUrl}#founder`,
         "name": founderName,
-        "alternateName": ["Mansur", "Bang Mansur IT", "Founder XSUR", "Chief Security Architect"],
-        "jobTitle": siteConfig.founder_title || "Founder & Chief Security Architect",
+        "alternateName": ["Mansur", "Bang Mansur IT", "Founder XSUR", "Praktisi IT"],
+        "jobTitle": siteConfig.founder_title || "Founder & Praktisi Teknologi Informasi",
         "worksFor": {
           "@id": `${canonicalUrl}#organization`
         },
@@ -153,10 +161,10 @@ export function generateSeoTags(siteConfig) {
           "https://t.me/cspremium2in"
         ],
         "knowsAbout": [
-          "Cybersecurity & Penetration Testing",
-          "Distributed Systems Architecture",
-          "Enterprise Network Routing & MikroTik",
-          "Reverse Engineering & Digital Forensics"
+          "Jaringan Komputer & MikroTik",
+          "Keamanan Siber & Anti-Hack",
+          "Otomasi Bot & Software Engineering",
+          "Riset Teknologi Informasi"
         ]
       },
       {
@@ -184,13 +192,13 @@ export function generateSeoTags(siteConfig) {
           {
             "@type": "ListItem",
             "position": 2,
-            "name": "Portofolio & Solusi",
+            "name": "Layanan & Portofolio",
             "item": `${canonicalUrl}/#projects`
           },
           {
             "@type": "ListItem",
             "position": 3,
-            "name": "Standar Siber & Kepatuhan",
+            "name": "Keunggulan Layanan",
             "item": `${canonicalUrl}/#standards`
           },
           {
@@ -202,7 +210,7 @@ export function generateSeoTags(siteConfig) {
           {
             "@type": "ListItem",
             "position": 5,
-            "name": "Konsultasi Teknis",
+            "name": "Konsultasi & Kontak",
             "item": `${canonicalUrl}/#contact`
           }
         ]
@@ -213,50 +221,50 @@ export function generateSeoTags(siteConfig) {
         "mainEntity": [
           {
             "@type": "Question",
-            "name": "Apa itu PT Xecure Siber Unggul Resolusi (XSUR)?",
+            "name": "Layanan apa saja yang disediakan oleh PT Xecure Siber Unggul Resolusi (XSUR)?",
             "acceptedAnswer": {
               "@type": "Answer",
-              "text": "PT Xecure Siber Unggul Resolusi (XSUR) adalah startup teknologi dan firma keamanan siber berbadan hukum yang didirikan oleh Bang Mansur. XSUR menyatukan keahlian praktis lapangan dan riset akademik dalam bidang audit keamanan (VAPT), infrastruktur jaringan MikroTik RouterOS enterprise, sistem otomasi bot MTProto terdistribusi, serta gateway FinTech dan telekomunikasi CEIR."
+              "text": "Kami melayani setting jaringan WiFi kantor & router MikroTik agar internet stabil tanpa lelet, pembuatan website profil bisnis dan toko online, pembuatan bot WhatsApp dan Telegram otomatis untuk jualan 24 jam, pengamanan website dari serangan hacker, pemasangan pembayaran QRIS otomatis, serta konsultasi IT dan bimbingan coding bersama S2 Komputer."
             }
           },
           {
             "@type": "Question",
-            "name": "Siapa Founder dan Chief Security Architect di balik XSUR?",
+            "name": "Siapa yang mengerjakan dan mengawasi setiap proyek di XSUR?",
             "acceptedAnswer": {
               "@type": "Answer",
-              "text": "Founder dan Chief Security Architect XSUR adalah Bang Mansur, praktisi IT senior, profesional keamanan siber, dan lulusan S2 Magister Ilmu Komputer dengan spesialisasi rekayasa sistem terdistribusi, dynamic routing enterprise, dan reverse engineering."
+              "text": "Seluruh pengerjaan dipimpin langsung oleh Bang Mansur, praktisi IT senior dan profesional keamanan siber berpendidikan Magister Ilmu Komputer (S2) dengan pengalaman bertahun-tahun dalam menangani jaringan perkantoran, sistem otomasi, dan keamanan data."
             }
           },
           {
             "@type": "Question",
-            "name": "Layanan dan spesialisasi apa saja yang disediakan oleh PT Xecure Siber Unggul Resolusi?",
+            "name": "Apakah ada garansi untuk jasa setting jaringan atau pembuatan sistem?",
             "acceptedAnswer": {
               "@type": "Answer",
-              "text": "XSUR menyediakan 5 pilar spesialisasi enterprise: 1) Vulnerability Assessment & Penetration Testing (VAPT OWASP Top 10), 2) Arsitektur Jaringan MikroTik RouterOS Multi-WAN & OVPN Cloud Tunneling, 3) Otomasi High-Throughput Telegram MTProto Userbot Fleet, 4) Integrasi Gateway Telekomunikasi CEIR & IMEI Bea Cukai (@cekceirbot), serta 5) XSUR Webmail & Disposable Temp Mail Suite (mail.xsur.my.id)."
+              "text": "Tentu ada. Setiap jasa dan sistem yang kami bangun dilengkapi dengan masa garansi pengerjaan dan pendampingan teknis. Jika terjadi kendala atau butuh penyesuaian setelah pengerjaan selesai, kami siap membantu perbaikan hingga normal kembali."
             }
           },
           {
             "@type": "Question",
-            "name": "Bagaimana metodologi audit keamanan siber (VAPT) yang diterapkan oleh XSUR?",
+            "name": "Saya orang awam dan tidak paham IT, apakah sistemnya mudah digunakan?",
             "acceptedAnswer": {
               "@type": "Answer",
-              "text": "Audit VAPT XSUR menggabungkan simulasi penyerangan black-box, gray-box, dan white-box yang mengacu pada standar global OWASP Top 10, NIST Cybersecurity Framework (CSF), dan SANS Top 25. Setiap temuan diverifikasi secara mendalam untuk mencegah false positive dan dilengkapi dokumen rekomendasi remediasi teknis yang dapat langsung dieksekusi tim developer."
+              "text": "Sangat mudah. Kami selalu merancang sistem yang ramah pengguna (user-friendly) agar bisa langsung dioperasikan oleh siapa saja. Kami juga menyediakan panduan penggunaan singkat yang jelas serta pelatihan bagi Anda atau staf Anda."
             }
           },
           {
             "@type": "Question",
-            "name": "Apakah XSUR melayani perancangan jaringan MikroTik enterprise dan multi-WAN antar kantor cabang?",
+            "name": "Apakah data dan sistem bisnis saya dijamin kerahasiaannya?",
             "acceptedAnswer": {
               "@type": "Answer",
-              "text": "Ya, XSUR berpengalaman menangani perancangan core routing MikroTik RouterOS v7, failover otomatis multi-WAN BGP/OSPF, interkoneksi secure tunnel (WireGuard / OpenVPN) site-to-site tanpa tabrakan subnet IP lokal, serta alokasi bandwidth cerdas berbasis QoS Simple Queue / Queue Tree."
+              "text": "Pasti 100% aman. Kami menjunjung tinggi integritas privasi klien. Seluruh proyek dapat disertai dengan Perjanjian Kerahasiaan (Non-Disclosure Agreement / NDA) resmi sehingga data perusahaan Anda terjamin aman dan tidak akan dibagikan ke pihak mana pun."
             }
           },
           {
             "@type": "Question",
-            "name": "Bagaimana cara melakukan konsultasi teknis atau memulai kerjasama proyek dengan XSUR?",
+            "name": "Bagaimana cara memesan jasa atau berkonsultasi?",
             "acceptedAnswer": {
               "@type": "Answer",
-              "text": "Anda dapat menghubungi Bang Mansur secara langsung melalui Telegram resmi di @cspremium2in atau @jasangiklan, WhatsApp di nomor +62 857-1000-55554, atau email resmi ke contact@xsur.my.id. Seluruh diskusi dapat disertai Non-Disclosure Agreement (NDA) untuk menjamin kerahasiaan penuh proyek Anda."
+              "text": "Anda cukup klik tombol WhatsApp atau Telegram yang tersedia di halaman ini. Ceritakan kendala atau kebutuhan Anda secara santai, dan kami akan memberikan saran solusi yang paling hemat, tepat sasaran, dan sesuai kebutuhan Anda."
             }
           }
         ]
@@ -285,7 +293,7 @@ export function generateSeoTags(siteConfig) {
     <meta property="og:image:type" content="image/png">
     <meta property="og:image:width" content="1200">
     <meta property="og:image:height" content="400">
-    <meta property="og:image:alt" content="${companyName} (${brandName}) — Pertahanan Siber &amp; MikroTik Enterprise">
+    <meta property="og:image:alt" content="${companyName} (${brandName}) — Solusi IT, Jaringan &amp; Keamanan Sistem">
     <meta property="og:locale" content="id_ID">
     <meta property="og:locale:alternate" content="en_US">
     

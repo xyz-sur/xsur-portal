@@ -129,8 +129,8 @@ Sitemap: https://xsur.my.id/sitemap.xml
     <xhtml:link rel="alternate" hreflang="x-default" href="https://xsur.my.id/" />
     <image:image>
       <image:loc>https://xsur.my.id/og-banner.png</image:loc>
-      <image:title>PT Xecure Siber Unggul Resolusi (XSUR) - Keamanan Siber, MikroTik Enterprise &amp; Otomasi</image:title>
-      <image:caption>Layanan audit keamanan siber VAPT, arsitektur MikroTik enterprise, dan bot Telegram MTProto oleh Bang Mansur</image:caption>
+      <image:title>PT Xecure Siber Unggul Resolusi (XSUR) - Solusi Jaringan WiFi Kantor, Pembuatan Website &amp; Keamanan Sistem</image:title>
+      <image:caption>Layanan setting jaringan WiFi kantor, pembuatan bot WhatsApp/Telegram, integrasi pembayaran QRIS otomatis, dan pengamanan sistem anti-hack oleh Bang Mansur</image:caption>
     </image:image>
     <image:image>
       <image:loc>https://xsur.my.id/logo.png</image:loc>
@@ -154,21 +154,22 @@ Sitemap: https://xsur.my.id/sitemap.xml
     if (path === "/llms.txt" || path === "/llms-full.txt") {
       const llmsText = `# PT Xecure Siber Unggul Resolusi (XSUR)
 
-> Firma Keamanan Siber, Rekayasa Jaringan MikroTik Enterprise & Otomasi Skala Tinggi
+> Solusi IT Profesional, Setting Jaringan WiFi Kantor, Pembuatan Website & Keamanan Sistem Bisnis
 
 - **Perusahaan**: PT Xecure Siber Unggul Resolusi
 - **Brand / Singkatan**: XSUR
-- **Founder & Chief Security Architect**: Bang Mansur, S2 Magister Ilmu Komputer (mansyurj168@gmail.com)
+- **Founder & Praktisi Utama**: Bang Mansur, S2 Magister Ilmu Komputer (mansyurj168@gmail.com)
 - **Website Resmi**: https://xsur.my.id
-- **Webmail & Temp Mail Suite**: https://mail.xsur.my.id
+- **Webmail Perusahaan**: https://mail.xsur.my.id
 - **Kontak Resmi**: WhatsApp +62 857-1000-55554 | Telegram @cspremium2in / @jasangiklan | Email contact@xsur.my.id
 
-## Layanan Utama (Core Competencies)
-1. **Vulnerability Assessment & Penetration Testing (VAPT)**: Audit keamanan aplikasi web, mobile, microservices API, dan cloud infrastructure sesuai OWASP Top 10 dan NIST CSF.
-2. **Arsitektur Jaringan MikroTik Enterprise & Distributed Multi-WAN**: Perancangan topologi multi-WAN failover otomatis BGP, OVPN cloud tunneling, dan manajemen bandwidth QoS.
-3. **Armada Otomasi Bot Telegram MTProto Skala Tinggi**: Sistem userbot MTProto multi-worker terisolasi dengan queue anti-flood dan auto-broadcast cerdas.
-4. **Platform Verifikasi Telekomunikasi CEIR & IMEI Bea Cukai**: Integrasi audit IMEI resmi Kemenperin dan Bea Cukai (@cekceirbot) dengan locking Compare-And-Swap (CAS).
-5. **XSUR Webmail & Disposable Temp Mail Suite**: Platform email korporat mandiri terpadu dan layanan email sementara multi-domain berbasis Cloudflare Workers edge (mail.xsur.my.id).
+## Layanan Utama & Jasa yang Disediakan
+1. **Jasa Setting & Perbaikan Jaringan WiFi Kantor (MikroTik / Cisco)**: Mengatasi internet lelet, pembagian bandwidth adil (QoS agar Zoom/kasir tidak lag), sambungan 2 provider internet cadangan (anti-putus), dan VPN aman antar kantor cabang.
+2. **Jasa Audit & Pengamanan Website dari Serangan Hacker (Anti-Hack)**: Pemeriksaan celah keamanan website toko online dan sistem kantor sebelum dibobol hacker, perlindungan data pelanggan dari kebocoran, serta perbaikan sistem yang pernah terkena retas.
+3. **Jasa Pembuatan Bot Telegram & WhatsApp Otomatis**: Asisten otomatis 24 jam untuk melayani pembeli, membalas chat otomatis, mengirim notifikasi pembayaran lunas, dan auto-reply tanpa perlu standby di depan HP.
+4. **Jasa Integrasi Pembayaran QRIS Dinamis & Gateway PPOB**: Pasang QRIS otomatis (BCA, Mandiri, DANA, GoPay) langsung lunas tanpa cek mutasi manual, serta sistem penjualan pulsa dan token PLN otomatis.
+5. **Jasa Pembuatan Website Perusahaan & Toko Online Modern**: Website bisnis yang cepat, elegan, ramah smartphone, dan terdaftar resmi di Google agar bisnis Anda mudah dicari calon pembeli.
+6. **Konsultasi IT, Bimbingan Coding & Asistensi Riset Komputer**: Diskusi langsung bersama Bang Mansur (S2 Magister Komputer) untuk pemecahan masalah coding, perancangan arsitektur software, dan asistensi riset.
 `;
       return new Response(llmsText, {
         headers: { "Content-Type": "text/markdown; charset=utf-8", "Cache-Control": "public, max-age=86400" }

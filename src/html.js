@@ -1014,14 +1014,15 @@ export function renderPublicPage({ menus, siteConfig, projects = DEFAULT_PROJECT
       <!-- Desktop Navigation -->
       <nav class="nav-links">
         ${navHtml}
-        <a href="#standards" class="nav-item">Standar Siber</a>
-        <a href="#diagnostic" class="nav-item">Audit Edge</a>
-        <a href="#calculator" class="nav-item">Estimator</a>
-        <a href="#faq" class="nav-item">FAQ</a>
+        <a href="#standards" class="nav-item">Keunggulan</a>
+        <a href="#projects" class="nav-item">Layanan &amp; Proyek</a>
+        <a href="#diagnostic" class="nav-item">Cek Koneksi</a>
+        <a href="#calculator" class="nav-item">Hitung Biaya</a>
+        <a href="#faq" class="nav-item">Tanya Jawab</a>
         <a href="https://mail.xsur.my.id" target="_blank" class="nav-item" style="color: var(--cyan); font-weight: 600;">Webmail ↗</a>
         <a href="${waUrl}" target="_blank" class="btn-header-cta">
           <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
-          Diskusi Teknis
+          Hubungi Kami
         </a>
       </nav>
 
@@ -1035,9 +1036,10 @@ export function renderPublicPage({ menus, siteConfig, projects = DEFAULT_PROJECT
   <!-- Mobile Drawer -->
   <div id="mobile-drawer" class="mobile-drawer">
     ${mobileNavHtml}
-    <a href="#standards" class="mob-nav-link" onclick="closeMobMenu()">🛡️ Standar Siber Global</a>
-    <a href="#diagnostic" class="mob-nav-link" onclick="closeMobMenu()">⚡ Live Edge Diagnostics</a>
-    <a href="#calculator" class="mob-nav-link" onclick="closeMobMenu()">📊 Solution Estimator</a>
+    <a href="#standards" class="mob-nav-link" onclick="closeMobMenu()">⭐ 4 Keunggulan Layanan</a>
+    <a href="#projects" class="mob-nav-link" onclick="closeMobMenu()">💼 Daftar Layanan &amp; Jasa</a>
+    <a href="#diagnostic" class="mob-nav-link" onclick="closeMobMenu()">⚡ Cek Kualitas Koneksi</a>
+    <a href="#calculator" class="mob-nav-link" onclick="closeMobMenu()">📊 Hitung Estimasi Biaya</a>
     <a href="#faq" class="mob-nav-link" onclick="closeMobMenu()">❓ Tanya Jawab (FAQ)</a>
     <a href="https://mail.xsur.my.id" target="_blank" class="mob-nav-link" onclick="closeMobMenu()" style="color: var(--cyan);">✉️ XSUR Webmail Suite ↗</a>
     <div style="margin-top: 10px; display: flex; flex-direction: column; gap: 8px;">
@@ -1058,55 +1060,55 @@ export function renderPublicPage({ menus, siteConfig, projects = DEFAULT_PROJECT
     <section class="hero" id="hero">
       <div class="hero-tag">
         <span class="dot"></span>
-        <span>EDGE-DEPLOYED ZERO TRUST INFRASTRUCTURE</span>
+        <span>JASA IT PROFESIONAL &amp; SOLUSI DIGITAL BISNIS</span>
       </div>
       <h1 class="hero-title">
-        PT Xecure Siber Unggul Resolusi <span class="gradient-text">— Keamanan Siber, MikroTik &amp; Otomasi Enterprise</span>
+        Solusi Jaringan Internet Kantor, Pembuatan Website &amp; <span class="gradient-text">Keamanan Sistem Bisnis Anda</span>
       </h1>
       <p class="hero-desc">
-        PT Xecure Siber Unggul Resolusi (XSUR) menghadirkan audit penetrasi (VAPT OWASP), arsitektur MikroTik enterprise multi-WAN berlatensi rendah, serta bot Telegram MTProto dan API Gateway berkapasitas throughput masif yang dipimpin langsung oleh Bang Mansur, S2 Magister Ilmu Komputer.
+        PT Xecure Siber Unggul Resolusi (XSUR) melayani setting jaringan WiFi kantor &amp; MikroTik agar internet stabil tanpa lemot, pembuatan website perusahaan &amp; toko online, bot otomatisasi WhatsApp/Telegram untuk jualan 24 jam, integrasi pembayaran QRIS otomatis, hingga pengamanan sistem dari serangan hacker. Didampingi langsung oleh Bang Mansur (lulusan S2 Magister Ilmu Komputer).
       </p>
 
       <div class="hero-actions">
         <a href="#projects" class="btn-primary">
-          <span>Jelajahi Portofolio &amp; Solusi</span>
+          <span>Lihat Layanan &amp; Portofolio</span>
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
         </a>
-        <a href="#diagnostic" class="btn-secondary">
+        <a href="#calculator" class="btn-secondary">
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
-          <span>Uji Diagnostik Edge</span>
+          <span>Hitung Estimasi Biaya</span>
         </a>
         <a href="${waUrl}" target="_blank" class="btn-secondary">
-          <span>Konsultasi Langsung</span>
+          <span>Konsultasi WhatsApp</span>
         </a>
       </div>
 
       <!-- Live Edge Telemetry Bar -->
       <div class="telemetry-bar">
         <div class="telemetry-item">
-          <span>EDGE NODE:</span>
-          <span class="telemetry-val" id="tele-colo">SIN (Singapore)</span>
+          <span>LOKASI SERVER:</span>
+          <span class="telemetry-val" id="tele-colo">Indonesia &amp; Singapura</span>
         </div>
         <div class="telemetry-item">
-          <span>ROUND-TRIP:</span>
-          <span class="telemetry-val" id="tele-lat">~14 ms</span>
+          <span>KECEPATAN AKSES:</span>
+          <span class="telemetry-val" id="tele-lat">&lt; 20 ms (Cepat)</span>
         </div>
         <div class="telemetry-item">
-          <span>SECURITY CONTEXT:</span>
-          <span class="telemetry-val">WAF &bull; TLS 1.3 Strict &bull; HTTP/3</span>
+          <span>STATUS KEAMANAN:</span>
+          <span class="telemetry-val">Koneksi Aman &amp; Terenkripsi</span>
         </div>
         <div class="telemetry-item">
-          <span>INTEGRITY:</span>
-          <span class="telemetry-val">Zero Plaintext Leaks</span>
+          <span>LAYANAN KAMI:</span>
+          <span class="telemetry-val">Online 24 Jam Nonstop</span>
         </div>
       </div>
     </section>
 
-    <!-- Founder Section (Monochrome Anonymous) -->
+    <!-- Founder Section -->
     <section class="section-head" id="about">
-      <span class="section-tag">LEADERSHIP &amp; EXPERTISE</span>
-      <h2 class="section-title">Profil Founder &amp; Chief Architect</h2>
-      <p class="section-desc">Kombinasi integritas akademik Magister Ilmu Komputer dengan pengalaman lapangan di garis depan pengamanan siber dan rekayasa jaringan.</p>
+      <span class="section-tag">PROFIL PENGELOLA</span>
+      <h2 class="section-title">Mengenal Founder &amp; Praktisi Utama</h2>
+      <p class="section-desc">Memadukan keahlian akademis Magister Ilmu Komputer dengan pengalaman nyata di lapangan untuk menyelesaikan kendala teknologi bisnis Anda.</p>
     </section>
 
     <div class="founder-card">
@@ -1116,19 +1118,20 @@ export function renderPublicPage({ menus, siteConfig, projects = DEFAULT_PROJECT
       </div>
       <div>
         <div style="font-family: var(--font-mono); font-size: 11.5px; color: var(--cyan); margin-bottom: 6px;">
-          CHIEF EXECUTIVE &amp; SECURITY PRACTITIONER
+          FOUNDER &amp; PRAKTISI TEKNOLOGI INFORMASI
         </div>
         <h3 style="font-size: 26px; font-weight: 800; color: var(--white); margin-bottom: 4px;">${founderName}</h3>
         <p style="font-size: 14px; color: #94a3b8; font-weight: 600; margin-bottom: 14px;">${founderEdu}</p>
         <p style="font-size: 14.5px; color: #cbd5e1; line-height: 1.6; margin-bottom: 18px;">
-          "Menyatukan eksplorasi riset mendalam dengan reliabilitas operasional industri. Kami tidak hanya mengaudit kelemahan, tetapi merancang arsitektur sistematis agar infrastruktur tahan terhadap ancaman siber dan lonjakan trafik masif."
+          "Kami fokus menghadirkan solusi teknologi yang langsung terasa manfaatnya untuk operasional dan bisnis Anda: internet kantor tidak lagi lemot atau sering putus, sistem penjualan berjalan otomatis 24 jam tanpa repot jaga manual, dan data penting perusahaan Anda terlindungi aman dari peretas."
         </p>
         <div class="founder-badge-grid">
-          <span class="founder-pill">🛡️ VAPT &amp; SecOps</span>
-          <span class="founder-pill">🌐 MikroTik RouterOS Specialist</span>
-          <span class="founder-pill">⚡ High-Throughput MTProto Bots</span>
-          <span class="founder-pill">💳 FinTech &amp; H2H Gateway</span>
-          <span class="founder-pill">🔍 Reverse Engineering &amp; Forensics</span>
+          <span class="founder-pill">📶 Setting WiFi &amp; MikroTik Kantor</span>
+          <span class="founder-pill">🛡️ Pengamanan Web Anti-Hack</span>
+          <span class="founder-pill">🤖 Pembuatan Bot WA &amp; Telegram</span>
+          <span class="founder-pill">💳 Pemasangan QRIS Otomatis</span>
+          <span class="founder-pill">💻 Pembuatan Website &amp; Aplikasi</span>
+          <span class="founder-pill">🎓 Konsultasi IT &amp; Bimbingan S2</span>
         </div>
         <div style="margin-top: 16px; display: flex; gap: 10px; flex-wrap: wrap;">
           <a href="https://github.com/xyz-sur" target="_blank" class="btn-secondary" style="padding: 7px 15px; font-size: 12.5px;">
@@ -1142,41 +1145,41 @@ export function renderPublicPage({ menus, siteConfig, projects = DEFAULT_PROJECT
       </div>
     </div>
 
-    <!-- Standards & Frameworks Matrix Section -->
+    <!-- Keunggulan Layanan Kami Section -->
     <section class="section-head" id="standards">
-      <span class="section-tag">COMPLIANCE &amp; METHODOLOGY</span>
-      <h2 class="section-title">Standar Siber &amp; Kerangka Kerja Global</h2>
-      <p class="section-desc">Setiap solusi dan audit yang kami kerjakan mengacu secara ketat pada metodologi pengujian keamanan internasional dan rekayasa jaringan berstandar industri.</p>
+      <span class="section-tag">MENGAPA MEMILIH KAMI?</span>
+      <h2 class="section-title">4 Komitmen &amp; Keunggulan Layanan Kami</h2>
+      <p class="section-desc">Kami menjamin setiap pengerjaan dikerjakan secara rapi, bergaransi, dan memberikan hasil nyata untuk kelancaran bisnis dan operasional kantor Anda.</p>
     </section>
 
     <div class="standards-grid">
       <div class="standard-card">
+        <div class="standard-icon">📶</div>
+        <h3 class="standard-title">Internet Kantor Stabil &amp; Cepat</h3>
+        <p class="standard-desc">Bukan sekadar tersambung internet. Kami membagi kecepatan secara adil agar kasir, rapat online (Zoom), dan staf tidak saling berebut kuota. Otomatis pindah ke koneksi cadangan jika salah satu ISP bermasalah.</p>
+      </div>
+      <div class="standard-card">
         <div class="standard-icon">🛡️</div>
-        <h3 class="standard-title">NIST CSF 2.0 &amp; SP 800-115</h3>
-        <p class="standard-desc">Kerangka pengujian keamanan teknis menyeluruh mencakup fase Identifikasi, Proteksi, Deteksi anomali, Mitigasi respon insiden, hingga Pemulihan sistem secara cepat.</p>
+        <h3 class="standard-title">Sistem Aman dari Hacker &amp; Virus</h3>
+        <p class="standard-desc">Website, toko online, dan server kantor Anda kami periksa dan lindungi dari celah kebocoran data pelanggan, serangan virus/ransomware, maupun pengalihan situs (deface).</p>
       </div>
       <div class="standard-card">
-        <div class="standard-icon">🔍</div>
-        <h3 class="standard-title">OWASP ASVS &amp; Top 10 API</h3>
-        <p class="standard-desc">Standardisasi audit kerentanan aplikasi web dan REST/GraphQL microservices dari Broken Object Level Authorization (BOLA), SQLi, SSRF, hingga Race Condition.</p>
+        <div class="standard-icon">🤖</div>
+        <h3 class="standard-title">Bisnis Otomatis Berjalan 24 Jam</h3>
+        <p class="standard-desc">Toko online dan bot WhatsApp/Telegram Anda dapat melayani ribuan pembeli, menerima pembayaran QRIS otomatis, dan mengirim produk secara instan bahkan saat Anda sedang istirahat.</p>
       </div>
       <div class="standard-card">
-        <div class="standard-icon">🌐</div>
-        <h3 class="standard-title">MikroTik RouterOS v7 Core</h3>
-        <p class="standard-desc">Arsitektur perutean enterprise berbasis dynamic routing BGP/OSPF, multi-WAN auto failover &lt;1 detik, bandwidth HTB Queue Tree, serta tunnel WireGuard &amp; OVPN terisolasi.</p>
-      </div>
-      <div class="standard-card">
-        <div class="standard-icon">⚡</div>
-        <h3 class="standard-title">Zero-Trust &amp; CAS Concurrency</h3>
-        <p class="standard-desc">Pola transaksi atomik Compare-And-Swap (CAS) untuk pencegahan double-spend saldo, enkripsi sesi MTProto bot anti-spam, serta deployment edge Cloudflare tanpa cold-start.</p>
+        <div class="standard-icon">🤝</div>
+        <h3 class="standard-title">Didampingi Ahli Berpengalaman</h3>
+        <p class="standard-desc">Setiap pengerjaan diawasi dan dikerjakan langsung oleh Bang Mansur (lulusan S2 Magister Ilmu Komputer) dengan jaminan garansi pengerjaan dan panduan pemakaian yang ramah orang awam.</p>
       </div>
     </div>
 
-    <!-- Classified Projects & Solutions Section -->
+    <!-- Layanan & Portofolio Section -->
     <section class="section-head" id="projects">
-      <span class="section-tag">SOLUTIONS &amp; CLASSIFIED PORTFOLIO</span>
-      <h2 class="section-title">Klasifikasi Portofolio &amp; Layanan</h2>
-      <p class="section-desc">Pilihan spesialisasi terbagi dalam empat kluster kapabilitas: Jasa &amp; Audit Enterprise, Bot &amp; Otomasi Telegram, Pemrograman Web &amp; API, serta Regulasi Telekomunikasi.</p>
+      <span class="section-tag">DAFTAR LAYANAN &amp; PORTOFOLIO</span>
+      <h2 class="section-title">Layanan IT &amp; Proyek yang Siap Membantu Anda</h2>
+      <p class="section-desc">Pilih layanan yang sesuai kebutuhan bisnis Anda: mulai dari perbaikan jaringan WiFi kantor, bot otomatisasi jualan, pembuatan website toko online, hingga pengamanan sistem dan konsultasi.</p>
     </section>
 
     <!-- Interactive Category Filter -->
@@ -1216,92 +1219,91 @@ export function renderPublicPage({ menus, siteConfig, projects = DEFAULT_PROJECT
 
     <!-- Live Edge Diagnostics Sandbox -->
     <section class="section-head" id="diagnostic">
-      <span class="section-tag">LIVE EDGE SANDBOX</span>
-      <h2 class="section-title">Diagnostik Edge &amp; Keamanan Peramban</h2>
-      <p class="section-desc">Periksa integritas jaringan dan parameter keamanan koneksi Anda langsung dari node edge terdekat Cloudflare.</p>
+      <span class="section-tag">UJI KONEKSI INTERNET</span>
+      <h2 class="section-title">Cek Kualitas &amp; Keamanan Koneksi Anda</h2>
+      <p class="section-desc">Periksa kestabilan jaringan, alamat IP Anda, dan status keamanan koneksi langsung dari server terdekat.</p>
     </section>
 
     <div class="diag-box">
       <div class="diag-header">
-        <span>CLIENT_TELEMETRY_INSPECTOR // ACTIVE</span>
+        <span>PEMERIKSAAN KONEKSI // AKTIF</span>
         <button onclick="runSecurityAuditSimulation()" class="btn-primary" style="padding: 6px 14px; font-size: 11.5px;">
-          ▶ Jalankan Audit Keamanan
+          ▶ Cek Keamanan Koneksi
         </button>
       </div>
       <div class="diag-grid">
         <div class="diag-item">
-          <div class="diag-label">CLIENT IP ADDRESS</div>
+          <div class="diag-label">ALAMAT IP ANDA</div>
           <div class="diag-val" id="diag-ip">Mendeteksi...</div>
         </div>
         <div class="diag-item">
-          <div class="diag-label">DATACENTER EDGE (COLO)</div>
+          <div class="diag-label">SERVER TERDEKAT</div>
           <div class="diag-val" id="diag-colo">Mendeteksi...</div>
         </div>
         <div class="diag-item">
-          <div class="diag-label">TRANSPORT PROTOCOL</div>
-          <div class="diag-val" id="diag-proto">HTTP/3 (QUIC)</div>
+          <div class="diag-label">PROTOKOL INTERNET</div>
+          <div class="diag-val" id="diag-proto">HTTP/3 (Cepat)</div>
         </div>
         <div class="diag-item">
-          <div class="diag-label">CIPHER SUITE</div>
-          <div class="diag-val" id="diag-cipher">TLS_AES_128_GCM_SHA256</div>
+          <div class="diag-label">ENKRIPSI DATA</div>
+          <div class="diag-val" id="diag-cipher">Terenkripsi Aman (TLS 1.3)</div>
         </div>
       </div>
       <div class="diag-terminal" id="diag-console">
-        &gt; Inisialisasi inspeksi koneksi edge...<br>
-        &gt; Membaca header keamanan dan integritas sesi pengguna...<br>
-        &gt; Node Anycast operasional tanpa anomali. Klik [Jalankan Audit Keamanan] untuk simulasi inspeksi header.
+        &gt; Memeriksa kecepatan dan keamanan koneksi Anda...<br>
+        &gt; Koneksi terhubung dengan stabil. Klik tombol [Cek Keamanan Koneksi] untuk pemeriksaan lengkap.
       </div>
     </div>
 
     <!-- Interactive Solution Estimator -->
     <section class="section-head" id="calculator">
-      <span class="section-tag">CONSULTATION ESTIMATOR</span>
-      <h2 class="section-title">Kalkulator Estimasi Kebutuhan Solusi</h2>
-      <p class="section-desc">Pilih pilar spesialisasi dan skala sistem Anda untuk mendapatkan ringkasan metodologi kerja dan menyusun draft konsultasi instan.</p>
+      <span class="section-tag">HITUNG ESTIMASI KEBUTUHAN</span>
+      <h2 class="section-title">Pilih Layanan &amp; Dapatkan Solusi Terbaik</h2>
+      <p class="section-desc">Pilih jenis layanan dan skala bisnis Anda untuk melihat perkiraan lingkup kerja dan langsung berdiskusi dengan tim kami via WhatsApp.</p>
     </section>
 
     <div class="calc-box">
       <div>
-        <span class="calc-label">1. PILIH PILAR SPESIALISASI</span>
+        <span class="calc-label">1. PILIH JENIS LAYANAN</span>
         <div class="calc-btn-group" id="calc-solution-group">
-          <button class="calc-pill active" onclick="selectSolution(this, 'vapt')">🛡️ VAPT &amp; Web/API</button>
-          <button class="calc-pill" onclick="selectSolution(this, 'mikrotik')">🌐 MikroTik Enterprise</button>
-          <button class="calc-pill" onclick="selectSolution(this, 'bot')">⚡ Bot &amp; Userbot MTProto</button>
-          <button class="calc-pill" onclick="selectSolution(this, 'fintech')">💳 FinTech &amp; API H2H</button>
+          <button class="calc-pill active" onclick="selectSolution(this, 'jaringan')">📶 Setting WiFi &amp; Jaringan</button>
+          <button class="calc-pill" onclick="selectSolution(this, 'keamanan')">🛡️ Keamanan Web &amp; Anti-Hack</button>
+          <button class="calc-pill" onclick="selectSolution(this, 'bot')">🤖 Bot WA &amp; Telegram</button>
+          <button class="calc-pill" onclick="selectSolution(this, 'software')">💻 Website &amp; QRIS</button>
         </div>
 
-        <span class="calc-label">2. PILIH SKALA INFRASTRUKTUR</span>
+        <span class="calc-label">2. PILIH SKALA KEBUTUHAN</span>
         <div class="calc-btn-group" id="calc-scale-group">
-          <button class="calc-pill active" onclick="selectScale(this, 'startup')">🚀 Startup / UMKM</button>
-          <button class="calc-pill" onclick="selectScale(this, 'corp')">🏢 Korporasi / Multi-Branch</button>
-          <button class="calc-pill" onclick="selectScale(this, 'mission')">🛡️ High-Throughput Critical</button>
+          <button class="calc-pill active" onclick="selectScale(this, 'startup')">🏠 Toko / UMKM / Rumah</button>
+          <button class="calc-pill" onclick="selectScale(this, 'corp')">🏢 Kantor / Kafe / Ruko</button>
+          <button class="calc-pill" onclick="selectScale(this, 'mission')">🏬 Perusahaan / Skala Besar</button>
         </div>
 
         <div style="font-size: 13px; color: #94a3b8; line-height: 1.5; margin-top: 15px;">
-          Setiap proyek didampingi Non-Disclosure Agreement (NDA) resmi untuk menjamin kerahasiaan data sensitif dan arsitektur bisnis klien.
+          Setiap pengerjaan dilengkapi garansi teknis dan jaminan kerahasiaan data (NDA) untuk keamanan penuh operasional bisnis Anda.
         </div>
       </div>
 
       <div class="calc-result-box">
         <div>
           <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
-            <span style="font-family: var(--font-mono); font-size: 11px; color: var(--cyan);">ESTIMASI LINGKUP &amp; SLA</span>
-            <span class="badge official" id="calc-badge">STANDARD ENTERPRISE</span>
+            <span style="font-family: var(--font-mono); font-size: 11px; color: var(--cyan);">RINGKASAN SOLUSI &amp; GARANSI</span>
+            <span class="badge official" id="calc-badge">USAHA KECIL / UMKM</span>
           </div>
           <h4 id="calc-res-title" style="font-size: 18px; font-weight: 800; color: #fff; margin-bottom: 10px;">
-            Audit Penetrasi Keamanan Siber (VAPT)
+            Jasa Setting Jaringan WiFi &amp; Router MikroTik Kantor
           </h4>
           <p id="calc-res-desc" style="font-size: 13.5px; color: #94a3b8; line-height: 1.55; margin-bottom: 14px;">
-            Audit menyeluruh web application, REST API backend, dan infrastruktur cloud berdasarkan OWASP Top 10 dan NIST SP 800-115.
+            Optimalisasi internet kantor agar stabil tanpa lelet, pembagian bandwidth adil (agar Zoom/kasir tidak lag), penggabungan 2 provider internet (anti-mati lampu), serta koneksi aman antar cabang.
           </p>
           <div style="font-family: var(--font-mono); font-size: 12px; color: #cbd5e1; margin-bottom: 16px;">
-            <div>&bull; Deliverable: <span id="calc-res-deliv" style="color: var(--cyan);">Laporan Audit Eksekutif, Bukti Eksploitasi (PoC), &amp; Panduan Remediasi</span></div>
-            <div style="margin-top: 4px;">&bull; Respon SLA: <span id="calc-res-sla" style="color: #4ade80;">&lt; 2 Jam Tanggap Prioritas</span></div>
+            <div>&bull; Yang Didapat: <span id="calc-res-deliv" style="color: var(--cyan);">Konfigurasi Jaringan Bergaransi, Pengaturan Bandwidth, Skema Jaringan &amp; Pendampingan</span></div>
+            <div style="margin-top: 4px;">&bull; Waktu Respon: <span id="calc-res-sla" style="color: #4ade80;">&lt; 2 Jam Tanggap Cepat</span></div>
           </div>
         </div>
         <div style="display: flex; gap: 10px; flex-wrap: wrap;">
           <a id="calc-wa-btn" href="https://wa.me/62857100055554" target="_blank" class="btn-primary" style="flex: 1; justify-content: center; font-size: 13px; padding: 10px;">
-            Kirim Draft via WhatsApp
+            Konsultasikan via WhatsApp
           </a>
           <a id="calc-tg-btn" href="${tgUrl}" target="_blank" class="btn-secondary" style="flex: 1; justify-content: center; font-size: 13px; padding: 10px;">
             Diskusi via Telegram
@@ -1331,71 +1333,71 @@ export function renderPublicPage({ menus, siteConfig, projects = DEFAULT_PROJECT
       </div>
     </div>
 
-    <!-- FAQ Section (Google Rich Snippets & User Authority) -->
+    <!-- FAQ Section -->
     <section class="section-head" id="faq" style="margin-top: 60px;">
-      <span class="section-tag">PERTANYAAN UMUM &amp; KONSULTASI</span>
-      <h2 class="section-title">Pertanyaan Umum Seputar Layanan XSUR</h2>
+      <span class="section-tag">PERTANYAAN UMUM</span>
+      <h2 class="section-title">Pertanyaan yang Sering Diajukan</h2>
       <p class="section-sub">
-        Informasi esensial mengenai legalitas entitas, metodologi audit keamanan siber, arsitektur jaringan MikroTik, dan prosedur konsultasi bersama Bang Mansur.
+        Informasi seputar cara pemesanan jasa, garansi pengerjaan, dan alur konsultasi bersama Bang Mansur.
       </p>
     </section>
 
     <div class="faq-grid">
       <details class="faq-item" open>
-        <summary>Apa itu PT Xecure Siber Unggul Resolusi (XSUR)?</summary>
+        <summary>Layanan apa saja yang disediakan oleh PT Xecure Siber Unggul Resolusi (XSUR)?</summary>
         <p>
-          PT Xecure Siber Unggul Resolusi (XSUR) adalah startup teknologi dan firma keamanan siber berbadan hukum yang didirikan oleh Bang Mansur. XSUR menyatukan keahlian praktis lapangan dan riset akademik dalam bidang audit keamanan (VAPT), infrastruktur jaringan MikroTik RouterOS enterprise, sistem otomasi bot MTProto terdistribusi, serta gateway FinTech dan telekomunikasi CEIR.
+          Kami melayani berbagai kebutuhan IT praktis untuk bisnis, perkantoran, dan perorangan: 1) Setting jaringan WiFi kantor &amp; router MikroTik agar internet stabil dan anti-lelet, 2) Pembuatan website profil bisnis dan toko online modern, 3) Pembuatan bot WhatsApp dan Telegram otomatis untuk jualan 24 jam, 4) Pengamanan website dari serangan hacker dan virus, 5) Pemasangan sistem pembayaran QRIS otomatis semua bank, serta 6) Konsultasi IT dan bimbingan coding bersama S2 Komputer.
         </p>
       </details>
 
       <details class="faq-item">
-        <summary>Siapa Founder dan Chief Security Architect di balik XSUR?</summary>
+        <summary>Siapa yang mengerjakan dan mengawasi setiap proyek di XSUR?</summary>
         <p>
-          Founder dan Chief Security Architect XSUR adalah Bang Mansur, praktisi IT senior, profesional keamanan siber, dan lulusan S2 Magister Ilmu Komputer dengan spesialisasi rekayasa sistem terdistribusi, dynamic routing enterprise, dan reverse engineering.
+          Seluruh pengerjaan dipimpin langsung oleh Bang Mansur, praktisi IT senior dan profesional keamanan siber berpendidikan Magister Ilmu Komputer (S2) dengan pengalaman bertahun-tahun dalam menangani jaringan perkantoran, sistem otomasi, dan keamanan data.
         </p>
       </details>
 
       <details class="faq-item">
-        <summary>Layanan dan spesialisasi apa saja yang disediakan oleh PT Xecure Siber Unggul Resolusi?</summary>
+        <summary>Apakah ada garansi untuk jasa setting jaringan atau pembuatan sistem?</summary>
         <p>
-          XSUR menyediakan 5 pilar spesialisasi enterprise: 1) Vulnerability Assessment &amp; Penetration Testing (VAPT OWASP Top 10), 2) Arsitektur Jaringan MikroTik RouterOS Multi-WAN &amp; OVPN Cloud Tunneling, 3) Otomasi High-Throughput Telegram MTProto Userbot Fleet, 4) Integrasi Gateway Telekomunikasi CEIR &amp; IMEI Bea Cukai (@cekceirbot), serta 5) XSUR Webmail &amp; Disposable Temp Mail Suite (mail.xsur.my.id).
+          Tentu ada. Setiap jasa dan sistem yang kami bangun dilengkapi dengan masa garansi pengerjaan dan pendampingan teknis. Jika terjadi kendala atau butuh penyesuaian setelah pengerjaan selesai, kami siap membantu perbaikan hingga normal kembali.
         </p>
       </details>
 
       <details class="faq-item">
-        <summary>Bagaimana metodologi audit keamanan siber (VAPT) yang diterapkan oleh XSUR?</summary>
+        <summary>Saya orang awam dan tidak paham IT, apakah sistemnya mudah digunakan?</summary>
         <p>
-          Audit VAPT XSUR menggabungkan simulasi penyerangan black-box, gray-box, dan white-box yang mengacu pada standar global OWASP Top 10, NIST Cybersecurity Framework (CSF), dan SANS Top 25. Setiap temuan diverifikasi secara mendalam untuk mencegah false positive dan dilengkapi dokumen rekomendasi remediasi teknis yang dapat langsung dieksekusi tim developer.
+          Sangat mudah. Kami selalu merancang sistem yang ramah pengguna (user-friendly) agar bisa langsung dioperasikan oleh siapa saja. Kami juga menyediakan panduan penggunaan singkat yang jelas serta pelatihan bagi Anda atau staf Anda.
         </p>
       </details>
 
       <details class="faq-item">
-        <summary>Apakah XSUR melayani perancangan jaringan MikroTik enterprise dan multi-WAN antar kantor cabang?</summary>
+        <summary>Apakah data dan sistem bisnis saya dijamin kerahasiaannya?</summary>
         <p>
-          Ya, XSUR berpengalaman menangani perancangan core routing MikroTik RouterOS v7, failover otomatis multi-WAN BGP/OSPF, interkoneksi secure tunnel (WireGuard / OpenVPN) site-to-site tanpa tabrakan subnet IP lokal, serta alokasi bandwidth cerdas berbasis QoS Simple Queue / Queue Tree.
+          Pasti 100% aman. Kami menjunjung tinggi integritas privasi klien. Seluruh proyek dapat disertai dengan Perjanjian Kerahasiaan (Non-Disclosure Agreement / NDA) resmi sehingga data perusahaan Anda terjamin aman dan tidak akan dibagikan ke pihak mana pun.
         </p>
       </details>
 
       <details class="faq-item">
-        <summary>Bagaimana cara melakukan konsultasi teknis atau memulai kerjasama proyek dengan XSUR?</summary>
+        <summary>Bagaimana cara memesan jasa atau berkonsultasi?</summary>
         <p>
-          Anda dapat menghubungi Bang Mansur secara langsung melalui Telegram resmi di @cspremium2in atau @jasangiklan, WhatsApp di nomor +62 857-1000-55554, atau email resmi ke contact@xsur.my.id. Seluruh diskusi dapat disertai Non-Disclosure Agreement (NDA) untuk menjamin kerahasiaan penuh proyek Anda.
+          Anda cukup klik tombol WhatsApp atau Telegram yang tersedia di halaman ini. Ceritakan kendala atau kebutuhan Anda secara santai, dan kami akan memberikan saran solusi yang paling hemat, tepat sasaran, dan sesuai kebutuhan Anda.
         </p>
       </details>
     </div>
 
     <!-- Consultation CTA -->
     <section class="contact-card" id="contact">
-      <span class="section-tag">MULAI KERJASAMA</span>
+      <span class="section-tag">KONSULTASI MUDAH</span>
       <h2 style="font-size: clamp(24px, 4vw, 32px); font-weight: 800; margin-bottom: 12px; color: var(--white);">
-        Diskusikan Kebutuhan Infrastruktur &amp; Keamanan Anda
+        Punya Kendala IT atau Butuh Sistem Otomasi?
       </h2>
       <p style="font-size: 15px; color: var(--text-muted); max-width: 600px; margin: 0 auto 28px;">
-        Hubungi Bang Mansur secara langsung untuk konsultasi privat, NDA kerahasiaan proyek, atau penanganan insiden darurat.
+        Hubungi Bang Mansur langsung untuk berdiskusi santai mengenai perbaikan WiFi kantor, pembuatan bot jualan, website baru, atau pengamanan sistem bisnis Anda.
       </p>
       <div style="display: flex; justify-content: center; gap: 12px; flex-wrap: wrap;">
         <a href="${waUrl}" target="_blank" class="btn-primary" style="font-size: 14px; padding: 13px 26px;">
-          WhatsApp Direct (+62 857-1000-55554)
+          WhatsApp Langsung (+62 857-1000-55554)
         </a>
         <a href="${tgUrl}" target="_blank" class="btn-secondary" style="font-size: 14px; padding: 13px 24px;">
           Telegram DM (@premium2in)
@@ -1413,7 +1415,7 @@ export function renderPublicPage({ menus, siteConfig, projects = DEFAULT_PROJECT
       <div>
         <strong>${companyName}</strong> (${brandName}) &bull; &copy; ${new Date().getFullYear()} All Rights Reserved.
         <div style="font-size: 12px; color: #475569; margin-top: 4px;">
-          Infrastruktur dilindungi Cloudflare Enterprise Edge &bull; ISO/IEC &amp; NIST Framework Compliant &bull; WhatsApp +62 857-1000-55554
+          Solusi IT Profesional, Jaringan Internet Kantor &amp; Otomasi Bisnis &bull; Didampingi S2 Magister Ilmu Komputer &bull; WhatsApp: +62 857-1000-55554
         </div>
         <div style="font-size: 12px; color: #64748b; margin-top: 6px; display: flex; gap: 14px; flex-wrap: wrap;">
           <a href="https://mail.xsur.my.id" target="_blank" style="color: var(--cyan); text-decoration: none;">✉️ Webmail &amp; Temp Mail</a>
@@ -1438,7 +1440,7 @@ export function renderPublicPage({ menus, siteConfig, projects = DEFAULT_PROJECT
       closedStyle: 'button',
       closedChatAvatarUrl: 'https://i.ibb.co.com/LXK49TZc/unamed.png',
       cookieExpiration: 2,
-      introMessage: 'Halo! Ada yang bisa kami bantu terkait audit keamanan siber (VAPT), arsitektur MikroTik, bot Telegram, atau FinTech API?',
+      introMessage: 'Halo! Ada yang bisa kami bantu terkait setting WiFi kantor, pembuatan bot WhatsApp/Telegram, website baru, atau pengamanan sistem? Silakan chat langsung di sini.',
       autoResponse: 'Pesan Anda telah diteruskan langsung ke Telegram Bang Mansur (ID ${intergramChatId}). Mohon tunggu balasan sejenak...',
       autoNoResponse: 'Jika belum terbalas, silakan langsung hubungi Telegram @premium2in atau WhatsApp +62 857-1000-55554.',
       placeholderText: 'Ketik pesan konsultasi Anda...',
@@ -1523,36 +1525,36 @@ export function renderPublicPage({ menus, siteConfig, projects = DEFAULT_PROJECT
     }
 
     // Solution Estimator Logic
-    let currentSol = 'vapt';
+    let currentSol = 'jaringan';
     let currentScale = 'startup';
 
     const solutionData = {
-      vapt: {
-        title: 'Audit Penetrasi Keamanan Siber (VAPT)',
-        desc: 'Audit menyeluruh web application, REST API backend, dan infrastruktur cloud berdasarkan OWASP Top 10 dan NIST SP 800-115.',
-        deliv: 'Laporan Audit Eksekutif, Bukti Eksploitasi (PoC), & Panduan Remediasi'
+      jaringan: {
+        title: 'Jasa Setting Jaringan WiFi & Router MikroTik Kantor',
+        desc: 'Optimalisasi internet kantor agar stabil tanpa lelet, pembagian bandwidth adil (agar Zoom/kasir tidak lag), penggabungan 2 provider internet (anti-mati lampu), serta koneksi aman antar cabang.',
+        deliv: 'Konfigurasi Jaringan Bergaransi, Pengaturan Bandwidth, Skema Jaringan & Pendampingan'
       },
-      mikrotik: {
-        title: 'Arsitektur Jaringan MikroTik RouterOS v7 Enterprise',
-        desc: 'Konfigurasi Multi-WAN failover otomatis &lt;1 detik, bandwidth QoS Hierarchical Token Bucket, perutean dinamis BGP/OSPF, dan WireGuard VPN site-to-site.',
-        deliv: 'File Konfigurasi .rsc Teruji, Skema Topologi, & Monitoring Latensi'
+      keamanan: {
+        title: 'Jasa Audit & Pengamanan Website (Anti-Hack / Pentest)',
+        desc: 'Pemeriksaan menyeluruh celah keamanan website toko online dan sistem kantor sebelum dibobol hacker, perlindungan data pelanggan dari kebocoran, serta pembersihan sistem yang pernah kena hack.',
+        deliv: 'Laporan Celah Keamanan, Penutupan Bug / Patch, & Panduan Pencegahan Serangan'
       },
       bot: {
-        title: 'Distributed Telegram MTProto Automation Fleet',
-        desc: 'Pengembangan userbot dan bot worker berkecepatan tinggi dengan isolasi sesi MTProto, load balancing anti-flood, dan daemon background tangguh.',
-        deliv: 'Source Code Python/Telethon, Modul Anti-Spam, & Systemd Service Daemons'
+        title: 'Jasa Pembuatan Bot WhatsApp & Telegram Otomatis untuk Bisnis',
+        desc: 'Sistem asisten otomatis yang melayani pelanggan 24 jam nonstop: membalas pertanyaan pelanggan, mengirimkan notifikasi pesanan otomatis, cek pembayaran, dan promosi tanpa perlu admin standby.',
+        deliv: 'Bot Siap Pakai 24 Jam, Script Otomasi, Panduan Cara Pakai & Pelatihan Admin'
       },
-      fintech: {
-        title: 'PPOB & FinTech Transaction Engine',
-        desc: 'Sistem API gateway pembayaran dan transaksi digital dengan mutasi bank otomatis, transaksi atomik Compare-And-Swap (CAS), dan 2FA OTP Telegram.',
-        deliv: 'RESTful API Documentation, Database Schema D1/Postgres, & Dashboard Admin'
+      software: {
+        title: 'Jasa Pembuatan Website Perusahaan & Sistem Pembayaran QRIS',
+        desc: 'Pembuatan website profil bisnis modern yang cepat dan nyaman di HP, serta integrasi sistem pembayaran QRIS langsung lunas tanpa perlu cek mutasi transfer manual.',
+        deliv: 'Website Siap Online, Sistem QRIS Terintegrasi, Domain & Email Resmi Kantor'
       }
     };
 
     const scaleData = {
-      startup: { badge: 'STANDARD ENTERPRISE', sla: '&lt; 2 Jam Tanggap Prioritas' },
-      corp: { badge: 'MULTI-BRANCH SCALE', sla: '&lt; 1 Jam Tanggap Darurat' },
-      mission: { badge: 'MISSION CRITICAL 24/7', sla: '&lt; 15 Menit Dedicated Hotline' }
+      startup: { badge: 'USAHA KECIL / UMKM', sla: '&lt; 2 Jam Tanggap Cepat' },
+      corp: { badge: 'KANTOR / KAFE / RUKO', sla: '&lt; 1 Jam Tanggap Prioritas' },
+      mission: { badge: 'PERUSAHAAN / SKALA BESAR', sla: '&lt; 15 Menit Hotline Langsung' }
     };
 
     function selectSolution(btn, sol) {

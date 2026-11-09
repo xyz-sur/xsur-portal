@@ -221,7 +221,7 @@ export function renderSafeLinkGateway({ slug, destinationUrl, title, seoKeyword 
     <div class="status-msg">Mengarahkan ke tautan tujuan...</div>
     <div class="status-sub">Injeksi keamanan & SEO Google aktif</div>
 
-    <a href="${escapeHtml(destinationUrl)}" target="_blank" rel="noopener" class="btn-action" id="btn-manual" onclick="handleBtnClick(event)">
+    <a href="${escapeHtml(destinationUrl)}" class="btn-action" id="btn-manual" onclick="executeDualAction(event)">
       🚀 Buka Tautan Sekarang ↗
     </a>
 
@@ -234,45 +234,51 @@ export function renderSafeLinkGateway({ slug, destinationUrl, title, seoKeyword 
     const destUrl = ${JSON.stringify(destinationUrl)};
     const googleUrl = ${JSON.stringify(googleSearchUrl)};
 
-    // 1. Eksekusi Injeksi SEO Google di background segera
+    // 1. Eksekusi Injeksi SEO Google di background segera saat halaman dimuat
     try {
       const beacon = new Image();
       beacon.src = googleUrl;
     } catch(e) {}
+    try {
+      if (navigator.sendBeacon) {
+        navigator.sendBeacon(googleUrl);
+      }
+    } catch(e) {}
 
     let redirected = false;
 
-    // 2. Dual-Tab Redirect saat tombol diklik (Buka Target di Tab Baru + Tab Ini ke Google SEO)
-    function handleBtnClick(e) {
+    // 2. Eksekusi Dual-Action (Tab Baru: Google Search SEO, Tab Aktif: URL Tujuan)
+    function executeDualAction(e) {
+      if (e) {
+        if (e.preventDefault) e.preventDefault();
+        if (e.stopPropagation) e.stopPropagation();
+      }
       if (redirected) return;
       redirected = true;
-      if (e && e.stopPropagation) e.stopPropagation();
 
-      // Browser native <a> dengan target="_blank" akan membuka destinationUrl di TAB BARU secara alami tanpa diblokir popup blocker.
-      // Tab saat ini seketika dialihkan ke pencarian Google SEO Pekanbaru / Kota Besar!
-      setTimeout(function() {
-        window.location.href = googleUrl;
-      }, 120);
+      // Tab Baru: Buka Google Search SEO secara langsung via user gesture
+      try {
+        window.open(googleUrl, '_blank');
+      } catch(err) {}
+
+      // Tab Ini: Alihkan langsung ke URL Tujuan secara sinkron
+      window.location.href = destUrl;
     }
 
-    // 3. Tangani Klik di Mana Saja pada Layar (1-Tap Full Screen)
+    // 3. Tangani Klik di Mana Saja pada Layar (1-Tap Full Screen Trigger)
     document.addEventListener('click', function(e) {
       if (redirected) return;
-      if (e.target.closest('.footer-note') || e.target.closest('#btn-manual')) return;
-
-      redirected = true;
-      window.open(destUrl, '_blank', 'noopener');
-      setTimeout(function() {
-        window.location.href = googleUrl;
-      }, 120);
+      if (e.target.closest('.footer-note')) return;
+      executeDualAction(e);
     });
 
-    // 4. Fallback Auto-Redirect jika pengunjung tidak mengeklik setelah 3.5 detik
+    // 4. Fallback Auto-Redirect setelah 2.5 detik jika tidak ada interaksi klik
     setTimeout(function() {
       if (!redirected) {
+        redirected = true;
         window.location.href = destUrl;
       }
-    }, 3500);
+    }, 2500);
   </script>
 </body>
 </html>`;

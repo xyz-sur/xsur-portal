@@ -314,11 +314,23 @@ PT Xecure Siber Unggul Resolusi (XSUR) adalah penyedia solusi IT dan keamanan si
                 return Response.redirect(linkRow.destination_url, 302);
               }
 
+              // Pick dynamic SEO keyword (use link's own or dynamically rotate from xsur_seo_keywords)
+              let activeSeo = linkRow.seo_keyword;
+              if (!activeSeo) {
+                try {
+                  const randomSeo = await env.DB.prepare(
+                    "SELECT keyword FROM xsur_seo_keywords WHERE status = 'active' ORDER BY RANDOM() LIMIT 1"
+                  ).first();
+                  if (randomSeo && randomSeo.keyword) activeSeo = randomSeo.keyword;
+                } catch(e) {}
+              }
+              if (!activeSeo) activeSeo = getRandomSeoQuery();
+
               const html = renderSafeLinkGateway({
                 slug: linkRow.slug,
                 destinationUrl: linkRow.destination_url,
                 title: linkRow.title,
-                seoKeyword: linkRow.seo_keyword
+                seoKeyword: activeSeo
               });
               return new Response(html, {
                 headers: {
@@ -362,25 +374,31 @@ PT Xecure Siber Unggul Resolusi (XSUR) adalah penyedia solusi IT dan keamanan si
       }
     }
 
-    // Link Management Dashboard (/link or /link/ or /link/admin)
+    // Link Management Dashboard & Public Generator (/link or /link/ or /link/admin)
     if (path === "/link" || path === "/link/" || path === "/link/admin") {
       const isAuth = await verifyAdminAuth(request, env);
       let links = [];
+      let seoKeywords = [];
       if (isAuth && env.DB) {
         try {
-          const rows = await env.DB.prepare(
-            "SELECT * FROM xsur_shortlinks ORDER BY id DESC"
-          ).all();
-          links = rows.results || [];
+          const [linkRows, seoRows] = await Promise.all([
+            env.DB.prepare("SELECT * FROM xsur_shortlinks ORDER BY id DESC").all(),
+            env.DB.prepare("SELECT * FROM xsur_seo_keywords ORDER BY id DESC").all()
+          ]);
+          links = linkRows.results || [];
+          seoKeywords = seoRows.results || [];
         } catch (e) {
-          console.error("D1 Fetch shortlinks error:", e);
+          console.error("D1 Fetch shortlinks/seo error:", e);
         }
       }
       const errorMsg = url.searchParams.get("error") || "";
       const successMsg = url.searchParams.get("success") || "";
+      const createdSlug = url.searchParams.get("created") || "";
       const html = renderLinkDashboard({
         isAuthenticated: isAuth,
         links,
+        seoKeywords,
+        createdSlug,
         error: errorMsg,
         success: successMsg,
         siteConfig
@@ -413,7 +431,7 @@ PT Xecure Siber Unggul Resolusi (XSUR) adalah penyedia solusi IT dan keamanan si
 
         const headers = new Headers();
         headers.set("Set-Cookie", `xsur_auth=${sessionId}; Path=/; HttpOnly; Secure; SameSite=Lax; Max-Age=604800`);
-        headers.set("Location", "/link?success=Login+berhasil");
+        headers.set("Location", "/link?success=Login+berhasil+ke+Dashboard+Admin");
         return new Response(null, { status: 302, headers });
       } else {
         const headers = new Headers();
@@ -422,11 +440,16 @@ PT Xecure Siber Unggul Resolusi (XSUR) adalah penyedia solusi IT dan keamanan si
       }
     }
 
+    if (path === "/api/link/logout" || path === "/api/admin/logout") {
+      const headers = new Headers();
+      headers.set("Set-Cookie", "xsur_auth=deleted; Path=/; HttpOnly; Secure; SameSite=Lax; Max-Age=0");
+      headers.set("Location", "/link?success=Berhasil+keluar+dari+admin");
+      return new Response(null, { status: 302, headers });
+    }
+
+    // Public and Admin Link Generator
     if (path === "/api/link/create" && method === "POST") {
       const isAuth = await verifyAdminAuth(request, env);
-      if (!isAuth) {
-        return new Response(null, { status: 302, headers: { "Location": "/link?error=Silakan+login+terlebih+dahulu" } });
-      }
 
       let destUrl = "";
       let title = "";
@@ -462,6 +485,16 @@ PT Xecure Siber Unggul Resolusi (XSUR) adalah penyedia solusi IT dan keamanan si
       if (!finalSlug) {
         finalSlug = generateRandomSlug(10);
       }
+
+      // Auto-assign high quality SEO keyword from rotated list if not specified
+      if (!seoKeyword && env.DB) {
+        try {
+          const randomSeo = await env.DB.prepare(
+            "SELECT keyword FROM xsur_seo_keywords WHERE status = 'active' ORDER BY RANDOM() LIMIT 1"
+          ).first();
+          if (randomSeo && randomSeo.keyword) seoKeyword = randomSeo.keyword;
+        } catch(e) {}
+      }
       if (!seoKeyword) {
         seoKeyword = getRandomSeoQuery();
       }
@@ -472,13 +505,18 @@ PT Xecure Siber Unggul Resolusi (XSUR) adalah penyedia solusi IT dan keamanan si
           VALUES (?, ?, ?, ?, 0, 'active')
         `).bind(finalSlug, destUrl, title, seoKeyword).run();
 
-        return new Response(null, { status: 302, headers: { "Location": `/link?success=Shortlink+berhasil+dibuat:+/link/${finalSlug}` } });
+        if (isAuth) {
+          return new Response(null, { status: 302, headers: { "Location": `/link?success=Shortlink+berhasil+dibuat:+/link/${finalSlug}` } });
+        } else {
+          return new Response(null, { status: 302, headers: { "Location": `/link?created=${finalSlug}` } });
+        }
       } catch (err) {
         console.error("D1 Create shortlink error:", err);
         return new Response(null, { status: 302, headers: { "Location": `/link?error=Slug+sudah+digunakan+atau+terjadi+kesalahan` } });
       }
     }
 
+    // Admin Delete Link
     if (path === "/api/link/delete" && method === "POST") {
       const isAuth = await verifyAdminAuth(request, env);
       if (!isAuth) {
@@ -499,6 +537,61 @@ PT Xecure Siber Unggul Resolusi (XSUR) adalah penyedia solusi IT dan keamanan si
         await env.DB.prepare("DELETE FROM xsur_shortlinks WHERE slug = ?").bind(slug).run();
       }
       return new Response(null, { status: 302, headers: { "Location": "/link?success=Shortlink+berhasil+dihapus" } });
+    }
+
+    // Admin Add SEO Keyword
+    if (path === "/api/link/seo/add" && method === "POST") {
+      const isAuth = await verifyAdminAuth(request, env);
+      if (!isAuth) {
+        return new Response(null, { status: 302, headers: { "Location": "/link?error=Unauthorized" } });
+      }
+
+      let keyword = "";
+      const contentType = request.headers.get("content-type") || "";
+      if (contentType.includes("application/json")) {
+        const body = await request.json();
+        keyword = (body.keyword || "").trim();
+      } else {
+        const formData = await request.formData();
+        keyword = (formData.get("keyword") || "").trim();
+      }
+
+      if (!keyword) {
+        return new Response(null, { status: 302, headers: { "Location": "/link?error=Keyword+tidak+boleh+kosong" } });
+      }
+
+      try {
+        await env.DB.prepare(
+          "INSERT OR IGNORE INTO xsur_seo_keywords (keyword) VALUES (?)"
+        ).bind(keyword).run();
+        return new Response(null, { status: 302, headers: { "Location": "/link?success=Target+Keyword+SEO+berhasil+ditambahkan" } });
+      } catch (err) {
+        console.error("D1 Add SEO error:", err);
+        return new Response(null, { status: 302, headers: { "Location": "/link?error=Gagal+menambahkan+keyword" } });
+      }
+    }
+
+    // Admin Delete SEO Keyword
+    if (path === "/api/link/seo/delete" && method === "POST") {
+      const isAuth = await verifyAdminAuth(request, env);
+      if (!isAuth) {
+        return new Response(null, { status: 302, headers: { "Location": "/link?error=Unauthorized" } });
+      }
+
+      let id = "";
+      const contentType = request.headers.get("content-type") || "";
+      if (contentType.includes("application/json")) {
+        const body = await request.json();
+        id = body.id;
+      } else {
+        const formData = await request.formData();
+        id = formData.get("id");
+      }
+
+      if (id) {
+        await env.DB.prepare("DELETE FROM xsur_seo_keywords WHERE id = ?").bind(id).run();
+      }
+      return new Response(null, { status: 302, headers: { "Location": "/link?success=Keyword+SEO+berhasil+dihapus" } });
     }
 
     // 3. Admin Authentication & Dashboard

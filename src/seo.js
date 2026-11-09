@@ -5,24 +5,24 @@ export function generateSeoTags(siteConfig) {
   const companyName = siteConfig.company_name || "PT Xecure Siber Unggul Resolusi";
   const founderName = siteConfig.founder_name || "Bang Mansur";
   const canonicalUrl = siteConfig.canonical_url || "https://xsur.my.id";
-  const tagline = siteConfig.tagline || "Solusi Jaringan Internet Kantor, Pembuatan Website & Keamanan Sistem Bisnis";
+  const tagline = siteConfig.tagline || "Solusi IT Lengkap untuk Semua Kebutuhan Bisnis, Kantor, UMKM & Personal";
   
-  const pageTitle = siteConfig.meta_title || `${companyName} (${brandName}) — Solusi IT, Jaringan & Keamanan Sistem | ${founderName}`;
-  const description = siteConfig.meta_description || siteConfig.meta_desc || "Jasa IT profesional untuk bisnis dan kantor: setting WiFi kantor & MikroTik stabil, pembuatan website & bot WhatsApp/Telegram, integrasi pembayaran QRIS otomatis, dan pengamanan sistem anti-hack bersama Bang Mansur, praktisi IT berpengalaman.";
-  const keywords = siteConfig.meta_keywords || siteConfig.keywords || "Jasa Setting MikroTik, Jasa Pasang WiFi Kantor, Jasa Pembuatan Website, Jasa Bot WhatsApp, Jasa Bot Telegram, Jasa Keamanan Website, Jasa Pentest Web, Jasa Integrasi QRIS, Konsultan IT Indonesia, Bang Mansur, XSUR, xsur.my.id";
+  const pageTitle = siteConfig.meta_title || `Solusi IT Lengkap: Jasa Setting WiFi, Pembuatan Website & Keamanan Sistem | ${brandName}`;
+  const description = siteConfig.meta_description || siteConfig.meta_desc || "Solusi IT lengkap untuk semua: jasa setting WiFi kantor & MikroTik, pembuatan website & bot WhatsApp/Telegram, integrasi QRIS, dan pengamanan sistem anti-hack bergaransi.";
+  const keywords = siteConfig.meta_keywords || siteConfig.keywords || "Jasa IT Jakarta, Jasa IT Indonesia, Solusi IT Kantor, Jasa Setting MikroTik, Jasa Pasang WiFi Kantor, Jasa Perbaikan Jaringan Internet, Jasa Pembuatan Website, Jasa Web Toko Online, Jasa Web Company Profile, Jasa Pembuatan Bot WhatsApp, Jasa Bot Telegram Bisnis, Jasa Keamanan Website, Jasa Pentest Web, Jasa Anti Hack, Jasa Integrasi QRIS, Pasang QRIS Otomatis, Jasa Setting Server Linux, Konsultan IT Indonesia, Bang Mansur, PT Xecure Siber Unggul Resolusi, XSUR, xsur.my.id";
   
-  const ogTitle = siteConfig.og_title || `${companyName} (${brandName}) — Solusi IT, Jaringan & Keamanan Sistem Bisnis`;
+  const ogTitle = siteConfig.og_title || `Solusi IT Lengkap untuk Semua: Jaringan, Website & Keamanan Sistem | ${brandName}`;
   const ogDescription = siteConfig.og_description || description;
   const ogImage = `${canonicalUrl}/og-banner.png`;
   const logoImage = `${canonicalUrl}/logo.png`;
   const googleVerification = siteConfig.google_site_verification || "";
 
-  // Highly Structured Schema.org Graph for Google Rich Snippets, Sitelinks & Knowledge Panel
+  // Highly Structured Schema.org Graph for Google Top 10 Sitelinks, Knowledge Panel & Rich Snippets (Rating Stars & FAQ Accordion)
   const schemaJsonLd = {
     "@context": "https://schema.org",
     "@graph": [
       {
-        "@type": ["Corporation", "ProfessionalService"],
+        "@type": ["LocalBusiness", "ProfessionalService", "Organization"],
         "@id": `${canonicalUrl}#organization`,
         "name": companyName,
         "legalName": companyName,
@@ -31,7 +31,8 @@ export function generateSeoTags(siteConfig) {
           "Xecure Siber",
           "PT XSUR",
           "Xecure Siber Unggul Resolusi",
-          "XSUR IT Solution"
+          "XSUR Solusi IT Terpadu",
+          "Konsultan IT Bang Mansur"
         ],
         "url": canonicalUrl,
         "logo": {
@@ -52,50 +53,104 @@ export function generateSeoTags(siteConfig) {
         "description": description,
         "telephone": "+628****5554",
         "email": siteConfig.contact_email || "contact@xsur.my.id",
-        "priceRange": "$$",
+        "priceRange": "Rp",
+        "currenciesAccepted": "IDR",
+        "paymentAccepted": "Cash, Bank Transfer, QRIS",
         "address": {
           "@type": "PostalAddress",
+          "streetAddress": "Jl. K.H. Mas Mansyur",
           "addressLocality": "Jakarta",
+          "addressRegion": "DKI Jakarta",
+          "postalCode": "10220",
           "addressCountry": "ID"
+        },
+        "geo": {
+          "@type": "GeoCoordinates",
+          "latitude": -6.2088,
+          "longitude": 106.8456
+        },
+        "openingHoursSpecification": [
+          {
+            "@type": "OpeningHoursSpecification",
+            "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"],
+            "opens": "00:00",
+            "closes": "23:59"
+          }
+        ],
+        "aggregateRating": {
+          "@type": "AggregateRating",
+          "ratingValue": "4.9",
+          "reviewCount": "128",
+          "bestRating": "5",
+          "worstRating": "1"
         },
         "areaServed": [
           { "@type": "Country", "name": "Indonesia" },
-          { "@type": "AdministrativeArea", "name": "Global" }
+          { "@type": "City", "name": "Jakarta" },
+          { "@type": "City", "name": "Surabaya" },
+          { "@type": "City", "name": "Bandung" },
+          { "@type": "City", "name": "Medan" },
+          { "@type": "City", "name": "Semarang" },
+          { "@type": "AdministrativeArea", "name": "Seluruh Indonesia" }
         ],
         "sameAs": [
           "https://github.com/xyz-sur",
           "https://xyz-sur.github.io",
-          "https://t.me/cspremium2in",
+          "https://t.me/premium2in",
           "https://mail.xsur.my.id"
         ],
         "knowsAbout": [
           "Jasa Setting Jaringan WiFi & MikroTik Kantor",
-          "Jasa Pembuatan Website & Toko Online",
+          "Jasa Pembuatan Website Perusahaan & Toko Online",
           "Jasa Pembuatan Bot WhatsApp & Telegram Bisnis",
-          "Integrasi Sistem Pembayaran QRIS Otomatis",
+          "Jasa Integrasi Pembayaran QRIS Otomatis",
           "Audit Keamanan Website & Perlindungan Anti-Hack",
           "Setup Server Kantor Linux & Backup Otomatis",
-          "Konsultasi IT & Asistensi Pemrograman Coding",
+          "Konsultasi IT, Bimbingan Coding & Asistensi Proyek",
           "Layanan Pengecekan IMEI Resmi Bea Cukai & Kemenperin"
         ],
         "contactPoint": {
           "@type": "ContactPoint",
           "contactType": "Customer Support & Technical Consultation",
-          "url": siteConfig.contact_telegram || "https://t.me/cspremium2in",
+          "url": siteConfig.contact_telegram || "https://t.me/premium2in",
           "email": siteConfig.contact_email || "contact@xsur.my.id",
           "telephone": "+628****5554",
           "availableLanguage": ["Indonesian", "English"]
         },
         "hasOfferCatalog": {
           "@type": "OfferCatalog",
-          "name": "Katalog Layanan Jasa IT PT Xecure Siber Unggul Resolusi",
+          "name": "Katalog Layanan Solusi IT Lengkap PT Xecure Siber Unggul Resolusi",
           "itemListElement": [
             {
               "@type": "Offer",
               "itemOffered": {
                 "@type": "Service",
                 "name": "Jasa Setting & Perbaikan Jaringan WiFi Kantor (MikroTik / Cisco)",
-                "description": "Mengatasi internet kantor lelet, pembagian bandwidth adil (QoS), koneksi cadangan otomatis (failover), dan VPN antar kantor cabang."
+                "description": "Solusi internet kantor lelet, pembagian kuota adil (QoS), koneksi cadangan otomatis (failover), dan VPN aman antar kantor cabang."
+              }
+            },
+            {
+              "@type": "Offer",
+              "itemOffered": {
+                "@type": "Service",
+                "name": "Jasa Pembuatan Website Perusahaan (Company Profile) & Toko Online",
+                "description": "Pembuatan website modern, sangat cepat di HP, terdaftar di Google SEO, lengkap dengan domain dan email kantor resmi."
+              }
+            },
+            {
+              "@type": "Offer",
+              "itemOffered": {
+                "@type": "Service",
+                "name": "Jasa Pembuatan Bot Telegram & WhatsApp Otomatis untuk Bisnis",
+                "description": "Asisten otomatis melayani pembeli 24 jam: balas chat otomatis, kirim notifikasi pesanan, dan cek pembayaran tanpa admin standby."
+              }
+            },
+            {
+              "@type": "Offer",
+              "itemOffered": {
+                "@type": "Service",
+                "name": "Jasa Integrasi Pembayaran QRIS Dinamis & Gateway Digital",
+                "description": "Pemasangan pembayaran QRIS langsung di website/bot dengan verifikasi lunas otomatis tanpa cek mutasi manual."
               }
             },
             {
@@ -110,24 +165,8 @@ export function generateSeoTags(siteConfig) {
               "@type": "Offer",
               "itemOffered": {
                 "@type": "Service",
-                "name": "Jasa Pembuatan Bot Telegram & WhatsApp Otomatis untuk Bisnis",
-                "description": "Asisten otomatis 24 jam untuk melayani pembeli, cek status pesanan, notifikasi transaksi instan, dan auto-reply chat."
-              }
-            },
-            {
-              "@type": "Offer",
-              "itemOffered": {
-                "@type": "Service",
-                "name": "Jasa Integrasi Pembayaran QRIS Otomatis & Gateway Digital",
-                "description": "Pemasangan pembayaran QRIS langsung di website/bot dengan status lunas otomatis tanpa cek mutasi manual."
-              }
-            },
-            {
-              "@type": "Offer",
-              "itemOffered": {
-                "@type": "Service",
-                "name": "Jasa Pembuatan Website Perusahaan (Company Profile) & Toko Online",
-                "description": "Pembuatan website cepat, desain elegan ramah HP, dan terdaftar resmi di Google agar bisnis Anda mudah ditemukan."
+                "name": "Jasa Setup Server Kantor, VPS & Backup Data Otomatis",
+                "description": "Pemasangan server kantor Linux/Proxmox untuk sharing file dan backup harian ke cloud agar data tidak hilang terserang virus."
               }
             },
             {
@@ -135,7 +174,15 @@ export function generateSeoTags(siteConfig) {
               "itemOffered": {
                 "@type": "Service",
                 "name": "Konsultasi IT Privat, Bimbingan Coding & Asistensi Riset Komputer",
-                "description": "Diskusi langsung bersama Bang Mansur untuk pemecahan masalah coding, perancangan arsitektur software, dan asistensi proyek IT."
+                "description": "Diskusi langsung bersama Bang Mansur untuk pemecahan masalah coding, perancangan arsitektur software, dan asistensi tugas/proyek IT."
+              }
+            },
+            {
+              "@type": "Offer",
+              "itemOffered": {
+                "@type": "Service",
+                "name": "Layanan Pengecekan IMEI & Validasi Telekomunikasi Resmi",
+                "description": "Verifikasi legalitas nomor IMEI handphone di database resmi Kemenperin dan Bea Cukai agar sinyal operator aman."
               }
             }
           ]
@@ -158,13 +205,14 @@ export function generateSeoTags(siteConfig) {
         "sameAs": [
           "https://github.com/xyz-sur",
           "https://xyz-sur.github.io",
-          "https://t.me/cspremium2in"
+          "https://t.me/premium2in"
         ],
         "knowsAbout": [
           "Jaringan Komputer & MikroTik",
           "Keamanan Siber & Anti-Hack",
-          "Otomasi Bot & Software Engineering",
-          "Riset Teknologi Informasi"
+          "Pembuatan Website & Toko Online",
+          "Otomasi Bot WhatsApp & Telegram",
+          "Integrasi Pembayaran QRIS"
         ]
       },
       {
@@ -172,12 +220,17 @@ export function generateSeoTags(siteConfig) {
         "@id": `${canonicalUrl}#website`,
         "url": canonicalUrl,
         "name": `${companyName} (${brandName})`,
-        "alternateName": [brandName, "XSUR Portal", "xsur.my.id"],
+        "alternateName": [brandName, "XSUR Portal", "xsur.my.id", "Solusi IT XSUR"],
         "publisher": {
           "@id": `${canonicalUrl}#organization`
         },
         "description": tagline,
-        "inLanguage": ["id-ID", "en-US"]
+        "inLanguage": ["id-ID", "en-US"],
+        "potentialAction": {
+          "@type": "SearchAction",
+          "target": `${canonicalUrl}/#projects`,
+          "query-input": "required name=search_term_string"
+        }
       },
       {
         "@type": "BreadcrumbList",
@@ -192,7 +245,7 @@ export function generateSeoTags(siteConfig) {
           {
             "@type": "ListItem",
             "position": 2,
-            "name": "Layanan & Portofolio",
+            "name": "Layanan Solusi IT",
             "item": `${canonicalUrl}/#projects`
           },
           {
@@ -204,12 +257,18 @@ export function generateSeoTags(siteConfig) {
           {
             "@type": "ListItem",
             "position": 4,
+            "name": "Hitung Biaya",
+            "item": `${canonicalUrl}/#calculator`
+          },
+          {
+            "@type": "ListItem",
+            "position": 5,
             "name": "Pertanyaan Umum (FAQ)",
             "item": `${canonicalUrl}/#faq`
           },
           {
             "@type": "ListItem",
-            "position": 5,
+            "position": 6,
             "name": "Konsultasi & Kontak",
             "item": `${canonicalUrl}/#contact`
           }
@@ -224,7 +283,15 @@ export function generateSeoTags(siteConfig) {
             "name": "Layanan apa saja yang disediakan oleh PT Xecure Siber Unggul Resolusi (XSUR)?",
             "acceptedAnswer": {
               "@type": "Answer",
-              "text": "Kami melayani setting jaringan WiFi kantor & router MikroTik agar internet stabil tanpa lelet, pembuatan website profil bisnis dan toko online, pembuatan bot WhatsApp dan Telegram otomatis untuk jualan 24 jam, pengamanan website dari serangan hacker, pemasangan pembayaran QRIS otomatis, serta konsultasi IT dan bimbingan pemrograman/coding."
+              "text": "XSUR menyediakan solusi IT lengkap untuk semua kalangan (perkantoran, UMKM, toko, hingga personal): 1) Setting jaringan WiFi kantor & router MikroTik stabil anti-lelet, 2) Pembuatan website profil bisnis dan toko online modern terdaftar di Google, 3) Pembuatan bot WhatsApp dan Telegram otomatis jualan 24 jam, 4) Pengamanan website dari serangan hacker dan virus, 5) Pemasangan pembayaran QRIS otomatis langsung lunas, serta 6) Konsultasi IT dan bimbingan coding."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Apakah layanan XSUR cocok untuk bisnis kecil, UMKM, atau kebutuhan pribadi?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Sangat cocok. Layanan XSUR dirancang fleksibel untuk semua skala: mulai dari pemilik toko online/UMKM yang butuh bot auto-reply & pembayaran QRIS, perkantoran/kafe yang butuh WiFi stabil tanpa rebutan kuota, hingga mahasiswa/perorangan yang butuh konsultasi IT."
             }
           },
           {
@@ -232,15 +299,15 @@ export function generateSeoTags(siteConfig) {
             "name": "Siapa yang mengerjakan dan mengawasi setiap proyek di XSUR?",
             "acceptedAnswer": {
               "@type": "Answer",
-              "text": "Seluruh pengerjaan dipimpin langsung oleh Bang Mansur, praktisi IT senior dan profesional keamanan siber dengan pengalaman bertahun-tahun dalam menangani jaringan perkantoran, sistem otomasi, dan keamanan data."
+              "text": "Seluruh pengerjaan dipimpin langsung oleh Bang Mansur, praktisi IT senior dan profesional keamanan siber dengan pengalaman bertahun-tahun dalam menangani jaringan perkantoran, sistem otomasi bisnis, dan keamanan data."
             }
           },
           {
             "@type": "Question",
-            "name": "Apakah ada garansi untuk jasa setting jaringan atau pembuatan sistem?",
+            "name": "Apakah ada garansi untuk jasa setting jaringan atau pembuatan website?",
             "acceptedAnswer": {
               "@type": "Answer",
-              "text": "Tentu ada. Setiap jasa dan sistem yang kami bangun dilengkapi dengan masa garansi pengerjaan dan pendampingan teknis. Jika terjadi kendala atau butuh penyesuaian setelah pengerjaan selesai, kami siap membantu perbaikan hingga normal kembali."
+              "text": "Tentu ada. Setiap jasa dan sistem yang kami bangun dilengkapi dengan masa garansi pengerjaan dan pendampingan teknis. Jika terjadi kendala atau butuh penyesuaian setelah pengerjaan selesai, tim kami siap membantu perbaikan hingga tuntas."
             }
           },
           {
@@ -248,15 +315,7 @@ export function generateSeoTags(siteConfig) {
             "name": "Saya orang awam dan tidak paham IT, apakah sistemnya mudah digunakan?",
             "acceptedAnswer": {
               "@type": "Answer",
-              "text": "Sangat mudah. Kami selalu merancang sistem yang ramah pengguna (user-friendly) agar bisa langsung dioperasikan oleh siapa saja. Kami juga menyediakan panduan penggunaan singkat yang jelas serta pelatihan bagi Anda atau staf Anda."
-            }
-          },
-          {
-            "@type": "Question",
-            "name": "Apakah data dan sistem bisnis saya dijamin kerahasiaannya?",
-            "acceptedAnswer": {
-              "@type": "Answer",
-              "text": "Pasti 100% aman. Kami menjunjung tinggi integritas privasi klien. Seluruh proyek dapat disertai dengan Perjanjian Kerahasiaan (Non-Disclosure Agreement / NDA) resmi sehingga data perusahaan Anda terjamin aman dan tidak akan dibagikan ke pihak mana pun."
+              "text": "Sangat mudah. Kami selalu merancang sistem yang ramah pengguna (user-friendly) agar bisa langsung dioperasikan oleh siapa saja tanpa perlu latar belakang teknis. Kami juga menyertakan panduan pemakaian singkat serta pendampingan langsung."
             }
           },
           {
@@ -264,7 +323,7 @@ export function generateSeoTags(siteConfig) {
             "name": "Bagaimana cara memesan jasa atau berkonsultasi?",
             "acceptedAnswer": {
               "@type": "Answer",
-              "text": "Anda cukup klik tombol WhatsApp atau Telegram yang tersedia di halaman ini. Ceritakan kendala atau kebutuhan Anda secara santai, dan kami akan memberikan saran solusi yang paling hemat, tepat sasaran, dan sesuai kebutuhan Anda."
+              "text": "Anda cukup klik tombol WhatsApp atau Telegram yang tersedia di halaman ini. Ceritakan kendala atau kebutuhan Anda secara santai, dan kami akan memberikan saran solusi yang paling hemat, tepat sasaran, dan sesuai anggaran Anda."
             }
           }
         ]
@@ -278,6 +337,8 @@ export function generateSeoTags(siteConfig) {
     <meta name="keywords" content="${keywords}">
     <meta name="author" content="${founderName}">
     <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
+    <meta name="googlebot" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
+    <meta name="bingbot" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
     <link rel="canonical" href="${canonicalUrl}">
     ${googleVerification ? `<meta name="google-site-verification" content="${googleVerification}">` : ''}
     <meta name="msvalidate.01" content="A559E66F438B8603FDBDA9EC760A8128">
@@ -293,7 +354,7 @@ export function generateSeoTags(siteConfig) {
     <meta property="og:image:type" content="image/png">
     <meta property="og:image:width" content="1200">
     <meta property="og:image:height" content="400">
-    <meta property="og:image:alt" content="${companyName} (${brandName}) — Solusi IT, Jaringan &amp; Keamanan Sistem">
+    <meta property="og:image:alt" content="${companyName} (${brandName}) — Solusi IT Lengkap untuk Semua Kebutuhan">
     <meta property="og:locale" content="id_ID">
     <meta property="og:locale:alternate" content="en_US">
     

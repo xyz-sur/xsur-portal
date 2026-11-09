@@ -387,7 +387,37 @@ export function renderPublicPage({ menus, siteConfig, projects = DEFAULT_PROJECT
       align-items: center;
       gap: 16px;
       flex-wrap: wrap;
-      margin-bottom: 48px;
+      margin-bottom: 24px;
+    }
+    .audience-strip {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-bottom: 40px;
+      padding: 10px 18px;
+      background: rgba(15, 23, 42, 0.7);
+      border: 1px solid rgba(0, 242, 254, 0.15);
+      border-radius: 30px;
+      width: fit-content;
+      max-width: 100%;
+    }
+    .audience-label {
+      font-size: 11.5px;
+      font-weight: 800;
+      color: var(--cyan);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      font-family: var(--font-mono);
+    }
+    .audience-pill {
+      font-size: 12px;
+      color: #e2e8f0;
+      background: rgba(255, 255, 255, 0.06);
+      padding: 3px 11px;
+      border-radius: 16px;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      white-space: nowrap;
     }
     .btn-primary {
       background: var(--cyan);
@@ -1060,13 +1090,13 @@ export function renderPublicPage({ menus, siteConfig, projects = DEFAULT_PROJECT
     <section class="hero" id="hero">
       <div class="hero-tag">
         <span class="dot"></span>
-        <span>JASA IT PROFESIONAL &amp; SOLUSI DIGITAL BISNIS</span>
+        <span>SOLUSI IT TERPADU UNTUK SEMUA KEBUTUHAN ANDA</span>
       </div>
       <h1 class="hero-title">
-        Solusi Jaringan Internet Kantor, Pembuatan Website &amp; <span class="gradient-text">Keamanan Sistem Bisnis Anda</span>
+        Solusi IT Lengkap untuk Semua: Jaringan, Website, Bot Otomasi &amp; <span class="gradient-text">Keamanan Sistem Bisnis</span>
       </h1>
       <p class="hero-desc">
-        PT Xecure Siber Unggul Resolusi (XSUR) melayani setting jaringan WiFi kantor &amp; MikroTik agar internet stabil tanpa lemot, pembuatan website perusahaan &amp; toko online, bot otomatisasi WhatsApp/Telegram untuk jualan 24 jam, integrasi pembayaran QRIS otomatis, hingga pengamanan sistem dari serangan hacker. Didampingi langsung oleh Bang Mansur, praktisi IT berpengalaman.
+        PT Xecure Siber Unggul Resolusi (XSUR) hadir sebagai mitra teknologi serba ada untuk siapa saja — perkantoran, ruko, toko online/UMKM, startup, hingga kebutuhan personal: mulai dari perbaikan jaringan WiFi kantor &amp; MikroTik agar internet stabil tanpa lemot, pembuatan website modern, bot WhatsApp/Telegram otomatis 24 jam, integrasi pembayaran QRIS instan, hingga pengamanan sistem dari serangan hacker. Cepat, terpercaya, dan bergaransi penuh bersama Bang Mansur.
       </p>
 
       <div class="hero-actions">
@@ -1081,6 +1111,15 @@ export function renderPublicPage({ menus, siteConfig, projects = DEFAULT_PROJECT
         <a href="${waUrl}" target="_blank" class="btn-secondary">
           <span>Konsultasi WhatsApp</span>
         </a>
+      </div>
+
+      <!-- Audience Strip: Solusi untuk Semua Kalangan -->
+      <div class="audience-strip">
+        <span class="audience-label">Cocok Untuk:</span>
+        <span class="audience-pill">🏢 Perkantoran &amp; Ruko</span>
+        <span class="audience-pill">🏪 Toko Online &amp; UMKM</span>
+        <span class="audience-pill">🚀 Startup &amp; Bisnis Digital</span>
+        <span class="audience-pill">🎓 Mahasiswa &amp; Kebutuhan Personal</span>
       </div>
 
       <!-- Live Edge Telemetry Bar -->
@@ -1346,7 +1385,14 @@ export function renderPublicPage({ menus, siteConfig, projects = DEFAULT_PROJECT
       <details class="faq-item" open>
         <summary>Layanan apa saja yang disediakan oleh PT Xecure Siber Unggul Resolusi (XSUR)?</summary>
         <p>
-          Kami melayani berbagai kebutuhan IT praktis untuk bisnis, perkantoran, dan perorangan: 1) Setting jaringan WiFi kantor &amp; router MikroTik agar internet stabil dan anti-lelet, 2) Pembuatan website profil bisnis dan toko online modern, 3) Pembuatan bot WhatsApp dan Telegram otomatis untuk jualan 24 jam, 4) Pengamanan website dari serangan hacker dan virus, 5) Pemasangan sistem pembayaran QRIS otomatis semua bank, serta 6) Konsultasi IT dan bimbingan pemrograman/coding.
+          Kami melayani berbagai kebutuhan IT praktis untuk semua kalangan (perkantoran, toko online/UMKM, hingga perorangan): 1) Setting jaringan WiFi kantor &amp; router MikroTik agar internet stabil dan anti-lelet, 2) Pembuatan website profil bisnis dan toko online modern terdaftar di Google, 3) Pembuatan bot WhatsApp dan Telegram otomatis untuk jualan 24 jam, 4) Pengamanan website dari serangan hacker dan virus, 5) Pemasangan sistem pembayaran QRIS otomatis semua bank, serta 6) Konsultasi IT dan bimbingan coding.
+        </p>
+      </details>
+
+      <details class="faq-item">
+        <summary>Apakah layanan XSUR cocok untuk bisnis kecil, UMKM, atau kebutuhan pribadi?</summary>
+        <p>
+          Sangat cocok. Layanan XSUR dirancang fleksibel untuk semua skala: mulai dari pemilik toko online/UMKM yang butuh bot jualan auto-reply &amp; pembayaran QRIS, perkantoran/kafe yang butuh WiFi stabil tanpa rebutan kuota, hingga mahasiswa/perorangan yang butuh konsultasi IT atau bantuan coding.
         </p>
       </details>
 

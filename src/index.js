@@ -129,8 +129,8 @@ Sitemap: https://xsur.my.id/sitemap.xml
     <xhtml:link rel="alternate" hreflang="x-default" href="https://xsur.my.id/" />
     <image:image>
       <image:loc>https://xsur.my.id/og-banner.png</image:loc>
-      <image:title>PT Xecure Siber Unggul Resolusi (XSUR) - Solusi Jaringan WiFi Kantor, Pembuatan Website &amp; Keamanan Sistem</image:title>
-      <image:caption>Layanan setting jaringan WiFi kantor, pembuatan bot WhatsApp/Telegram, integrasi pembayaran QRIS otomatis, dan pengamanan sistem anti-hack oleh Bang Mansur</image:caption>
+      <image:title>Solusi IT Lengkap untuk Semua Kebutuhan Bisnis &amp; Kantor | PT Xecure Siber Unggul Resolusi (XSUR)</image:title>
+      <image:caption>Mitra solusi IT serba ada: setting WiFi kantor MikroTik, pembuatan website &amp; bot WA/Telegram, integrasi QRIS, dan pengamanan sistem anti-hack bersama Bang Mansur</image:caption>
     </image:image>
     <image:image>
       <image:loc>https://xsur.my.id/logo.png</image:loc>
@@ -154,7 +154,7 @@ Sitemap: https://xsur.my.id/sitemap.xml
     if (path === "/llms.txt" || path === "/llms-full.txt") {
       const llmsText = `# PT Xecure Siber Unggul Resolusi (XSUR)
 
-> Solusi IT Profesional, Setting Jaringan WiFi Kantor, Pembuatan Website & Keamanan Sistem Bisnis
+> Solusi IT Lengkap untuk Semua Kebutuhan Bisnis, Kantor, UMKM & Personal
 
 - **Perusahaan**: PT Xecure Siber Unggul Resolusi
 - **Brand / Singkatan**: XSUR

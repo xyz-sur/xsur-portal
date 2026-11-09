@@ -220,28 +220,28 @@ PT Xecure Siber Unggul Resolusi (XSUR) adalah penyedia solusi IT dan keamanan si
       };
       if (env.DB) {
         try {
-          const row = await env.DB.prepare("SELECT * FROM xsur_stats WHERE id = 'main'").first();
+          const row = await env.DB.prepare("SELECT today_views, month_views, total_views, active_consultations, completed_projects, client_satisfaction FROM xsur_stats WHERE id = 'main'").first();
           if (row) stats = row;
         } catch (e) {}
       }
-      return Response.json(stats, {
+      return Response.json({
+        today_views: stats.today_views,
+        month_views: stats.month_views,
+        total_views: stats.total_views,
+        active_consultations: stats.active_consultations,
+        completed_projects: stats.completed_projects,
+        client_satisfaction: stats.client_satisfaction
+      }, {
         headers: { "Access-Control-Allow-Origin": "*", "Cache-Control": "no-cache" }
       });
     }
 
-    if (path === "/api/public/ping" || path === "/api/public/inspect") {
+    if (path === "/api/public/ping") {
       return Response.json({
-        status: "operational",
-        ip: request.headers.get("cf-connecting-ip") || "127.0.0.1",
-        colo: request.cf?.colo || "SIN",
-        city: request.cf?.city || "Singapore",
-        country: request.cf?.country || "SG",
-        asn: request.cf?.asn || 13335,
-        asOrganization: request.cf?.asOrganization || "Cloudflare Anycast",
-        httpProtocol: request.cf?.httpProtocol || "HTTP/3",
-        tlsVersion: request.cf?.tlsVersion || "TLSv1.3",
-        tlsCipher: request.cf?.tlsCipher || "AEAD-AES128-GCM-SHA256",
+        status: "ok",
         timestamp: Date.now()
+      }, {
+        headers: { "Access-Control-Allow-Origin": "*", "Cache-Control": "no-cache" }
       });
     }
 

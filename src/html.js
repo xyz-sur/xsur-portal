@@ -14,8 +14,6 @@ export function renderPublicPage({ menus, siteConfig, projects = DEFAULT_PROJECT
   const waUrl = siteConfig.contact_whatsapp || "https://wa.me/62857100055554";
   const tgUrl = siteConfig.contact_telegram || "https://t.me/premium2in";
   const email = siteConfig.contact_email || "contact@xsur.my.id";
-  const intergramChatId = siteConfig.intergram_chat_id || "682723201";
-  const intergramEnabled = siteConfig.intergram_enabled !== "0";
   const visitorStats = {
     today_views: stats.today_views || 284,
     month_views: stats.month_views || 7840,
@@ -476,22 +474,29 @@ export function renderPublicPage({ menus, siteConfig, projects = DEFAULT_PROJECT
       border-color: rgba(255, 255, 255, 0.2);
     }
 
-    /* Live Telemetry Bar */
-    .telemetry-bar {
+    /* Value Proposition & Trust Strip */
+    .trust-strip {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 14px;
+      margin-top: 36px;
+      padding: 16px 22px;
+      background: rgba(13, 19, 33, 0.65);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 16px;
+      backdrop-filter: blur(12px);
+    }
+    .trust-item {
       display: flex;
       align-items: center;
-      gap: 24px;
-      padding: 14px 22px;
-      background: rgba(14, 19, 29, 0.6);
-      border: 1px solid var(--border);
-      border-radius: 10px;
-      font-family: var(--font-mono);
-      font-size: 12px;
+      gap: 10px;
+      font-size: 13px;
       color: #cbd5e1;
-      flex-wrap: wrap;
+      font-weight: 500;
     }
-    .telemetry-item { display: flex; align-items: center; gap: 8px; }
-    .telemetry-val { color: var(--cyan); font-weight: 600; }
+    .trust-icon {
+      font-size: 18px;
+    }
 
     /* Section Headers */
     .section-head {
@@ -746,50 +751,7 @@ export function renderPublicPage({ menus, siteConfig, projects = DEFAULT_PROJECT
       font-family: var(--font-mono);
     }
 
-    /* Live Edge Diagnostics Sandbox */
-    .diag-box {
-      background: #080c14;
-      border: 1px solid var(--border);
-      border-radius: 14px;
-      overflow: hidden;
-      margin-top: 24px;
-      box-shadow: 0 15px 40px rgba(0, 0, 0, 0.6);
-    }
-    .diag-header {
-      background: rgba(255, 255, 255, 0.03);
-      border-bottom: 1px solid var(--border);
-      padding: 14px 20px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      font-family: var(--font-mono);
-      font-size: 12px;
-    }
-    .diag-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-      gap: 16px;
-      padding: 20px;
-      background: rgba(0, 0, 0, 0.2);
-      border-bottom: 1px solid var(--border);
-    }
-    .diag-item {
-      font-family: var(--font-mono);
-      font-size: 12px;
-    }
-    .diag-label { color: #94a3b8; margin-bottom: 4px; font-size: 11px; font-weight: 600; }
-    .diag-val { color: var(--cyan); font-weight: 700; word-break: break-all; }
-    .diag-terminal {
-      padding: 20px;
-      font-family: var(--font-mono);
-      font-size: 12.5px;
-      color: #a7f3d0;
-      line-height: 1.6;
-      min-height: 140px;
-      max-height: 240px;
-      overflow-y: auto;
-      background: #05080e;
-    }
+
 
     /* Solution Estimator */
     .calc-box {
@@ -896,60 +858,59 @@ export function renderPublicPage({ menus, siteConfig, projects = DEFAULT_PROJECT
       flex-wrap: wrap;
       gap: 16px;
     }
-    .footer-admin-link {
-      color: #64748b;
-      text-decoration: none;
-      font-family: var(--font-mono);
-      font-size: 12px;
-      transition: color 0.2s ease;
-    }
-    .footer-admin-link:hover { color: var(--cyan); }
-
-    /* Intergram Live Chat Widget Custom Styling */
-    #intergramRoot {
-      font-family: var(--font-sans) !important;
-      z-index: 2147483647 !important;
-    }
-    #intergramRoot > div {
-      box-shadow: 0 0 25px rgba(0, 242, 254, 0.5) !important;
-      border: 1px solid rgba(0, 242, 254, 0.4) !important;
-      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1) !important;
-    }
-    #intergramRoot > div:hover {
-      transform: scale(1.08) !important;
-      box-shadow: 0 0 35px rgba(0, 242, 254, 0.8) !important;
-    }
-    .intergram-hint {
+    /* Native Quick Consultation Floating Action */
+    .quick-consult-fab {
       position: fixed;
-      bottom: 84px;
-      right: 22px;
-      background: rgba(10, 14, 23, 0.94);
-      border: 1px solid rgba(0, 242, 254, 0.4);
-      color: var(--cyan);
-      padding: 6px 14px;
-      border-radius: 20px;
-      font-size: 11px;
-      font-family: var(--font-mono);
+      bottom: 24px;
+      right: 24px;
       display: flex;
-      align-items: center;
-      gap: 8px;
-      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.6);
+      flex-direction: column;
+      align-items: flex-end;
+      gap: 10px;
       z-index: 9999;
-      cursor: pointer;
-      backdrop-filter: blur(10px);
-      transition: all 0.25s ease;
     }
-    .intergram-hint:hover {
-      border-color: var(--cyan);
-      box-shadow: 0 0 20px rgba(0, 242, 254, 0.6);
+    .quick-consult-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 10px 18px;
+      border-radius: 30px;
+      font-family: var(--font-sans);
+      font-size: 13px;
+      font-weight: 600;
+      text-decoration: none;
+      backdrop-filter: blur(16px);
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+      transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .quick-consult-btn.tg {
+      background: rgba(14, 165, 233, 0.18);
+      border: 1px solid rgba(14, 165, 233, 0.4);
+      color: #38bdf8;
+    }
+    .quick-consult-btn.tg:hover {
+      background: rgba(14, 165, 233, 0.3);
+      border-color: #38bdf8;
+      box-shadow: 0 0 20px rgba(56, 189, 248, 0.5);
       transform: translateY(-2px);
     }
-    .intergram-hint .pulse-dot {
-      width: 7px;
-      height: 7px;
+    .quick-consult-btn.wa {
+      background: rgba(16, 185, 129, 0.18);
+      border: 1px solid rgba(16, 185, 129, 0.4);
+      color: #34d399;
+    }
+    .quick-consult-btn.wa:hover {
+      background: rgba(16, 185, 129, 0.3);
+      border-color: #34d399;
+      box-shadow: 0 0 20px rgba(52, 211, 153, 0.5);
+      transform: translateY(-2px);
+    }
+    .quick-consult-btn .pulse-dot {
+      width: 8px;
+      height: 8px;
       border-radius: 50%;
-      background: var(--cyan);
-      box-shadow: 0 0 8px var(--cyan);
+      background: #34d399;
+      box-shadow: 0 0 8px #34d399;
       animation: pulse 1.8s infinite;
     }
 
@@ -1397,7 +1358,6 @@ export function renderPublicPage({ menus, siteConfig, projects = DEFAULT_PROJECT
       .container { padding: 0 16px; }
       .hero-actions a { width: 100%; justify-content: center; }
       .founder-img-box { width: 180px; height: 180px; }
-      .intergram-hint { display: none; }
       .stats-cockpit-frame { padding: 22px 18px 20px; }
       .cockpit-top-bar { flex-direction: column; align-items: flex-start; }
       .stat-metric-value { font-size: 28px; }
@@ -1422,7 +1382,6 @@ export function renderPublicPage({ menus, siteConfig, projects = DEFAULT_PROJECT
         ${navHtml}
         <a href="#standards" class="nav-item">Keunggulan</a>
         <a href="#projects" class="nav-item">Layanan &amp; Proyek</a>
-        <a href="#diagnostic" class="nav-item">Cek Koneksi</a>
         <a href="#calculator" class="nav-item">Hitung Biaya</a>
         <a href="#stats" class="nav-item">Statistik</a>
         <a href="#faq" class="nav-item">Tanya Jawab</a>
@@ -1445,7 +1404,6 @@ export function renderPublicPage({ menus, siteConfig, projects = DEFAULT_PROJECT
     ${mobileNavHtml}
     <a href="#standards" class="mob-nav-link" onclick="closeMobMenu()">⭐ 4 Keunggulan Layanan</a>
     <a href="#projects" class="mob-nav-link" onclick="closeMobMenu()">💼 Daftar Layanan &amp; Jasa</a>
-    <a href="#diagnostic" class="mob-nav-link" onclick="closeMobMenu()">⚡ Cek Kualitas Koneksi</a>
     <a href="#calculator" class="mob-nav-link" onclick="closeMobMenu()">📊 Hitung Estimasi Biaya</a>
     <a href="#stats" class="mob-nav-link" onclick="closeMobMenu()">📈 Statistik &amp; Kunjungan Real</a>
     <a href="#faq" class="mob-nav-link" onclick="closeMobMenu()">❓ Tanya Jawab (FAQ)</a>
@@ -1500,23 +1458,23 @@ export function renderPublicPage({ menus, siteConfig, projects = DEFAULT_PROJECT
         <span class="audience-pill">🎓 Mahasiswa &amp; Kebutuhan Personal</span>
       </div>
 
-      <!-- Live Edge Telemetry Bar -->
-      <div class="telemetry-bar">
-        <div class="telemetry-item">
-          <span>LOKASI SERVER:</span>
-          <span class="telemetry-val" id="tele-colo">Indonesia &amp; Singapura</span>
+      <!-- Trust & Commitment Guarantee Strip -->
+      <div class="trust-strip">
+        <div class="trust-item">
+          <span class="trust-icon">🛡️</span>
+          <span>Garansi Pengerjaan Tuntas</span>
         </div>
-        <div class="telemetry-item">
-          <span>KECEPATAN AKSES:</span>
-          <span class="telemetry-val" id="tele-lat">&lt; 20 ms (Cepat)</span>
+        <div class="trust-item">
+          <span class="trust-icon">⚡</span>
+          <span>Respon Cepat &lt; 15 Menit</span>
         </div>
-        <div class="telemetry-item">
-          <span>STATUS KEAMANAN:</span>
-          <span class="telemetry-val">Koneksi Aman &amp; Terenkripsi</span>
+        <div class="trust-item">
+          <span class="trust-icon">🔒</span>
+          <span>Keamanan Data &amp; Privasi Terjaga</span>
         </div>
-        <div class="telemetry-item">
-          <span>LAYANAN KAMI:</span>
-          <span class="telemetry-val">Online 24 Jam Nonstop</span>
+        <div class="trust-item">
+          <span class="trust-icon">⭐</span>
+          <span>Konsultasi Teknis Terpercaya</span>
         </div>
       </div>
     </section>
@@ -1632,44 +1590,6 @@ export function renderPublicPage({ menus, siteConfig, projects = DEFAULT_PROJECT
           </div>
         </a>
       `).join('')}
-    </div>
-
-    <!-- Live Edge Diagnostics Sandbox -->
-    <section class="section-head" id="diagnostic">
-      <span class="section-tag">UJI KONEKSI INTERNET</span>
-      <h2 class="section-title">Cek Kualitas &amp; Keamanan Koneksi Anda</h2>
-      <p class="section-desc">Periksa kestabilan jaringan, alamat IP Anda, dan status keamanan koneksi langsung dari server terdekat.</p>
-    </section>
-
-    <div class="diag-box">
-      <div class="diag-header">
-        <span>PEMERIKSAAN KONEKSI // AKTIF</span>
-        <button onclick="runSecurityAuditSimulation()" class="btn-primary" style="padding: 6px 14px; font-size: 11.5px;">
-          ▶ Cek Keamanan Koneksi
-        </button>
-      </div>
-      <div class="diag-grid">
-        <div class="diag-item">
-          <div class="diag-label">ALAMAT IP ANDA</div>
-          <div class="diag-val" id="diag-ip">Mendeteksi...</div>
-        </div>
-        <div class="diag-item">
-          <div class="diag-label">SERVER TERDEKAT</div>
-          <div class="diag-val" id="diag-colo">Mendeteksi...</div>
-        </div>
-        <div class="diag-item">
-          <div class="diag-label">PROTOKOL INTERNET</div>
-          <div class="diag-val" id="diag-proto">HTTP/3 (Cepat)</div>
-        </div>
-        <div class="diag-item">
-          <div class="diag-label">ENKRIPSI DATA</div>
-          <div class="diag-val" id="diag-cipher">Terenkripsi Aman (TLS 1.3)</div>
-        </div>
-      </div>
-      <div class="diag-terminal" id="diag-console">
-        &gt; Memeriksa kecepatan dan keamanan koneksi Anda...<br>
-        &gt; Koneksi terhubung dengan stabil. Klik tombol [Cek Keamanan Koneksi] untuk pemeriksaan lengkap.
-      </div>
     </div>
 
     <!-- Interactive Solution Estimator -->
@@ -1825,12 +1745,12 @@ export function renderPublicPage({ menus, siteConfig, projects = DEFAULT_PROJECT
       <div class="cockpit-top-bar">
         <div class="cockpit-status-badge">
           <span class="live-radar-ping"></span>
-          <span class="cockpit-title-text">TELEMETRY AKTIVITAS &amp; TRAFIK REAL-TIME</span>
-          <span class="cockpit-edge-tag">EDGE D1 LIVE</span>
+          <span class="cockpit-title-text">AKTIVITAS LAYANAN &amp; KUNJUNGAN REAL-TIME</span>
+          <span class="cockpit-edge-tag">AKTIVITAS RESMI</span>
         </div>
         <div class="cockpit-time-chip">
           <span>🕒</span>
-          <span>SINKRONISASI OTOMATIS CLOUDFLARE</span>
+          <span>PEMBARUAN DATA OTOMATIS</span>
         </div>
       </div>
 
@@ -1908,9 +1828,9 @@ export function renderPublicPage({ menus, siteConfig, projects = DEFAULT_PROJECT
             ${(visitorStats.today_views).toLocaleString('id-ID')}
           </div>
           <div class="stat-metric-title">Pengunjung Web Hari Ini</div>
-          <p class="stat-metric-desc">Trafik kunjungan riil yang tercatat otomatis di edge server Cloudflare D1.</p>
+          <p class="stat-metric-desc">Trafik kunjungan riil yang tercatat otomatis dari pengunjung website resmi.</p>
           <div class="stat-card-footer-indicator">
-            <span class="indicator-tag active">● Real-time Visitor D1</span>
+            <span class="indicator-tag active">● Kunjungan Terverifikasi</span>
             <span class="indicator-sparkline">Live Ticker</span>
           </div>
         </div>
@@ -1942,9 +1862,9 @@ export function renderPublicPage({ menus, siteConfig, projects = DEFAULT_PROJECT
             ${(visitorStats.total_views).toLocaleString('id-ID')}+
           </div>
           <div class="stat-metric-title">Total Kunjungan Portal</div>
-          <p class="stat-metric-desc">Dihitung otomatis tanpa rekayasa melalui jaringan database Cloudflare D1.</p>
+          <p class="stat-metric-desc">Dihitung otomatis tanpa rekayasa berdasarkan total kunjungan web resmi.</p>
           <div class="stat-card-footer-indicator">
-            <span class="indicator-tag">🌍 Global Cloudflare CDN</span>
+            <span class="indicator-tag">🌍 Akses Terverifikasi</span>
             <span class="indicator-sparkline">Verified Hits</span>
           </div>
         </div>
@@ -1962,7 +1882,7 @@ export function renderPublicPage({ menus, siteConfig, projects = DEFAULT_PROJECT
         </div>
         <div class="footer-guarantee-pill">
           <span class="dot-indicator amber"></span>
-          <span>Data Trafik Transparan di Database Cloudflare</span>
+          <span>Data Transparan &amp; Bergaransi Nyata</span>
         </div>
       </div>
     </div>
@@ -2001,70 +1921,25 @@ export function renderPublicPage({ menus, siteConfig, projects = DEFAULT_PROJECT
         <div style="font-size: 12px; color: #64748b; margin-top: 6px; display: flex; gap: 14px; flex-wrap: wrap;">
           <a href="https://mail.xsur.my.id" target="_blank" style="color: var(--cyan); text-decoration: none;">✉️ Webmail &amp; Temp Mail</a>
           <a href="/sitemap.xml" target="_blank" style="color: #94a3b8; text-decoration: none;">🗺️ Sitemap XML</a>
-          <a href="/llms.txt" target="_blank" style="color: #94a3b8; text-decoration: none;">🤖 LLMs.txt</a>
           <a href="/robots.txt" target="_blank" style="color: #94a3b8; text-decoration: none;">🤖 Robots.txt</a>
         </div>
-      </div>
-      <div>
-        <a href="/admin" class="footer-admin-link">⚙️ Admin Console</a>
       </div>
     </div>
   </footer>
 
-  ${intergramEnabled ? `
-  <!-- Intergram Floating Live Chat Configuration -->
-  <script>
-    window.intergramId = "${intergramChatId}";
-    window.intergramCustomizations = {
-      titleClosed: 'Chat Bang Mansur',
-      titleOpen: 'Konsultasi Siber — Bang Mansur',
-      closedStyle: 'button',
-      closedChatAvatarUrl: 'https://i.ibb.co.com/LXK49TZc/unamed.png',
-      cookieExpiration: 2,
-      introMessage: 'Halo! Ada yang bisa kami bantu terkait setting WiFi kantor, pembuatan bot WhatsApp/Telegram, website baru, atau pengamanan sistem? Silakan chat langsung di sini.',
-      autoResponse: 'Pesan Anda telah diteruskan langsung ke Telegram Bang Mansur (ID ${intergramChatId}). Mohon tunggu balasan sejenak...',
-      autoNoResponse: 'Jika belum terbalas, silakan langsung hubungi Telegram @premium2in atau WhatsApp +62 857-1000-55554.',
-      placeholderText: 'Ketik pesan konsultasi Anda...',
-      displayMessageTime: true,
-      mainColor: "#00f2fe",
-      alwaysUseFloatingButton: true,
-      disableLoadmill: true,
-      desktopHeight: 520,
-      desktopWidth: 380
-    };
-  </script>
-  <script id="intergram" type="text/javascript" src="https://www.intergram.xyz/js/widget.js" defer></script>
-
-  <div class="intergram-hint" onclick="document.querySelector('#intergramRoot > div')?.click()" title="Chat langsung ke Telegram Bang Mansur">
-    <span class="pulse-dot"></span>
-    <span>Live Chat Bang Mansur</span>
+  <!-- Native Quick Consultation Floating Action -->
+  <div class="quick-consult-fab">
+    <a href="${tgUrl}" target="_blank" rel="noopener noreferrer" class="quick-consult-btn tg" title="Konsultasi Langsung via Telegram Bang Mansur">
+      <span class="pulse-dot" style="background: #38bdf8; box-shadow: 0 0 8px #38bdf8;"></span>
+      <span>Telegram: @premium2in</span>
+    </a>
+    <a href="${waUrl}" target="_blank" rel="noopener noreferrer" class="quick-consult-btn wa" title="Konsultasi Langsung via WhatsApp">
+      <span class="pulse-dot"></span>
+      <span>WhatsApp: Konsultasi Cepat</span>
+    </a>
   </div>
-  ` : ''}
 
   <script>
-    // Live Telemetry ping & inspect
-    const start = performance.now();
-    fetch('/api/public/inspect')
-      .then(r => r.json())
-      .then(d => {
-        const lat = Math.round(performance.now() - start);
-        const latEl = document.getElementById('tele-lat');
-        if (latEl) latEl.innerText = lat + ' ms';
-        const coloEl = document.getElementById('tele-colo');
-        if (coloEl && d.colo) coloEl.innerText = d.colo + ' (' + (d.country || 'ID') + ')';
-
-        // Update Diagnostic Sandbox
-        const ipEl = document.getElementById('diag-ip');
-        if (ipEl && d.ip) ipEl.innerText = d.ip;
-        const diagColo = document.getElementById('diag-colo');
-        if (diagColo && d.colo) diagColo.innerText = d.colo + ' - ' + (d.city || 'Anycast');
-        const protoEl = document.getElementById('diag-proto');
-        if (protoEl && d.httpProtocol) protoEl.innerText = d.httpProtocol;
-        const cipherEl = document.getElementById('diag-cipher');
-        if (cipherEl && d.tlsCipher) cipherEl.innerText = d.tlsCipher;
-      })
-      .catch(() => {});
-
     // Interactive Project Categorization Filter
     function filterProjects(cat) {
       document.querySelectorAll('.filter-pill').forEach(btn => btn.classList.remove('active'));
@@ -2078,30 +1953,6 @@ export function renderPublicPage({ menus, siteConfig, projects = DEFAULT_PROJECT
         } else {
           c.style.display = 'none';
         }
-      });
-    }
-
-    // Security Audit Simulation in Diagnostic Sandbox
-    function runSecurityAuditSimulation() {
-      const consoleBox = document.getElementById('diag-console');
-      consoleBox.innerHTML = '<span style="color: #00f2fe;">&gt; Menjalankan Automated Security Scanner...</span><br>';
-      
-      const steps = [
-        '[OK] Memvalidasi TLS 1.3 Strict Cipher Handshake: AEAD AES-GCM 128-bit terverifikasi.',
-        '[OK] Memeriksa DNSSEC & BGP Route Hijacking Prevention: Cloudflare Anycast aktif.',
-        '[OK] Verifikasi Atribut HSTS (Strict-Transport-Security) & Max-Age: Terpasang.',
-        '[OK] Audit Isolasi Sesi & Proteksi Header Referrer: Strict-Origin-When-Cross-Origin.',
-        '[OK] Evaluasi Transaksi Backend: Compare-And-Swap (CAS) Atomic Concurrency locking aktif.',
-        '<span style="color: #4ade80; font-weight: bold;">&gt;&gt;&gt; AUDIT STATUS: 100% SECURE. Tidak ada celah perimeter terdeteksi.</span>'
-      ];
-
-      let delay = 300;
-      steps.forEach((s, idx) => {
-        setTimeout(() => {
-          consoleBox.innerHTML += '&gt; ' + s + '<br>';
-          consoleBox.scrollTop = consoleBox.scrollHeight;
-        }, delay);
-        delay += 400;
       });
     }
 

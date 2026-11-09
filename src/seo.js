@@ -166,7 +166,7 @@ export function generateSeoTags(siteConfig) {
               "itemOffered": {
                 "@type": "Service",
                 "name": "Jasa Setup Server Kantor, VPS & Backup Data Otomatis",
-                "description": "Pemasangan server kantor Linux/Proxmox untuk sharing file dan backup harian ke cloud agar data tidak hilang terserang virus."
+                "description": "Pemasangan server kantor Linux & Virtualisasi Server Terproteksi untuk sharing file dan backup harian ke cloud agar data tidak hilang terserang virus."
               }
             },
             {

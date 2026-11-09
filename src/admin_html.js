@@ -425,7 +425,7 @@ export function renderAdminPage({ isAuthenticated, menus = [], siteConfig = {}, 
             </div>
             <div class="form-group">
               <label class="form-label">INTERGRAM TELEGRAM CHAT ID (FLOATING LIVE CHAT)</label>
-              <input type="text" name="intergram_chat_id" class="form-input" value="${siteConfig.intergram_chat_id || '682723201'}">
+              <input type="text" name="intergram_chat_id" class="form-input" value="${siteConfig.intergram_chat_id || ''}">
             </div>
             <div class="form-group">
               <label class="form-label">STATUS INTERGRAM WIDGET (1 = AKTIF, 0 = NONAKTIF)</label>

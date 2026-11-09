@@ -4,7 +4,7 @@ import { renderAdminPage } from "./admin_html.js";
 import { SVG_HORIZONTAL, SVG_ICON } from "./logo.js";
 import { DEFAULT_PROJECTS } from "./projects.js";
 import { OG_BANNER_BASE64, LOGO_PNG_BASE64, base64ToUint8Array } from "./assets.js";
-import { renderSafeLinkGateway, renderLinkDashboard, generateRandomSlug, getRandomSeoQuery } from "./shortlinks.js";
+import { renderSafeLinkGateway, renderLinkDashboard, renderPublicLinkPage, renderAdminLoginForm, renderAdminLinkDashboard, generateRandomSlug, getRandomSeoQuery } from "./shortlinks.js";
 
 // SHA-256 helper for password verification
 async function sha256(str) {
@@ -280,7 +280,7 @@ PT Xecure Siber Unggul Resolusi (XSUR) adalah penyedia solusi IT dan keamanan si
     // ==========================================
 
     // Dynamic SafeLink Resolution (/link/<slug>, /link-<slug>, /l/<slug>)
-    if ((path.startsWith("/link/") && path !== "/link/" && path !== "/link/admin") || path.startsWith("/link-") || path.startsWith("/l/")) {
+    if ((path.startsWith("/link/") && path !== "/link/" && path !== "/link/admin" && path !== "/link/dashboard") || path.startsWith("/link-") || path.startsWith("/l/")) {
       let slug = "";
       if (path.startsWith("/link/")) slug = path.slice(6);
       else if (path.startsWith("/link-")) slug = path.slice(6);
@@ -288,7 +288,7 @@ PT Xecure Siber Unggul Resolusi (XSUR) adalah penyedia solusi IT dan keamanan si
 
       slug = slug.split("/")[0].split("?")[0].trim().toLowerCase();
 
-      if (slug && slug !== "admin") {
+      if (slug && slug !== "admin" && slug !== "dashboard") {
         if (env.DB) {
           try {
             const linkRow = await env.DB.prepare(
@@ -314,12 +314,12 @@ PT Xecure Siber Unggul Resolusi (XSUR) adalah penyedia solusi IT dan keamanan si
                 return Response.redirect(linkRow.destination_url, 302);
               }
 
-              // Pick dynamic SEO keyword (use link's own or dynamically rotate from xsur_seo_keywords)
+              // Pick dynamic SEO keyword (use link's own or dynamically rotate prioritizing Pekanbaru & Kota Besar)
               let activeSeo = linkRow.seo_keyword;
-              if (!activeSeo) {
+              if (!activeSeo && env.DB) {
                 try {
                   const randomSeo = await env.DB.prepare(
-                    "SELECT keyword FROM xsur_seo_keywords WHERE status = 'active' ORDER BY RANDOM() LIMIT 1"
+                    "SELECT keyword FROM xsur_seo_keywords WHERE status = 'active' ORDER BY weight DESC, RANDOM() LIMIT 1"
                   ).first();
                   if (randomSeo && randomSeo.keyword) activeSeo = randomSeo.keyword;
                 } catch(e) {}
@@ -374,42 +374,82 @@ PT Xecure Siber Unggul Resolusi (XSUR) adalah penyedia solusi IT dan keamanan si
       }
     }
 
-    // Link Management Dashboard & Public Generator (/link or /link/ or /link/admin)
-    if (path === "/link" || path === "/link/" || path === "/link/admin") {
+    // Link Management Dashboard & Public Generator (/link, /link/dashboard, /link/admin)
+    if (path === "/link" || path === "/link/" || path === "/link/admin" || path === "/link/dashboard") {
       const isAuth = await verifyAdminAuth(request, env);
-      let links = [];
-      let seoKeywords = [];
-      if (isAuth && env.DB) {
-        try {
-          const [linkRows, seoRows] = await Promise.all([
-            env.DB.prepare("SELECT * FROM xsur_shortlinks ORDER BY id DESC").all(),
-            env.DB.prepare("SELECT * FROM xsur_seo_keywords ORDER BY id DESC").all()
-          ]);
-          links = linkRows.results || [];
-          seoKeywords = seoRows.results || [];
-        } catch (e) {
-          console.error("D1 Fetch shortlinks/seo error:", e);
-        }
-      }
-      const errorMsg = url.searchParams.get("error") || "";
+      const clientIp = request.headers.get("cf-connecting-ip") || request.headers.get("x-real-ip") || "unknown";
+      let errorMsg = url.searchParams.get("error") || "";
       const successMsg = url.searchParams.get("success") || "";
       const createdSlug = url.searchParams.get("created") || "";
-      const html = renderLinkDashboard({
-        isAuthenticated: isAuth,
-        links,
-        seoKeywords,
-        createdSlug,
-        error: errorMsg,
-        success: successMsg,
-        siteConfig
-      });
-      return new Response(html, {
+
+      // Khusus Akses Dashboard Admin (/link/admin atau /link/dashboard)
+      if (path === "/link/admin" || path === "/link/dashboard") {
+        if (!isAuth) {
+          // Periksa apakah IP sedang diblokir
+          if (env.DB) {
+            try {
+              const banCheck = await env.DB.prepare(
+                "SELECT * FROM xsur_admin_login_attempts WHERE ip = ? AND banned_until IS NOT NULL AND banned_until > datetime('now')"
+              ).bind(clientIp).first();
+              if (banCheck) {
+                errorMsg = "IP Anda sedang diblokir selama 1 jam karena 3x salah password.";
+              }
+            } catch(e) {}
+          }
+          return new Response(renderAdminLoginForm({ error: errorMsg }), {
+            headers: { "Content-Type": "text/html; charset=utf-8", "Cache-Control": "no-store" }
+          });
+        }
+
+        // Jika terautentikasi -> tampilkan Dashboard Admin Lengkap
+        let links = [];
+        let seoKeywords = [];
+        if (env.DB) {
+          try {
+            const [linkRows, seoRows] = await Promise.all([
+              env.DB.prepare("SELECT * FROM xsur_shortlinks ORDER BY id DESC").all(),
+              env.DB.prepare("SELECT * FROM xsur_seo_keywords ORDER BY weight DESC, id DESC").all()
+            ]);
+            links = linkRows.results || [];
+            seoKeywords = seoRows.results || [];
+          } catch (e) {
+            console.error("D1 Fetch shortlinks/seo error:", e);
+          }
+        }
+        return new Response(renderAdminLinkDashboard({ links, seoKeywords, error: errorMsg, success: successMsg }), {
+          headers: { "Content-Type": "text/html; charset=utf-8", "Cache-Control": "no-store" }
+        });
+      }
+
+      // Halaman Pengguna Publik (/link) dengan ikon login samar di navbar
+      return new Response(renderPublicLinkPage({ createdSlug, error: errorMsg, success: successMsg }), {
         headers: { "Content-Type": "text/html; charset=utf-8", "Cache-Control": "no-store" }
       });
     }
 
-    // Link Dashboard Auth & Actions API
+    // Link Dashboard Auth & Actions API dengan Rate Limiting 3x Gagal -> Ban 1 Jam + Telegram Alert
     if (path === "/api/link/login" && method === "POST") {
+      const clientIp = request.headers.get("cf-connecting-ip") || request.headers.get("x-real-ip") || "unknown";
+      const userAgent = request.headers.get("user-agent") || "Perangkat Tidak Dikenal";
+
+      // 1. Cek apakah IP sedang di-banned
+      if (env.DB) {
+        try {
+          const banCheck = await env.DB.prepare(
+            "SELECT * FROM xsur_admin_login_attempts WHERE ip = ? AND banned_until IS NOT NULL AND banned_until > datetime('now')"
+          ).bind(clientIp).first();
+
+          if (banCheck) {
+            return new Response(null, {
+              status: 302,
+              headers: { "Location": "/link/dashboard?error=IP+Anda+sedang+diblokir+selama+1+jam+karena+3x+salah+password." }
+            });
+          }
+        } catch (e) {
+          console.error("Ban check error:", e);
+        }
+      }
+
       let pwd = "";
       const contentType = request.headers.get("content-type") || "";
       if (contentType.includes("application/json")) {
@@ -424,6 +464,13 @@ PT Xecure Siber Unggul Resolusi (XSUR) adalah penyedia solusi IT dan keamanan si
       const targetHash = siteConfig.admin_password_hash || "8d20b6dac67d7d8ae6126117f09dc9723d01f403ef790750244450c36442c141";
 
       if (inputHash === targetHash) {
+        // Login Sukses: Bersihkan catatan kegagalan untuk IP ini
+        if (env.DB) {
+          try {
+            await env.DB.prepare("DELETE FROM xsur_admin_login_attempts WHERE ip = ?").bind(clientIp).run();
+          } catch(e) {}
+        }
+
         const sessionId = "sess_" + crypto.randomUUID().replace(/-/g, "") + "_" + Date.now();
         await env.DB.prepare(
           "INSERT INTO xsur_admin_sessions (session_id, expires_at) VALUES (?, datetime('now', '+7 days'))"
@@ -431,12 +478,79 @@ PT Xecure Siber Unggul Resolusi (XSUR) adalah penyedia solusi IT dan keamanan si
 
         const headers = new Headers();
         headers.set("Set-Cookie", `xsur_auth=${sessionId}; Path=/; HttpOnly; Secure; SameSite=Lax; Max-Age=604800`);
-        headers.set("Location", "/link?success=Login+berhasil+ke+Dashboard+Admin");
+        headers.set("Location", "/link/dashboard?success=Login+berhasil+ke+Dashboard+Admin");
         return new Response(null, { status: 302, headers });
       } else {
-        const headers = new Headers();
-        headers.set("Location", "/link?error=Kunci+keamanan+salah.+Akses+ditolak!");
-        return new Response(null, { status: 302, headers });
+        // Password Salah: Catat dan hitung percobaan
+        let attempts = 1;
+        if (env.DB) {
+          try {
+            await env.DB.prepare(`
+              INSERT INTO xsur_admin_login_attempts (ip, attempts, last_attempt_at, user_agent)
+              VALUES (?, 1, datetime('now'), ?)
+              ON CONFLICT(ip) DO UPDATE SET 
+                attempts = attempts + 1,
+                last_attempt_at = datetime('now'),
+                user_agent = excluded.user_agent
+            `).bind(clientIp, userAgent).run();
+
+            const row = await env.DB.prepare("SELECT attempts FROM xsur_admin_login_attempts WHERE ip = ?").bind(clientIp).first();
+            if (row && row.attempts) attempts = row.attempts;
+          } catch (e) {
+            console.error("Record attempt error:", e);
+          }
+        }
+
+        if (attempts >= 3) {
+          // BANNED IP 1 JAM & KIRIM NOTIFIKASI TELEGRAM KE BIGBOS
+          if (env.DB) {
+            try {
+              await env.DB.prepare(
+                "UPDATE xsur_admin_login_attempts SET banned_until = datetime('now', '+1 hour') WHERE ip = ?"
+              ).bind(clientIp).run();
+            } catch(e) {}
+          }
+
+          const botToken = siteConfig.telegram_alert_bot_token;
+          const chatId = siteConfig.telegram_alert_chat_id || "682723201";
+          if (botToken && chatId) {
+            const timeWib = new Date(Date.now() + 7 * 3600 * 1000).toISOString().replace("T", " ").slice(0, 19) + " WIB";
+            const alertMsg = `🚨 <b>[PERINGATAN KEAMANAN] IP DIBLOKIR 1 JAM</b>
+
+` +
+              `Terdeteksi <b>3x percobaan salah password</b> pada login admin XSUR Link Shield!
+
+` +
+              `🌐 <b>Alamat IP:</b> <code>${clientIp}</code>
+` +
+              `📱 <b>Perangkat / Device:</b> <code>${userAgent}</code>
+` +
+              `⏰ <b>Waktu Kejadian:</b> ${timeWib}
+` +
+              `🛡️ <b>Tindakan:</b> IP otomatis diblokir selama 1 jam dari sistem.`;
+
+            const sendAlert = fetch(`https://api.telegram.org/bot${botToken}/sendMessage`, {
+              method: "POST",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify({ chat_id: chatId, text: alertMsg, parse_mode: "HTML" })
+            }).catch(err => console.error("Telegram alert err:", err));
+
+            if (ctx && ctx.waitUntil) {
+              ctx.waitUntil(sendAlert);
+            }
+          }
+
+          return new Response(null, {
+            status: 302,
+            headers: { "Location": "/link/dashboard?error=IP+Anda+diblokir+selama+1+jam+karena+3x+salah+password!+Notifikasi+telah+dikirimkan+ke+Telegram+pemilik." }
+          });
+        } else {
+          const remaining = 3 - attempts;
+          return new Response(null, {
+            status: 302,
+            headers: { "Location": `/link/dashboard?error=Password+salah!+Sisa+percobaan:+${remaining}+kali+sebelum+IP+diblokir+1+jam.` }
+          });
+        }
       }
     }
 
@@ -471,8 +585,10 @@ PT Xecure Siber Unggul Resolusi (XSUR) adalah penyedia solusi IT dan keamanan si
         seoKeyword = (formData.get("seo_keyword") || "").trim();
       }
 
+      const redirectBase = isAuth ? "/link/dashboard" : "/link";
+
       if (!destUrl) {
-        return new Response(null, { status: 302, headers: { "Location": "/link?error=URL+tujuan+wajib+diisi" } });
+        return new Response(null, { status: 302, headers: { "Location": `${redirectBase}?error=URL+tujuan+wajib+diisi` } });
       }
       if (!destUrl.startsWith("http://") && !destUrl.startsWith("https://")) {
         destUrl = "https://" + destUrl;
@@ -486,11 +602,11 @@ PT Xecure Siber Unggul Resolusi (XSUR) adalah penyedia solusi IT dan keamanan si
         finalSlug = generateRandomSlug(10);
       }
 
-      // Auto-assign high quality SEO keyword from rotated list if not specified
+      // Auto-assign high quality SEO keyword from rotated list (prioritizing Pekanbaru & Kota Besar)
       if (!seoKeyword && env.DB) {
         try {
           const randomSeo = await env.DB.prepare(
-            "SELECT keyword FROM xsur_seo_keywords WHERE status = 'active' ORDER BY RANDOM() LIMIT 1"
+            "SELECT keyword FROM xsur_seo_keywords WHERE status = 'active' ORDER BY weight DESC, RANDOM() LIMIT 1"
           ).first();
           if (randomSeo && randomSeo.keyword) seoKeyword = randomSeo.keyword;
         } catch(e) {}
@@ -506,13 +622,13 @@ PT Xecure Siber Unggul Resolusi (XSUR) adalah penyedia solusi IT dan keamanan si
         `).bind(finalSlug, destUrl, title, seoKeyword).run();
 
         if (isAuth) {
-          return new Response(null, { status: 302, headers: { "Location": `/link?success=Shortlink+berhasil+dibuat:+/link/${finalSlug}` } });
+          return new Response(null, { status: 302, headers: { "Location": `/link/dashboard?success=Shortlink+berhasil+dibuat:+/link/${finalSlug}` } });
         } else {
           return new Response(null, { status: 302, headers: { "Location": `/link?created=${finalSlug}` } });
         }
       } catch (err) {
         console.error("D1 Create shortlink error:", err);
-        return new Response(null, { status: 302, headers: { "Location": `/link?error=Slug+sudah+digunakan+atau+terjadi+kesalahan` } });
+        return new Response(null, { status: 302, headers: { "Location": `${redirectBase}?error=Slug+sudah+digunakan+atau+terjadi+kesalahan` } });
       }
     }
 
@@ -520,7 +636,7 @@ PT Xecure Siber Unggul Resolusi (XSUR) adalah penyedia solusi IT dan keamanan si
     if (path === "/api/link/delete" && method === "POST") {
       const isAuth = await verifyAdminAuth(request, env);
       if (!isAuth) {
-        return new Response(null, { status: 302, headers: { "Location": "/link?error=Unauthorized" } });
+        return new Response(null, { status: 302, headers: { "Location": "/link/dashboard?error=Unauthorized" } });
       }
 
       let slug = "";
@@ -536,38 +652,43 @@ PT Xecure Siber Unggul Resolusi (XSUR) adalah penyedia solusi IT dan keamanan si
       if (slug) {
         await env.DB.prepare("DELETE FROM xsur_shortlinks WHERE slug = ?").bind(slug).run();
       }
-      return new Response(null, { status: 302, headers: { "Location": "/link?success=Shortlink+berhasil+dihapus" } });
+      return new Response(null, { status: 302, headers: { "Location": "/link/dashboard?success=Shortlink+berhasil+dihapus" } });
     }
 
-    // Admin Add SEO Keyword
+    // Admin Add SEO Keyword (Mendukung prioritas Pekanbaru / Kota Besar)
     if (path === "/api/link/seo/add" && method === "POST") {
       const isAuth = await verifyAdminAuth(request, env);
       if (!isAuth) {
-        return new Response(null, { status: 302, headers: { "Location": "/link?error=Unauthorized" } });
+        return new Response(null, { status: 302, headers: { "Location": "/link/dashboard?error=Unauthorized" } });
       }
 
       let keyword = "";
+      let priority = "1";
       const contentType = request.headers.get("content-type") || "";
       if (contentType.includes("application/json")) {
         const body = await request.json();
         keyword = (body.keyword || "").trim();
+        priority = String(body.priority || "1");
       } else {
         const formData = await request.formData();
         keyword = (formData.get("keyword") || "").trim();
+        priority = String(formData.get("priority") || "1");
       }
 
       if (!keyword) {
-        return new Response(null, { status: 302, headers: { "Location": "/link?error=Keyword+tidak+boleh+kosong" } });
+        return new Response(null, { status: 302, headers: { "Location": "/link/dashboard?error=Keyword+tidak+boleh+kosong" } });
       }
+
+      const weight = (priority === "2" || keyword.toLowerCase().includes("pekanbaru")) ? 2 : 1;
 
       try {
         await env.DB.prepare(
-          "INSERT OR IGNORE INTO xsur_seo_keywords (keyword) VALUES (?)"
-        ).bind(keyword).run();
-        return new Response(null, { status: 302, headers: { "Location": "/link?success=Target+Keyword+SEO+berhasil+ditambahkan" } });
+          "INSERT INTO xsur_seo_keywords (keyword, weight, clicks, status) VALUES (?, ?, 0, 'active') ON CONFLICT(keyword) DO UPDATE SET weight = excluded.weight"
+        ).bind(keyword, weight).run();
+        return new Response(null, { status: 302, headers: { "Location": "/link/dashboard?success=Target+Keyword+SEO+berhasil+ditambahkan" } });
       } catch (err) {
         console.error("D1 Add SEO error:", err);
-        return new Response(null, { status: 302, headers: { "Location": "/link?error=Gagal+menambahkan+keyword" } });
+        return new Response(null, { status: 302, headers: { "Location": "/link/dashboard?error=Gagal+menambahkan+keyword" } });
       }
     }
 
@@ -575,7 +696,7 @@ PT Xecure Siber Unggul Resolusi (XSUR) adalah penyedia solusi IT dan keamanan si
     if (path === "/api/link/seo/delete" && method === "POST") {
       const isAuth = await verifyAdminAuth(request, env);
       if (!isAuth) {
-        return new Response(null, { status: 302, headers: { "Location": "/link?error=Unauthorized" } });
+        return new Response(null, { status: 302, headers: { "Location": "/link/dashboard?error=Unauthorized" } });
       }
 
       let id = "";
@@ -591,7 +712,7 @@ PT Xecure Siber Unggul Resolusi (XSUR) adalah penyedia solusi IT dan keamanan si
       if (id) {
         await env.DB.prepare("DELETE FROM xsur_seo_keywords WHERE id = ?").bind(id).run();
       }
-      return new Response(null, { status: 302, headers: { "Location": "/link?success=Keyword+SEO+berhasil+dihapus" } });
+      return new Response(null, { status: 302, headers: { "Location": "/link/dashboard?success=Target+SEO+berhasil+dihapus" } });
     }
 
     // 3. Admin Authentication & Dashboard

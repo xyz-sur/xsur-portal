@@ -287,7 +287,7 @@ export function renderAdminPage({ isAuthenticated, menus = [], siteConfig = {}, 
             <div class="form-group" style="grid-column: 1 / -1;">
               <label class="form-label">META DESCRIPTION (DESKRIPSI SNIPPET GOOGLE)</label>
               <textarea name="meta_description" id="seo-input-desc" class="form-textarea" 
-                oninput="updateSerpPreview()" required>${siteConfig.meta_description || 'Portal resmi PT Xecure Siber Unggul Resolusi (XSUR). Dipimpin oleh Bang Mansur (S2 Magister Ilmu Komputer). Solusi enterprise: VAPT Cybersecurity, Enterprise MikroTik RouterOS, MTProto Bot Fleet, FinTech PPOB H2H Gateway, &amp; Konsultasi IT Forensik.'}</textarea>
+                oninput="updateSerpPreview()" required>${siteConfig.meta_description || 'Portal resmi PT Xecure Siber Unggul Resolusi (XSUR). Dipimpin oleh Bang Mansur. Solusi enterprise: VAPT Cybersecurity, Enterprise MikroTik RouterOS, MTProto Bot Fleet, FinTech PPOB H2H Gateway, &amp; Konsultasi IT Forensik.'}</textarea>
             </div>
 
             <div class="form-group" style="grid-column: 1 / -1;">
@@ -320,7 +320,7 @@ export function renderAdminPage({ isAuthenticated, menus = [], siteConfig = {}, 
                 <span>https://xsur.my.id</span>
               </div>
               <div class="serp-title" id="serp-title-preview">PT Xecure Siber Unggul Resolusi — Cyber Defense &amp; Scalable Automation</div>
-              <div class="serp-desc" id="serp-desc-preview">Portal resmi PT Xecure Siber Unggul Resolusi (XSUR). Dipimpin oleh Bang Mansur (S2 Magister Ilmu Komputer)...</div>
+              <div class="serp-desc" id="serp-desc-preview">Portal resmi PT Xecure Siber Unggul Resolusi (XSUR). Dipimpin oleh Bang Mansur...</div>
             </div>
           </div>
 
@@ -405,7 +405,7 @@ export function renderAdminPage({ isAuthenticated, menus = [], siteConfig = {}, 
             </div>
             <div class="form-group">
               <label class="form-label">GELAR / PENDIDIKAN FOUNDER</label>
-              <input type="text" name="founder_edu" class="form-input" value="${siteConfig.founder_edu || 'Master of Computer Science (S2 Magister Ilmu Komputer)'}">
+              <input type="text" name="founder_edu" class="form-input" value="${siteConfig.founder_edu || 'Praktisi & Konsultan Teknologi Informasi'}">
             </div>
             <div class="form-group">
               <label class="form-label">URL FOTO FOUNDER (ANONIM B&amp;W)</label>

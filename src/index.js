@@ -158,7 +158,7 @@ Sitemap: https://xsur.my.id/sitemap.xml
 
 - **Perusahaan**: PT Xecure Siber Unggul Resolusi
 - **Brand / Singkatan**: XSUR
-- **Founder & Praktisi Utama**: Bang Mansur, S2 Magister Ilmu Komputer (mansyurj168@gmail.com)
+- **Founder & Praktisi Utama**: Bang Mansur (mansyurj168@gmail.com)
 - **Website Resmi**: https://xsur.my.id
 - **Webmail Perusahaan**: https://mail.xsur.my.id
 - **Kontak Resmi**: WhatsApp +62 857-1000-55554 | Telegram @cspremium2in / @jasangiklan | Email contact@xsur.my.id
@@ -169,7 +169,7 @@ Sitemap: https://xsur.my.id/sitemap.xml
 3. **Jasa Pembuatan Bot Telegram & WhatsApp Otomatis**: Asisten otomatis 24 jam untuk melayani pembeli, membalas chat otomatis, mengirim notifikasi pembayaran lunas, dan auto-reply tanpa perlu standby di depan HP.
 4. **Jasa Integrasi Pembayaran QRIS Dinamis & Gateway PPOB**: Pasang QRIS otomatis (BCA, Mandiri, DANA, GoPay) langsung lunas tanpa cek mutasi manual, serta sistem penjualan pulsa dan token PLN otomatis.
 5. **Jasa Pembuatan Website Perusahaan & Toko Online Modern**: Website bisnis yang cepat, elegan, ramah smartphone, dan terdaftar resmi di Google agar bisnis Anda mudah dicari calon pembeli.
-6. **Konsultasi IT, Bimbingan Coding & Asistensi Riset Komputer**: Diskusi langsung bersama Bang Mansur (S2 Magister Komputer) untuk pemecahan masalah coding, perancangan arsitektur software, dan asistensi riset.
+6. **Konsultasi IT, Bimbingan Coding & Asistensi Riset Komputer**: Diskusi langsung bersama Bang Mansur untuk pemecahan masalah coding, perancangan arsitektur software, dan asistensi proyek IT.
 `;
       return new Response(llmsText, {
         headers: { "Content-Type": "text/markdown; charset=utf-8", "Cache-Control": "public, max-age=86400" }

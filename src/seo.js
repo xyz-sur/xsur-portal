@@ -8,7 +8,7 @@ export function generateSeoTags(siteConfig) {
   const tagline = siteConfig.tagline || "Solusi Jaringan Internet Kantor, Pembuatan Website & Keamanan Sistem Bisnis";
   
   const pageTitle = siteConfig.meta_title || `${companyName} (${brandName}) — Solusi IT, Jaringan & Keamanan Sistem | ${founderName}`;
-  const description = siteConfig.meta_description || siteConfig.meta_desc || "Jasa IT profesional untuk bisnis dan kantor: setting WiFi kantor & MikroTik stabil, pembuatan website & bot WhatsApp/Telegram, integrasi pembayaran QRIS otomatis, dan pengamanan sistem anti-hack bersama Bang Mansur (S2 Magister Ilmu Komputer).";
+  const description = siteConfig.meta_description || siteConfig.meta_desc || "Jasa IT profesional untuk bisnis dan kantor: setting WiFi kantor & MikroTik stabil, pembuatan website & bot WhatsApp/Telegram, integrasi pembayaran QRIS otomatis, dan pengamanan sistem anti-hack bersama Bang Mansur, praktisi IT berpengalaman.";
   const keywords = siteConfig.meta_keywords || siteConfig.keywords || "Jasa Setting MikroTik, Jasa Pasang WiFi Kantor, Jasa Pembuatan Website, Jasa Bot WhatsApp, Jasa Bot Telegram, Jasa Keamanan Website, Jasa Pentest Web, Jasa Integrasi QRIS, Konsultan IT Indonesia, Bang Mansur, XSUR, xsur.my.id";
   
   const ogTitle = siteConfig.og_title || `${companyName} (${brandName}) — Solusi IT, Jaringan & Keamanan Sistem Bisnis`;
@@ -75,7 +75,7 @@ export function generateSeoTags(siteConfig) {
           "Integrasi Sistem Pembayaran QRIS Otomatis",
           "Audit Keamanan Website & Perlindungan Anti-Hack",
           "Setup Server Kantor Linux & Backup Otomatis",
-          "Konsultasi IT & Asistensi Coding Magister Komputer",
+          "Konsultasi IT & Asistensi Pemrograman Coding",
           "Layanan Pengecekan IMEI Resmi Bea Cukai & Kemenperin"
         ],
         "contactPoint": {
@@ -135,7 +135,7 @@ export function generateSeoTags(siteConfig) {
               "itemOffered": {
                 "@type": "Service",
                 "name": "Konsultasi IT Privat, Bimbingan Coding & Asistensi Riset Komputer",
-                "description": "Diskusi langsung bersama Bang Mansur (S2 Magister Komputer) untuk pemecahan masalah coding, perancangan software, dan bimbingan riset."
+                "description": "Diskusi langsung bersama Bang Mansur untuk pemecahan masalah coding, perancangan arsitektur software, dan asistensi proyek IT."
               }
             }
           ]
@@ -152,7 +152,7 @@ export function generateSeoTags(siteConfig) {
         },
         "alumniOf": {
           "@type": "EducationalOrganization",
-          "name": siteConfig.founder_edu || "Magister Ilmu Komputer (S2 Computer Science)"
+          "name": siteConfig.founder_edu || "Praktisi & Konsultan Teknologi Informasi"
         },
         "image": siteConfig.founder_image || "https://i.ibb.co.com/LXK49TZc/unamed.png",
         "sameAs": [
@@ -224,7 +224,7 @@ export function generateSeoTags(siteConfig) {
             "name": "Layanan apa saja yang disediakan oleh PT Xecure Siber Unggul Resolusi (XSUR)?",
             "acceptedAnswer": {
               "@type": "Answer",
-              "text": "Kami melayani setting jaringan WiFi kantor & router MikroTik agar internet stabil tanpa lelet, pembuatan website profil bisnis dan toko online, pembuatan bot WhatsApp dan Telegram otomatis untuk jualan 24 jam, pengamanan website dari serangan hacker, pemasangan pembayaran QRIS otomatis, serta konsultasi IT dan bimbingan coding bersama S2 Komputer."
+              "text": "Kami melayani setting jaringan WiFi kantor & router MikroTik agar internet stabil tanpa lelet, pembuatan website profil bisnis dan toko online, pembuatan bot WhatsApp dan Telegram otomatis untuk jualan 24 jam, pengamanan website dari serangan hacker, pemasangan pembayaran QRIS otomatis, serta konsultasi IT dan bimbingan pemrograman/coding."
             }
           },
           {
@@ -232,7 +232,7 @@ export function generateSeoTags(siteConfig) {
             "name": "Siapa yang mengerjakan dan mengawasi setiap proyek di XSUR?",
             "acceptedAnswer": {
               "@type": "Answer",
-              "text": "Seluruh pengerjaan dipimpin langsung oleh Bang Mansur, praktisi IT senior dan profesional keamanan siber berpendidikan Magister Ilmu Komputer (S2) dengan pengalaman bertahun-tahun dalam menangani jaringan perkantoran, sistem otomasi, dan keamanan data."
+              "text": "Seluruh pengerjaan dipimpin langsung oleh Bang Mansur, praktisi IT senior dan profesional keamanan siber dengan pengalaman bertahun-tahun dalam menangani jaringan perkantoran, sistem otomasi, dan keamanan data."
             }
           },
           {

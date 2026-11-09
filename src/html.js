@@ -9,7 +9,7 @@ export function renderPublicPage({ menus, siteConfig, projects = DEFAULT_PROJECT
   const brandName = siteConfig.brand_name || "XSUR";
   const founderName = siteConfig.founder_name || "Bang Mansur";
   const founderTitle = siteConfig.founder_title || "Founder & Chief Security Architect";
-  const founderEdu = siteConfig.founder_edu || "Master of Computer Science (S2 Magister Ilmu Komputer)";
+  const founderEdu = siteConfig.founder_edu || "Praktisi &amp; Konsultan Teknologi Informasi";
   const founderImg = siteConfig.founder_image || "https://i.ibb.co.com/LXK49TZc/unamed.png";
   const waUrl = siteConfig.contact_whatsapp || "https://wa.me/62857100055554";
   const tgUrl = siteConfig.contact_telegram || "https://t.me/premium2in";
@@ -1066,7 +1066,7 @@ export function renderPublicPage({ menus, siteConfig, projects = DEFAULT_PROJECT
         Solusi Jaringan Internet Kantor, Pembuatan Website &amp; <span class="gradient-text">Keamanan Sistem Bisnis Anda</span>
       </h1>
       <p class="hero-desc">
-        PT Xecure Siber Unggul Resolusi (XSUR) melayani setting jaringan WiFi kantor &amp; MikroTik agar internet stabil tanpa lemot, pembuatan website perusahaan &amp; toko online, bot otomatisasi WhatsApp/Telegram untuk jualan 24 jam, integrasi pembayaran QRIS otomatis, hingga pengamanan sistem dari serangan hacker. Didampingi langsung oleh Bang Mansur (lulusan S2 Magister Ilmu Komputer).
+        PT Xecure Siber Unggul Resolusi (XSUR) melayani setting jaringan WiFi kantor &amp; MikroTik agar internet stabil tanpa lemot, pembuatan website perusahaan &amp; toko online, bot otomatisasi WhatsApp/Telegram untuk jualan 24 jam, integrasi pembayaran QRIS otomatis, hingga pengamanan sistem dari serangan hacker. Didampingi langsung oleh Bang Mansur, praktisi IT berpengalaman.
       </p>
 
       <div class="hero-actions">
@@ -1108,7 +1108,7 @@ export function renderPublicPage({ menus, siteConfig, projects = DEFAULT_PROJECT
     <section class="section-head" id="about">
       <span class="section-tag">PROFIL PENGELOLA</span>
       <h2 class="section-title">Mengenal Founder &amp; Praktisi Utama</h2>
-      <p class="section-desc">Memadukan keahlian akademis Magister Ilmu Komputer dengan pengalaman nyata di lapangan untuk menyelesaikan kendala teknologi bisnis Anda.</p>
+      <p class="section-desc">Berpengalaman menangani infrastruktur jaringan, sistem otomasi, dan keamanan siber untuk mendukung pertumbuhan bisnis Anda.</p>
     </section>
 
     <div class="founder-card">
@@ -1131,7 +1131,7 @@ export function renderPublicPage({ menus, siteConfig, projects = DEFAULT_PROJECT
           <span class="founder-pill">🤖 Pembuatan Bot WA &amp; Telegram</span>
           <span class="founder-pill">💳 Pemasangan QRIS Otomatis</span>
           <span class="founder-pill">💻 Pembuatan Website &amp; Aplikasi</span>
-          <span class="founder-pill">🎓 Konsultasi IT &amp; Bimbingan S2</span>
+          <span class="founder-pill">🎓 Konsultasi IT &amp; Bimbingan Coding</span>
         </div>
         <div style="margin-top: 16px; display: flex; gap: 10px; flex-wrap: wrap;">
           <a href="https://github.com/xyz-sur" target="_blank" class="btn-secondary" style="padding: 7px 15px; font-size: 12.5px;">
@@ -1171,7 +1171,7 @@ export function renderPublicPage({ menus, siteConfig, projects = DEFAULT_PROJECT
       <div class="standard-card">
         <div class="standard-icon">🤝</div>
         <h3 class="standard-title">Didampingi Ahli Berpengalaman</h3>
-        <p class="standard-desc">Setiap pengerjaan diawasi dan dikerjakan langsung oleh Bang Mansur (lulusan S2 Magister Ilmu Komputer) dengan jaminan garansi pengerjaan dan panduan pemakaian yang ramah orang awam.</p>
+        <p class="standard-desc">Setiap pengerjaan diawasi dan dikerjakan langsung oleh Bang Mansur dengan jaminan garansi pengerjaan dan panduan pemakaian yang ramah orang awam.</p>
       </div>
     </div>
 
@@ -1346,14 +1346,14 @@ export function renderPublicPage({ menus, siteConfig, projects = DEFAULT_PROJECT
       <details class="faq-item" open>
         <summary>Layanan apa saja yang disediakan oleh PT Xecure Siber Unggul Resolusi (XSUR)?</summary>
         <p>
-          Kami melayani berbagai kebutuhan IT praktis untuk bisnis, perkantoran, dan perorangan: 1) Setting jaringan WiFi kantor &amp; router MikroTik agar internet stabil dan anti-lelet, 2) Pembuatan website profil bisnis dan toko online modern, 3) Pembuatan bot WhatsApp dan Telegram otomatis untuk jualan 24 jam, 4) Pengamanan website dari serangan hacker dan virus, 5) Pemasangan sistem pembayaran QRIS otomatis semua bank, serta 6) Konsultasi IT dan bimbingan coding bersama S2 Komputer.
+          Kami melayani berbagai kebutuhan IT praktis untuk bisnis, perkantoran, dan perorangan: 1) Setting jaringan WiFi kantor &amp; router MikroTik agar internet stabil dan anti-lelet, 2) Pembuatan website profil bisnis dan toko online modern, 3) Pembuatan bot WhatsApp dan Telegram otomatis untuk jualan 24 jam, 4) Pengamanan website dari serangan hacker dan virus, 5) Pemasangan sistem pembayaran QRIS otomatis semua bank, serta 6) Konsultasi IT dan bimbingan pemrograman/coding.
         </p>
       </details>
 
       <details class="faq-item">
         <summary>Siapa yang mengerjakan dan mengawasi setiap proyek di XSUR?</summary>
         <p>
-          Seluruh pengerjaan dipimpin langsung oleh Bang Mansur, praktisi IT senior dan profesional keamanan siber berpendidikan Magister Ilmu Komputer (S2) dengan pengalaman bertahun-tahun dalam menangani jaringan perkantoran, sistem otomasi, dan keamanan data.
+          Seluruh pengerjaan dipimpin langsung oleh Bang Mansur, praktisi IT senior dan profesional keamanan siber dengan pengalaman bertahun-tahun dalam menangani jaringan perkantoran, sistem otomasi, dan keamanan data.
         </p>
       </details>
 
@@ -1415,7 +1415,7 @@ export function renderPublicPage({ menus, siteConfig, projects = DEFAULT_PROJECT
       <div>
         <strong>${companyName}</strong> (${brandName}) &bull; &copy; ${new Date().getFullYear()} All Rights Reserved.
         <div style="font-size: 12px; color: #475569; margin-top: 4px;">
-          Solusi IT Profesional, Jaringan Internet Kantor &amp; Otomasi Bisnis &bull; Didampingi S2 Magister Ilmu Komputer &bull; WhatsApp: +62 857-1000-55554
+          Solusi IT Profesional, Jaringan Internet Kantor &amp; Otomasi Bisnis &bull; Layanan Bergaransi &bull; WhatsApp: +62 857-1000-55554
         </div>
         <div style="font-size: 12px; color: #64748b; margin-top: 6px; display: flex; gap: 14px; flex-wrap: wrap;">
           <a href="https://mail.xsur.my.id" target="_blank" style="color: var(--cyan); text-decoration: none;">✉️ Webmail &amp; Temp Mail</a>

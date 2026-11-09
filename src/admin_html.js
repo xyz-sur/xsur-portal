@@ -194,6 +194,7 @@ export function renderAdminPage({ isAuthenticated, menus = [], siteConfig = {}, 
       <span style="font-size: 12px; font-family: 'JetBrains Mono', monospace; color: var(--cyan); border-left: 1px solid var(--border); padding-left: 12px;">ADMIN CONTROL</span>
     </div>
     <div style="display: flex; align-items: center; gap: 12px;">
+      <a href="/link" class="btn-logout" style="border-color: rgba(0, 242, 254, 0.5); color: var(--cyan);">🔗 Shortener Link Shield</a>
       <a href="/" target="_blank" class="btn-logout" style="border-color: var(--cyan); color: var(--cyan);">&rarr; Lihat Web Live</a>
       <form method="POST" action="/api/admin/logout" style="display: inline;">
         <button type="submit" class="btn-logout">Logout</button>

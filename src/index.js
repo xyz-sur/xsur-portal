@@ -4,6 +4,7 @@ import { renderAdminPage } from "./admin_html.js";
 import { SVG_HORIZONTAL, SVG_ICON } from "./logo.js";
 import { DEFAULT_PROJECTS } from "./projects.js";
 import { OG_BANNER_BASE64, LOGO_PNG_BASE64, base64ToUint8Array } from "./assets.js";
+import { renderSafeLinkGateway, renderLinkDashboard, generateRandomSlug } from "./shortlinks.js";
 
 // SHA-256 helper for password verification
 async function sha256(str) {
@@ -272,6 +273,229 @@ PT Xecure Siber Unggul Resolusi (XSUR) adalah penyedia solusi IT dan keamanan si
     } catch (e) {
       console.error("D1 Fetch Error:", e);
       projects = DEFAULT_PROJECTS;
+    }
+
+    // ==========================================
+    // 2.5. XSUR LINK SHIELD SHORTENER & GATEWAY
+    // ==========================================
+
+    // Dynamic SafeLink Resolution (/link/<slug>, /link-<slug>, /l/<slug>)
+    if ((path.startsWith("/link/") && path !== "/link/" && path !== "/link/admin") || path.startsWith("/link-") || path.startsWith("/l/")) {
+      let slug = "";
+      if (path.startsWith("/link/")) slug = path.slice(6);
+      else if (path.startsWith("/link-")) slug = path.slice(6);
+      else if (path.startsWith("/l/")) slug = path.slice(3);
+
+      slug = slug.split("/")[0].split("?")[0].trim().toLowerCase();
+
+      if (slug && slug !== "admin") {
+        if (env.DB) {
+          try {
+            const linkRow = await env.DB.prepare(
+              "SELECT * FROM xsur_shortlinks WHERE slug = ? AND status = 'active'"
+            ).bind(slug).first();
+
+            if (linkRow) {
+              // Asynchronous non-blocking visitor click tracking
+              if (ctx && ctx.waitUntil) {
+                ctx.waitUntil(
+                  env.DB.prepare(
+                    "UPDATE xsur_shortlinks SET clicks = clicks + 1, last_visited_at = CURRENT_TIMESTAMP WHERE id = ?"
+                  ).bind(linkRow.id).run()
+                );
+              } else {
+                await env.DB.prepare(
+                  "UPDATE xsur_shortlinks SET clicks = clicks + 1, last_visited_at = CURRENT_TIMESTAMP WHERE id = ?"
+                ).bind(linkRow.id).run();
+              }
+
+              // Check if direct redirect is explicitly requested via ?direct=1
+              if (url.searchParams.get("direct") === "1") {
+                return Response.redirect(linkRow.destination_url, 302);
+              }
+
+              const html = renderSafeLinkGateway({
+                slug: linkRow.slug,
+                destinationUrl: linkRow.destination_url,
+                title: linkRow.title,
+                seoKeyword: linkRow.seo_keyword
+              });
+              return new Response(html, {
+                headers: {
+                  "Content-Type": "text/html; charset=utf-8",
+                  "Cache-Control": "no-store, no-cache, must-revalidate"
+                }
+              });
+            }
+          } catch (err) {
+            console.error("Shortlink D1 lookup error:", err);
+          }
+        }
+
+        // Slug not found -> return friendly 404
+        return new Response(`<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tautan Tidak Ditemukan // XSUR Link Shield</title>
+  <link rel="icon" type="image/svg+xml" href="/logo.svg">
+  <style>
+    body { background: #06090e; color: #f8fafc; font-family: system-ui, sans-serif; display: flex; align-items: center; justify-content: center; min-height: 100vh; margin: 0; text-align: center; }
+    .box { background: rgba(13, 19, 33, 0.9); border: 1px solid rgba(244, 63, 94, 0.4); padding: 40px; border-radius: 16px; max-width: 480px; box-shadow: 0 10px 40px rgba(0,0,0,0.6); }
+    h1 { color: #fb7185; font-size: 22px; margin-bottom: 12px; }
+    p { color: #94a3b8; font-size: 14px; line-height: 1.6; margin-bottom: 24px; }
+    a { display: inline-block; background: #00f2fe; color: #05080f; padding: 12px 24px; border-radius: 8px; font-weight: 700; text-decoration: none; }
+  </style>
+</head>
+<body>
+  <div class="box">
+    <h1>⚠️ Tautan Tidak Ditemukan</h1>
+    <p>Shortlink <code>/link/${slug}</code> yang Anda tuju tidak terdaftar atau sudah dinonaktifkan oleh sistem keamanan XSUR Link Shield.</p>
+    <a href="https://xsur.my.id">← Kembali ke Beranda XSUR</a>
+  </div>
+</body>
+</html>`, {
+          status: 404,
+          headers: { "Content-Type": "text/html; charset=utf-8" }
+        });
+      }
+    }
+
+    // Link Management Dashboard (/link or /link/ or /link/admin)
+    if (path === "/link" || path === "/link/" || path === "/link/admin") {
+      const isAuth = await verifyAdminAuth(request, env);
+      let links = [];
+      if (isAuth && env.DB) {
+        try {
+          const rows = await env.DB.prepare(
+            "SELECT * FROM xsur_shortlinks ORDER BY id DESC"
+          ).all();
+          links = rows.results || [];
+        } catch (e) {
+          console.error("D1 Fetch shortlinks error:", e);
+        }
+      }
+      const errorMsg = url.searchParams.get("error") || "";
+      const successMsg = url.searchParams.get("success") || "";
+      const html = renderLinkDashboard({
+        isAuthenticated: isAuth,
+        links,
+        error: errorMsg,
+        success: successMsg,
+        siteConfig
+      });
+      return new Response(html, {
+        headers: { "Content-Type": "text/html; charset=utf-8", "Cache-Control": "no-store" }
+      });
+    }
+
+    // Link Dashboard Auth & Actions API
+    if (path === "/api/link/login" && method === "POST") {
+      let pwd = "";
+      const contentType = request.headers.get("content-type") || "";
+      if (contentType.includes("application/json")) {
+        const body = await request.json();
+        pwd = body.password || "";
+      } else {
+        const formData = await request.formData();
+        pwd = formData.get("password") || "";
+      }
+
+      const inputHash = await sha256(pwd);
+      const targetHash = siteConfig.admin_password_hash || "8d20b6dac67d7d8ae6126117f09dc9723d01f403ef790750244450c36442c141";
+
+      if (inputHash === targetHash) {
+        const sessionId = "sess_" + crypto.randomUUID().replace(/-/g, "") + "_" + Date.now();
+        await env.DB.prepare(
+          "INSERT INTO xsur_admin_sessions (session_id, expires_at) VALUES (?, datetime('now', '+7 days'))"
+        ).bind(sessionId).run();
+
+        const headers = new Headers();
+        headers.set("Set-Cookie", `xsur_auth=${sessionId}; Path=/; HttpOnly; Secure; SameSite=Lax; Max-Age=604800`);
+        headers.set("Location", "/link?success=Login+berhasil");
+        return new Response(null, { status: 302, headers });
+      } else {
+        const headers = new Headers();
+        headers.set("Location", "/link?error=Kunci+keamanan+salah.+Akses+ditolak!");
+        return new Response(null, { status: 302, headers });
+      }
+    }
+
+    if (path === "/api/link/create" && method === "POST") {
+      const isAuth = await verifyAdminAuth(request, env);
+      if (!isAuth) {
+        return new Response(null, { status: 302, headers: { "Location": "/link?error=Silakan+login+terlebih+dahulu" } });
+      }
+
+      let destUrl = "";
+      let title = "";
+      let customSlug = "";
+      let seoKeyword = "";
+
+      const contentType = request.headers.get("content-type") || "";
+      if (contentType.includes("application/json")) {
+        const body = await request.json();
+        destUrl = (body.destination_url || "").trim();
+        title = (body.title || "").trim();
+        customSlug = (body.custom_slug || "").trim();
+        seoKeyword = (body.seo_keyword || "").trim();
+      } else {
+        const formData = await request.formData();
+        destUrl = (formData.get("destination_url") || "").trim();
+        title = (formData.get("title") || "").trim();
+        customSlug = (formData.get("custom_slug") || "").trim();
+        seoKeyword = (formData.get("seo_keyword") || "").trim();
+      }
+
+      if (!destUrl) {
+        return new Response(null, { status: 302, headers: { "Location": "/link?error=URL+tujuan+wajib+diisi" } });
+      }
+      if (!destUrl.startsWith("http://") && !destUrl.startsWith("https://")) {
+        destUrl = "https://" + destUrl;
+      }
+
+      let finalSlug = "";
+      if (customSlug) {
+        finalSlug = customSlug.toLowerCase().replace(/[^a-z0-9-]/g, "").slice(0, 32);
+      }
+      if (!finalSlug) {
+        finalSlug = generateRandomSlug(10);
+      }
+
+      try {
+        await env.DB.prepare(`
+          INSERT INTO xsur_shortlinks (slug, destination_url, title, seo_keyword, clicks, status)
+          VALUES (?, ?, ?, ?, 0, 'active')
+        `).bind(finalSlug, destUrl, title, seoKeyword).run();
+
+        return new Response(null, { status: 302, headers: { "Location": `/link?success=Shortlink+berhasil+dibuat:+/link/${finalSlug}` } });
+      } catch (err) {
+        console.error("D1 Create shortlink error:", err);
+        return new Response(null, { status: 302, headers: { "Location": `/link?error=Slug+sudah+digunakan+atau+terjadi+kesalahan` } });
+      }
+    }
+
+    if (path === "/api/link/delete" && method === "POST") {
+      const isAuth = await verifyAdminAuth(request, env);
+      if (!isAuth) {
+        return new Response(null, { status: 302, headers: { "Location": "/link?error=Unauthorized" } });
+      }
+
+      let slug = "";
+      const contentType = request.headers.get("content-type") || "";
+      if (contentType.includes("application/json")) {
+        const body = await request.json();
+        slug = (body.slug || "").trim();
+      } else {
+        const formData = await request.formData();
+        slug = (formData.get("slug") || "").trim();
+      }
+
+      if (slug) {
+        await env.DB.prepare("DELETE FROM xsur_shortlinks WHERE slug = ?").bind(slug).run();
+      }
+      return new Response(null, { status: 302, headers: { "Location": "/link?success=Shortlink+berhasil+dihapus" } });
     }
 
     // 3. Admin Authentication & Dashboard

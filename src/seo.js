@@ -16,6 +16,7 @@ export function generateSeoTags(siteConfig) {
   const ogImage = `${canonicalUrl}/og-banner.png`;
   const logoImage = `${canonicalUrl}/logo.png`;
   const googleVerification = siteConfig.google_site_verification || "";
+  const blinxdVerify = siteConfig.blinxd_verify || "blinxd-verify-394c986177114a758737aae5a0cf8242";
 
   // Highly Structured Schema.org Graph for Google Top 10 Sitelinks, Knowledge Panel & Rich Snippets (Rating Stars & FAQ Accordion)
   const schemaJsonLd = {
@@ -342,6 +343,7 @@ export function generateSeoTags(siteConfig) {
     <link rel="canonical" href="${canonicalUrl}">
     ${googleVerification ? `<meta name="google-site-verification" content="${googleVerification}">` : ''}
     <meta name="msvalidate.01" content="A559E66F438B8603FDBDA9EC760A8128">
+    <meta name="blinxd-verify" content="${blinxdVerify}">
 
     <!-- Open Graph / Facebook / Telegram / WhatsApp / LinkedIn -->
     <meta property="og:type" content="business.business">

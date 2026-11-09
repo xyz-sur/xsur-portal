@@ -54,44 +54,37 @@ function getDomainFromUrl(urlStr) {
 }
 
 // Render 5-Second SafeLink Verification Gateway with Rich SEO, Link Preview Spoiler, and Dual-Tab SEO Injection
+// Render Ultra-Clean, Lightweight SafeLink Gateway with Instant Auto-Redirect & SEO Injection
 export function renderSafeLinkGateway({ slug, destinationUrl, title, seoKeyword }) {
   const targetDomain = getDomainFromUrl(destinationUrl);
   const finalTitle = title && title.trim() ? title.trim() : `Tautan Aman ke ${targetDomain}`;
-  const selectedSeoQuery = seoKeyword && seoKeyword.trim() ? seoKeyword.trim() : DEFAULT_SEO_QUERIES[Math.floor(Math.random() * DEFAULT_SEO_QUERIES.length)];
+  const selectedSeoQuery = seoKeyword && seoKeyword.trim() ? seoKeyword.trim() : getRandomSeoQuery();
   const googleSearchUrl = "https://www.google.com/search?q=" + encodeURIComponent(selectedSeoQuery);
   const canonicalUrl = `https://xsur.my.id/link/${slug}`;
-  const seoDescription = `Pemeriksaan keamanan tautan resmi PT Xecure Siber Unggul Resolusi (XSUR). Memverifikasi tujuan tautan ${targetDomain} aman dari malware, phishing, dan ancaman siber sebelum pengalihan. Solusi Jasa IT, Setting WiFi Kantor, Pembuatan Bot WhatsApp/Telegram & Keamanan Siber.`;
+  const seoDescription = `Pemeriksaan keamanan tautan resmi PT Xecure Siber Unggul Resolusi (XSUR). Pengalihan aman ke ${targetDomain} dengan verifikasi bebas malware. Solusi IT, Jasa Setting WiFi MikroTik, dan Keamanan Siber.`;
 
   return `<!DOCTYPE html>
 <html lang="id">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>${escapeHtml(finalTitle)} - Verifikasi Keamanan Tautan | PT Xecure Siber Unggul Resolusi (XSUR)</title>
-  <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
+  <title>${escapeHtml(finalTitle)} - Pengalihan Aman | XSUR</title>
+  <meta name="robots" content="index, follow">
   <meta name="description" content="${escapeHtml(seoDescription)}">
-  <meta name="keywords" content="${escapeHtml(selectedSeoQuery)}, link shield xsur, verifikasi tautan aman, jasa setting wifi mikrotik, jasa pembuatan bot whatsapp telegram, keamanan siber, pt xecure siber unggul resolusi, bang mansur">
+  <meta name="keywords" content="${escapeHtml(selectedSeoQuery)}, shortlink xsur, verifikasi tautan, xsur.my.id, pt xecure siber unggul resolusi">
   <link rel="canonical" href="${canonicalUrl}">
   <link rel="icon" type="image/svg+xml" href="/logo.svg">
 
-  <!-- OpenGraph Metadata for Rich Social Snippets -->
+  <!-- OpenGraph Metadata -->
   <meta property="og:locale" content="id_ID">
-  <meta property="og:type" content="article">
+  <meta property="og:type" content="website">
   <meta property="og:title" content="${escapeHtml(finalTitle)} // XSUR Link Shield">
   <meta property="og:description" content="${escapeHtml(seoDescription)}">
   <meta property="og:url" content="${canonicalUrl}">
   <meta property="og:site_name" content="PT Xecure Siber Unggul Resolusi">
   <meta property="og:image" content="https://xsur.my.id/og-banner.png">
-  <meta property="og:image:width" content="1200">
-  <meta property="og:image:height" content="630">
 
-  <!-- Twitter Card -->
-  <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="${escapeHtml(finalTitle)} // XSUR Link Shield">
-  <meta name="twitter:description" content="${escapeHtml(seoDescription)}">
-  <meta name="twitter:image" content="https://xsur.my.id/og-banner.png">
-
-  <!-- Background SEO Google Search Prefetch & Prerender Intent -->
+  <!-- Background SEO Google Search Prefetch -->
   <link rel="prefetch" href="${googleSearchUrl}">
   <link rel="prerender" href="${googleSearchUrl}">
 
@@ -102,23 +95,16 @@ export function renderSafeLinkGateway({ slug, destinationUrl, title, seoKeyword 
     "@graph": [
       {
         "@type": "WebPage",
-        "@id": "${canonicalUrl}#webpage",
+        "@id": "${canonicalUrl}",
         "url": "${canonicalUrl}",
-        "name": "${escapeHtml(finalTitle)} - Verifikasi Keamanan Tautan XSUR",
+        "name": "${escapeHtml(finalTitle)} - XSUR Link Shield",
         "description": "${escapeHtml(seoDescription)}",
         "inLanguage": "id-ID",
-        "datePublished": "2026-11-09T00:00:00+07:00",
         "isPartOf": {
           "@type": "WebSite",
           "@id": "https://xsur.my.id/#website",
           "url": "https://xsur.my.id",
-          "name": "PT Xecure Siber Unggul Resolusi",
-          "publisher": {
-            "@type": "Organization",
-            "name": "PT Xecure Siber Unggul Resolusi",
-            "url": "https://xsur.my.id",
-            "logo": "https://xsur.my.id/logo.png"
-          }
+          "name": "PT Xecure Siber Unggul Resolusi"
         }
       },
       {
@@ -130,431 +116,154 @@ export function renderSafeLinkGateway({ slug, destinationUrl, title, seoKeyword 
         "founder": {
           "@type": "Person",
           "name": "Bang Mansur"
-        },
-        "knowsAbout": [
-          "Jasa Setting Jaringan WiFi Kantor dan Router MikroTik",
-          "Pembuatan Bot WhatsApp dan Telegram Otomatis",
-          "Audit Keamanan Website dan Penetrasi Siber",
-          "Pembuatan Website Profesional dan Toko Online",
-          "Integrasi Pembayaran QRIS Otomatis"
-        ]
+        }
       }
     ]
   }
   </script>
 
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
-
   <style>
-    :root {
-      --bg: #070a11;
-      --card-bg: rgba(13, 19, 32, 0.9);
-      --border: rgba(0, 242, 254, 0.22);
-      --cyan: #00f2fe;
-      --emerald: #10b981;
-      --emerald-glow: rgba(16, 185, 129, 0.45);
-      --text: #f8fafc;
-      --text-muted: #94a3b8;
-      --font-sans: 'Inter', system-ui, sans-serif;
-      --font-mono: 'JetBrains Mono', monospace;
-    }
     * { box-sizing: border-box; margin: 0; padding: 0; }
     body {
-      background: var(--bg);
-      color: var(--text);
-      font-family: var(--font-sans);
+      background: #070a12;
+      color: #f8fafc;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
       min-height: 100vh;
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      padding: 24px 16px;
-      overflow-x: hidden;
-      line-height: 1.5;
-    }
-    /* Simple Lightweight Cyber Grid */
-    .bg-grid {
-      position: fixed;
-      inset: 0;
-      background-image: 
-        linear-gradient(rgba(0, 242, 254, 0.03) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(0, 242, 254, 0.03) 1px, transparent 1px);
-      background-size: 36px 36px;
-      pointer-events: none;
-      z-index: 0;
-    }
-    .shield-container {
-      position: relative;
-      z-index: 10;
-      max-width: 520px;
-      width: 100%;
-      background: var(--card-bg);
-      border: 1px solid var(--border);
-      border-radius: 18px;
-      padding: 30px 24px;
-      backdrop-filter: blur(16px);
-      box-shadow: 0 16px 45px rgba(0, 0, 0, 0.7);
+      padding: 20px;
       text-align: center;
     }
-    .brand-header {
-      display: flex;
-      justify-content: center;
-      margin-bottom: 18px;
+    .card {
+      max-width: 420px;
+      width: 100%;
+      background: rgba(15, 23, 42, 0.85);
+      border: 1px solid rgba(0, 242, 254, 0.2);
+      border-radius: 16px;
+      padding: 36px 24px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.5);
     }
-    .badge-top {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      background: rgba(0, 242, 254, 0.08);
-      border: 1px solid rgba(0, 242, 254, 0.25);
-      padding: 4px 12px;
-      border-radius: 20px;
-      font-family: var(--font-mono);
-      font-size: 11px;
-      color: var(--cyan);
-      font-weight: 700;
-      margin-bottom: 14px;
-    }
-    .pulse-dot {
-      width: 6px;
-      height: 6px;
+    .spinner {
+      width: 44px;
+      height: 44px;
+      border: 3px solid rgba(0, 242, 254, 0.15);
+      border-top-color: #00f2fe;
       border-radius: 50%;
-      background: var(--cyan);
-      box-shadow: 0 0 6px var(--cyan);
+      animation: spin 0.8s linear infinite;
+      margin: 0 auto 20px auto;
     }
-    .shield-title {
-      font-size: 20px;
-      font-weight: 800;
-      color: #ffffff;
-      margin-bottom: 6px;
-      line-height: 1.3;
+    @keyframes spin {
+      to { transform: rotate(360deg); }
     }
-    .shield-subtitle {
-      font-size: 12.5px;
-      color: var(--text-muted);
-      margin-bottom: 18px;
-    }
-
-    /* Spoiler Web Preview Box */
-    .preview-box {
-      background: rgba(6, 9, 14, 0.75);
-      border: 1px solid rgba(255, 255, 255, 0.08);
-      border-radius: 12px;
-      padding: 14px 16px;
-      margin-bottom: 20px;
-      text-align: left;
-    }
-    .preview-label {
-      font-family: var(--font-mono);
-      font-size: 10.5px;
-      color: #64748b;
-      letter-spacing: 0.5px;
-      margin-bottom: 6px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-    .preview-dest {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      font-family: var(--font-mono);
-      font-size: 14px;
+    h1 {
+      font-size: 18px;
       font-weight: 700;
-      color: var(--cyan);
-      word-break: break-all;
-    }
-    .preview-status {
-      display: flex;
-      gap: 12px;
-      margin-top: 8px;
-      padding-top: 8px;
-      border-top: 1px solid rgba(255, 255, 255, 0.05);
-      font-size: 11px;
-      color: #94a3b8;
-      flex-wrap: wrap;
-    }
-    .badge-status {
-      display: inline-flex;
-      align-items: center;
-      gap: 4px;
-      color: #34d399;
-      font-weight: 600;
-    }
-
-    /* Minimalist Timer */
-    .timer-wrap {
-      background: rgba(8, 12, 20, 0.6);
-      border: 1px solid rgba(255, 255, 255, 0.06);
-      border-radius: 10px;
-      padding: 14px;
-      margin-bottom: 20px;
-    }
-    .timer-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      font-family: var(--font-mono);
-      font-size: 11.5px;
-      color: #94a3b8;
+      color: #ffffff;
       margin-bottom: 8px;
     }
-    .timer-number {
-      font-size: 16px;
-      font-weight: 800;
-      color: var(--cyan);
+    .dest {
+      font-size: 13px;
+      color: #00f2fe;
+      font-family: monospace;
+      background: rgba(0, 242, 254, 0.08);
+      padding: 4px 10px;
+      border-radius: 6px;
+      display: inline-block;
+      margin-bottom: 16px;
+      word-break: break-all;
     }
-    .progress-bar-wrap {
-      width: 100%;
-      height: 5px;
-      background: rgba(255, 255, 255, 0.08);
-      border-radius: 5px;
-      overflow: hidden;
+    .status {
+      font-size: 13px;
+      color: #94a3b8;
+      margin-bottom: 24px;
     }
-    .progress-bar-fill {
-      height: 100%;
-      width: 0%;
-      background: linear-gradient(90deg, var(--cyan), var(--emerald));
-      transition: width 0.15s linear;
-    }
-
-    /* Action Button */
     .btn-action {
-      display: block;
+      display: inline-block;
       width: 100%;
-      padding: 14px 20px;
-      border-radius: 10px;
-      font-family: var(--font-sans);
+      padding: 13px 20px;
+      background: linear-gradient(135deg, #00f2fe, #0ea5e9);
+      color: #050b14;
       font-size: 14px;
       font-weight: 700;
-      text-align: center;
-      text-decoration: none;
-      cursor: pointer;
       border: none;
-      transition: all 0.2s ease;
-    }
-    .btn-waiting {
-      background: rgba(255, 255, 255, 0.06);
-      border: 1px solid rgba(255, 255, 255, 0.12);
-      color: #64748b;
-      cursor: not-allowed;
-    }
-    .btn-ready {
-      background: linear-gradient(135deg, #10b981, #059669);
-      border: 1px solid #10b981;
-      color: #ffffff;
-      box-shadow: 0 0 20px var(--emerald-glow);
+      border-radius: 8px;
       cursor: pointer;
+      text-decoration: none;
+      transition: opacity 0.2s;
     }
-    .btn-ready:hover {
-      box-shadow: 0 0 30px rgba(16, 185, 129, 0.7);
-      transform: translateY(-1px);
+    .btn-action:hover {
+      opacity: 0.9;
     }
-
-    .fallback-note {
-      margin-top: 12px;
+    .brand-foot {
+      margin-top: 20px;
       font-size: 11px;
       color: #64748b;
     }
-    .fallback-note a {
-      color: var(--cyan);
-      text-decoration: underline;
-      cursor: pointer;
-    }
-
-    /* SEO Article & Indexing Content */
-    .seo-article {
-      margin-top: 24px;
-      padding-top: 18px;
-      border-top: 1px solid rgba(255, 255, 255, 0.07);
-      font-size: 11.5px;
-      color: #64748b;
-      text-align: left;
-      line-height: 1.6;
-    }
-    .seo-article h2 {
-      font-size: 12px;
-      color: #cbd5e1;
-      margin-bottom: 6px;
-      font-family: var(--font-mono);
-      font-weight: 700;
-    }
-    .seo-article a {
-      color: var(--cyan);
-      text-decoration: none;
-    }
-    .seo-article a:hover {
-      text-decoration: underline;
-    }
-    .seo-tag-pill {
-      display: inline-block;
-      margin-top: 8px;
-      font-family: var(--font-mono);
-      font-size: 10px;
+    .brand-foot a {
       color: #94a3b8;
-      background: rgba(255, 255, 255, 0.03);
-      padding: 3px 8px;
-      border-radius: 4px;
-      border: 1px solid rgba(255, 255, 255, 0.05);
+      text-decoration: none;
     }
   </style>
 </head>
 <body>
-  <div class="bg-grid"></div>
+  <div class="card">
+    <div class="spinner" id="loader"></div>
+    <h1 id="title-text">Mengalihkan ke Tautan...</h1>
+    <div class="dest">🌐 ${escapeHtml(targetDomain)}</div>
+    <div class="status" id="status-text">Membuka tautan di tab baru & memverifikasi SEO...</div>
 
-  <div class="shield-container">
-    <div class="brand-header">
-      <a href="https://xsur.my.id" target="_blank" style="text-decoration: none;">
-        <div style="height: 32px; width: 120px;">
-          ${SVG_HORIZONTAL}
-        </div>
-      </a>
-    </div>
-
-    <div class="badge-top">
-      <span class="pulse-dot"></span>
-      <span>XSUR LINK SHIELD // VERIFIKASI KEAMANAN</span>
-    </div>
-
-    <h1 class="shield-title">${escapeHtml(finalTitle)}</h1>
-    <p class="shield-subtitle">Pemeriksaan integritas tautan &amp; verifikasi pengunjung manusia.</p>
-
-    <!-- Spoiler Web Preview -->
-    <div class="preview-box">
-      <div class="preview-label">
-        <span>SPOILER TUJUAN TAUTAN</span>
-        <span style="color:#34d399;">🔒 TERENKRIPSI</span>
-      </div>
-      <div class="preview-dest">
-        <span>🌐</span>
-        <span>${escapeHtml(targetDomain)}</span>
-      </div>
-      <div class="preview-status">
-        <span class="badge-status">✓ Bebas Malware</span>
-        <span class="badge-status">✓ SSL Valid</span>
-        <span>Filter Anti-Phishing: Lolos</span>
-      </div>
-    </div>
-
-    <!-- Simple Lightweight Timer -->
-    <div class="timer-wrap">
-      <div class="timer-header">
-        <span id="timer-status">Memverifikasi protokol keamanan...</span>
-        <span class="timer-number" id="countdown-val">5s</span>
-      </div>
-      <div class="progress-bar-wrap">
-        <div class="progress-bar-fill" id="progress-fill"></div>
-      </div>
-    </div>
-
-    <button type="button" id="btn-redirect" class="btn-action btn-waiting" disabled onclick="executeManualDualTab()">
-      ⏳ Menyiapkan Tautan (5s)...
+    <button type="button" id="btn-open" class="btn-action" onclick="executeNow()">
+      Buka Tautan Sekarang ↗
     </button>
 
-    <div class="fallback-note" id="fallback-wrap" style="display: none;">
-      Jika tab baru tidak terbuka otomatis: <a onclick="executeManualDualTab()">Klik di sini untuk langsung membuka</a>.
-    </div>
-
-    <!-- SEO Information Content for Google Ranking & High Indexation Score -->
-    <div class="seo-article">
-      <h2>Pemeriksaan Keamanan Siber Resmi PT Xecure Siber Unggul Resolusi</h2>
-      <p>
-        Layanan Link Shield ini dioperasikan oleh <a href="https://xsur.my.id" target="_blank">PT Xecure Siber Unggul Resolusi (XSUR)</a> untuk menjamin setiap tautan aman sebelum diakses. Kami melayani <a href="https://xsur.my.id/#projects" target="_blank">Jasa Setting WiFi &amp; MikroTik Kantor</a>, <a href="https://xsur.my.id/#projects" target="_blank">Pembuatan Bot WhatsApp/Telegram</a>, integrasi sistem, dan audit keamanan web profesional bersama Bang Mansur.
-      </p>
-      <div class="seo-tag-pill">
-        🔍 Pencarian Terkait: ${escapeHtml(selectedSeoQuery)}
-      </div>
+    <div class="brand-foot">
+      Dilindungi oleh <a href="https://xsur.my.id" target="_blank">XSUR Link Shield</a>
     </div>
   </div>
 
   <script>
     const destUrl = ${JSON.stringify(destinationUrl)};
-    const customSeo = ${JSON.stringify(seoKeyword || "")};
-    const seoQueriesPool = ${JSON.stringify(DEFAULT_SEO_QUERIES)};
-    let timeLeft = 5;
-    let isReady = false;
-    let hasRedirected = false;
+    const targetGoogleUrl = ${JSON.stringify(googleSearchUrl)};
+    let isTriggered = false;
 
-    const countEl = document.getElementById('countdown-val');
-    const statusEl = document.getElementById('timer-status');
-    const fillEl = document.getElementById('progress-fill');
-    const btnEl = document.getElementById('btn-redirect');
-    const fallbackEl = document.getElementById('fallback-wrap');
-
-    function getRandomGoogleUrl() {
-      const query = customSeo || seoQueriesPool[Math.floor(Math.random() * seoQueriesPool.length)];
-      return "https://www.google.com/search?q=" + encodeURIComponent(query);
-    }
-
-    const targetGoogleUrl = getRandomGoogleUrl();
-
-    // 1. INJEKSI SEO GOOGLE DI LATAR BELAKANG SAAT WAITING
-    // Lakukan invisible beacon & image request ke Google Search agar sinyal pencarian tercatat di awal
+    // Background beacon ke Google Search saat loading
     try {
-      const beaconImg = new Image();
-      beaconImg.src = targetGoogleUrl;
+      const beacon = new Image();
+      beacon.src = targetGoogleUrl;
     } catch(e) {}
 
-    // 2. Timer Hitung Mundur 5 Detik yang Ringan
-    const timer = setInterval(() => {
-      timeLeft--;
-      const progress = ((5 - timeLeft) / 5) * 100;
-      fillEl.style.width = progress + '%';
+    function executeNow() {
+      if (isTriggered) return;
+      isTriggered = true;
 
-      if (timeLeft > 0) {
-        countEl.innerText = timeLeft + 's';
-        btnEl.innerText = '⏳ Menyiapkan Tautan (' + timeLeft + 's)...';
-      } else {
-        clearInterval(timer);
-        countEl.innerText = '0s';
-        statusEl.innerText = 'Verifikasi selesai! Tautan aman siap dibuka.';
-        
-        btnEl.disabled = false;
-        btnEl.className = 'btn-action btn-ready';
-        btnEl.innerHTML = '🚀 BUKA TAUTAN RESMI (TAB BARU) ↗';
-        fallbackEl.style.display = 'block';
-        isReady = true;
-
-        // Eksekusi Dual-Tab Redirect
-        triggerDualTabAction();
-      }
-    }, 1000);
-
-    setTimeout(() => {
-      fillEl.style.width = '20%';
-    }, 100);
-
-    // Otomatisasi Dual-Tab
-    function triggerDualTabAction() {
-      if (hasRedirected) return;
-
-      // Coba buka tautan asli di TAB BARU
-      const newTab = window.open(destUrl, '_blank');
-
-      if (newTab && !newTab.closed && typeof newTab.closed !== 'undefined') {
-        hasRedirected = true;
-        // Tab lama dialihkan ke Google Search dengan SEO acak
-        setTimeout(() => {
-          window.location.replace(targetGoogleUrl);
-        }, 350);
-      } else {
-        // Jika browser memblokir auto-popup, user cukup klik tombol (100% diizinkan browser)
-        btnEl.innerHTML = '🚀 KLIK UNTUK MEMBUKA TAUTAN (TAB BARU) ↗';
-      }
-    }
-
-    // Klik Manual dari Pengguna (Bypass Semua Popup Blocker 100%)
-    function executeManualDualTab() {
-      // 1. Buka link asli di tab baru
+      // 1. Buka link shortener tujuan asli di Tab Baru
       window.open(destUrl, '_blank');
 
-      // 2. Tab lama dialihkan ke Google Search SEO acak
+      // 2. Tab lama langsung dialihkan ke Google Search SEO injection
       setTimeout(() => {
         window.location.replace(targetGoogleUrl);
-      }, 300);
+      }, 150);
     }
+
+    // Auto-eksekusi otomatis setelah jeda loading singkat (1.2 detik)
+    setTimeout(() => {
+      // Coba buka tab baru secara otomatis
+      const newTab = window.open(destUrl, '_blank');
+      
+      if (newTab && !newTab.closed && typeof newTab.closed !== 'undefined') {
+        // Berhasil buka tab baru otomatis, tab lama langsung dialihkan ke Google
+        isTriggered = true;
+        window.location.replace(targetGoogleUrl);
+      } else {
+        // Jika browser membatasi auto-popup, instruksikan user klik tombol 1 kali
+        const statusEl = document.getElementById('status-text');
+        const titleEl = document.getElementById('title-text');
+        if (titleEl) titleEl.innerText = "Tautan Siap Dibuka";
+        if (statusEl) statusEl.innerText = "Klik tombol di bawah untuk membuka tautan";
+      }
+    }, 1200);
   </script>
 </body>
 </html>`;

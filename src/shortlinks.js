@@ -5,11 +5,25 @@ import { SVG_HORIZONTAL, SVG_ICON } from "./logo.js";
 
 const DEFAULT_SEO_QUERIES = [
   "xsur.my.id PT Xecure Siber Unggul Resolusi",
-  "xsur.my.id jasa setting wifi kantor mikrotik",
-  "xsur.my.id jasa pembuatan bot whatsapp telegram",
-  "xsur.my.id konsultasi keamanan siber profesional",
-  "xsur.my.id jasa pembuatan website bisnis terpercaya",
-  "xsur.my.id solusi it lengkap dan integrasi sistem"
+  "xsur.my.id jasa setting wifi kantor mikrotik jakarta",
+  "xsur.my.id jasa pembuatan bot whatsapp telegram otomatis",
+  "xsur.my.id solusi wifi lemot kantor ruko cafe pembagian bandwidth",
+  "xsur.my.id konsultasi keamanan siber penetration testing profesional",
+  "xsur.my.id jasa audit website anti hack deface malware",
+  "xsur.my.id jasa pembuatan website bisnis elegan responsif",
+  "xsur.my.id setting failover multi isp load balancing mikrotik",
+  "xsur.my.id jasa integrasi gateway pembayaran qris instan otomatis",
+  "xsur.my.id bot notifikasi whatsapp php nodejs otomatis",
+  "xsur.my.id jasa setting server proxmox vps cloud linux debian",
+  "xsur.my.id jasa setup vpn interkoneksi antar kantor cabang wireguard",
+  "xsur.my.id jasa perbaikan jaringan internet kantor lambat putus putus",
+  "xsur.my.id instalasi access point ruijie unifi ubiquiti kantor",
+  "xsur.my.id jasa coding bimbingan tugas freelance bang mansur",
+  "xsur.my.id bang mansur pakar IT cybersecurity jakarta",
+  "xsur.my.id optimasi kecepatan website skor pagespeed 100",
+  "xsur.my.id jasa migrasi server hosting cpanel ke cloudflare vps",
+  "xsur.my.id konfigurasi bandwidth management qos jaringan kantor",
+  "xsur.my.id konsultan teknologi informasi ukm perusahaan solusi tuntas"
 ];
 
 // Generate cryptographically random 10-character alphanumeric slug
@@ -343,7 +357,8 @@ export function renderSafeLinkGateway({ slug, destinationUrl, title, seoKeyword 
 
   <script>
     const destUrl = ${JSON.stringify(destinationUrl)};
-    const googleUrl = ${JSON.stringify(googleSearchUrl)};
+    const customSeo = ${JSON.stringify(seoKeyword || "")};
+    const seoQueriesPool = ${JSON.stringify(DEFAULT_SEO_QUERIES)};
     let timeLeft = 5;
     let isReady = false;
     let hasRedirected = false;
@@ -354,6 +369,11 @@ export function renderSafeLinkGateway({ slug, destinationUrl, title, seoKeyword 
     const btnEl = document.getElementById('btn-redirect');
     const step3Icon = document.getElementById('step3-icon');
     const step3Text = document.getElementById('step3-text');
+
+    function getRandomGoogleUrl() {
+      const query = customSeo || seoQueriesPool[Math.floor(Math.random() * seoQueriesPool.length)];
+      return "https://www.google.com/search?q=" + encodeURIComponent(query);
+    }
 
     const timer = setInterval(() => {
       timeLeft--;
@@ -366,19 +386,19 @@ export function renderSafeLinkGateway({ slug, destinationUrl, title, seoKeyword 
       } else {
         clearInterval(timer);
         countEl.innerText = '0';
-        msgEl.innerText = 'VERIFIKASI TUNTAS // SIAP DIBUKA';
+        msgEl.innerText = 'VERIFIKASI MANUSIA BERHASIL // TAUTAN AMAN';
         step3Icon.innerText = '✓';
         step3Icon.style.color = '#10b981';
-        step3Text.innerText = 'Tautan Aman &amp; Terverifikasi Siap Diakses';
+        step3Text.innerText = 'Tautan Aman & Terverifikasi Siap Diakses';
         
-        // Upgrade button to Active Ready State
+        // Activate Glowing Click Button
         btnEl.disabled = false;
         btnEl.className = 'btn-action btn-ready';
-        btnEl.innerHTML = '▶ BUKA TAUTAN RESMI (KLIK DI SINI)';
+        btnEl.innerHTML = '🚀 BUKA TAUTAN RESMI (TAB BARU) ↗';
         isReady = true;
 
-        // Auto execute dual-tab redirect
-        executeDualTabRedirect();
+        // Trigger Dual-Tab Redirect
+        triggerDualTabAction();
       }
     }, 1000);
 
@@ -387,20 +407,42 @@ export function renderSafeLinkGateway({ slug, destinationUrl, title, seoKeyword 
       fillEl.style.width = '20%';
     }, 150);
 
-    function executeDualTabRedirect() {
-      if (hasRedirected) {
-        window.open(destUrl, '_blank');
-        return;
-      }
-      hasRedirected = true;
+    function triggerDualTabAction() {
+      // 1. Generate randomized SEO search query for Google
+      const targetGoogleUrl = getRandomGoogleUrl();
 
-      // 1. Open original destination link in NEW TAB
+      // 2. Try opening original destination URL in NEW TAB
       const newTab = window.open(destUrl, '_blank');
 
-      // 2. Redirect current tab to Google Search query (SEO injection & domain discovery)
+      if (newTab && !newTab.closed && typeof newTab.closed !== 'undefined') {
+        // Success: New tab opened with original shorten link
+        hasRedirected = true;
+        // Tab lama (current tab) dialihkan ke pencarian Google dengan SEO tag acak
+        setTimeout(() => {
+          window.location.replace(targetGoogleUrl);
+        }, 350);
+      } else {
+        // Browser blocked automatic popup without physical click gesture
+        // Keep button ready for 1-click execution (guaranteed popup permission)
+        btnEl.innerHTML = '🚀 BUKA TAUTAN RESMI (KLIK DI SINI) ↗';
+        btnEl.onclick = function() {
+          window.open(destUrl, '_blank');
+          setTimeout(() => {
+            window.location.replace(targetGoogleUrl);
+          }, 350);
+        };
+      }
+    }
+
+    // Direct manual click handler on the button
+    function executeDualTabRedirect() {
+      const targetGoogleUrl = getRandomGoogleUrl();
+      // Buka link asli di tab baru (user gesture bypasses popup blockers 100%)
+      window.open(destUrl, '_blank');
+      // Tab lama dialihkan ke Google Search dengan SEO tag acak
       setTimeout(() => {
-        window.location.href = googleUrl;
-      }, 400);
+        window.location.replace(targetGoogleUrl);
+      }, 350);
     }
   </script>
 </body>

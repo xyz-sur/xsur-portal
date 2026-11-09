@@ -166,36 +166,73 @@ export function renderSafeLinkGateway({ slug, destinationUrl, title, seoKeyword 
     }
 
     .status-msg {
-      font-size: 14px;
+      font-size: 14.5px;
       font-weight: 700;
       color: #f8fafc;
       margin-bottom: 4px;
     }
     .status-sub {
-      font-size: 11.5px;
+      font-size: 12px;
       color: #64748b;
       margin-bottom: 18px;
     }
 
-    /* Tombol Instan */
-    .btn-action {
-      background: linear-gradient(135deg, #00f2fe, #0ea5e9);
-      color: #06090f;
-      padding: 10px 22px;
-      border-radius: 8px;
+    /* Kotak Countdown 3 Detik */
+    .timer-box {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(15, 23, 42, 0.85);
+      border: 1px solid rgba(0, 242, 254, 0.3);
+      padding: 8px 18px;
+      border-radius: 20px;
       font-size: 13.5px;
+      color: #94a3b8;
+      margin-bottom: 8px;
+    }
+    .timer-count {
       font-weight: 800;
+      color: #00f2fe;
+      font-size: 15px;
+    }
+
+    /* Tombol Klik Berkedip (Blink / Pulse Neon) */
+    @keyframes blink-pulse {
+      0% {
+        transform: scale(1);
+        box-shadow: 0 0 12px rgba(0, 242, 254, 0.5), 0 0 24px rgba(14, 165, 233, 0.3);
+        filter: brightness(1);
+      }
+      50% {
+        transform: scale(1.04);
+        box-shadow: 0 0 28px rgba(0, 242, 254, 0.95), 0 0 48px rgba(0, 242, 254, 0.6);
+        filter: brightness(1.25);
+      }
+      100% {
+        transform: scale(1);
+        box-shadow: 0 0 12px rgba(0, 242, 254, 0.5), 0 0 24px rgba(14, 165, 233, 0.3);
+        filter: brightness(1);
+      }
+    }
+    .btn-blink {
+      animation: blink-pulse 1.1s infinite ease-in-out;
+      background: linear-gradient(135deg, #00f2fe, #0ea5e9);
+      color: #06090f !important;
+      padding: 13px 26px;
+      border-radius: 10px;
+      font-size: 14.5px;
+      font-weight: 900;
       cursor: pointer;
       text-decoration: none;
       display: inline-flex;
       align-items: center;
-      gap: 6px;
+      gap: 8px;
       border: none;
-      box-shadow: 0 4px 14px rgba(0, 242, 254, 0.25);
       transition: transform 0.1s;
+      letter-spacing: 0.3px;
     }
-    .btn-action:active {
-      transform: scale(0.98);
+    .btn-blink:active {
+      transform: scale(0.97);
     }
 
     .footer-note {
@@ -211,18 +248,24 @@ export function renderSafeLinkGateway({ slug, destinationUrl, title, seoKeyword 
 </head>
 <body>
   <div class="wrapper">
-    <div class="pulse-ring"></div>
+    <div class="pulse-ring" id="pulse-ring"></div>
 
     <div class="spoiler-pill">
       <span class="spoiler-dot"></span>
       <span>🌐 ${escapeHtml(targetDomain)}</span>
     </div>
 
-    <div class="status-msg">Mengarahkan ke tautan tujuan...</div>
-    <div class="status-sub">Injeksi keamanan & SEO Google aktif</div>
+    <div class="status-msg" id="status-msg">Memuat tautan aman...</div>
+    <div class="status-sub" id="status-sub">Injeksi Google SEO & optimasi rute aktif</div>
 
-    <a href="${escapeHtml(destinationUrl)}" class="btn-action" id="btn-manual" onclick="executeDualAction(event)">
-      🚀 Buka Tautan Sekarang ↗
+    <div class="timer-box" id="timer-box">
+      <span>⏳ Memuat dalam</span>
+      <span class="timer-count" id="count">3</span>
+      <span>detik...</span>
+    </div>
+
+    <a href="${escapeHtml(destinationUrl)}" class="btn-blink" id="btn-manual" style="display: none;" onclick="executeDualAction(event)">
+      🔥 KLIK DI SINI MENUJU LINK ↗
     </a>
 
     <div class="footer-note">
@@ -246,8 +289,33 @@ export function renderSafeLinkGateway({ slug, destinationUrl, title, seoKeyword 
     } catch(e) {}
 
     let redirected = false;
+    let secondsLeft = 3;
 
-    // 2. Eksekusi Dual-Action (Tab Baru: Google Search SEO, Tab Aktif: URL Tujuan)
+    // 2. Countdown 3 Detik: Biarkan halaman dan SEO termuat sempurna sebelum memunculkan tombol klik berkedip
+    const countEl = document.getElementById('count');
+    const timerBox = document.getElementById('timer-box');
+    const pulseRing = document.getElementById('pulse-ring');
+    const statusMsg = document.getElementById('status-msg');
+    const statusSub = document.getElementById('status-sub');
+    const btnManual = document.getElementById('btn-manual');
+
+    const countdownTimer = setInterval(function() {
+      secondsLeft--;
+      if (countEl) countEl.textContent = secondsLeft;
+
+      if (secondsLeft <= 0) {
+        clearInterval(countdownTimer);
+        if (timerBox) timerBox.style.display = 'none';
+        if (pulseRing) pulseRing.style.display = 'none';
+        if (statusMsg) statusMsg.textContent = '✅ Tautan Aman Siap!';
+        if (statusSub) statusSub.textContent = 'Sentuh tombol berkedip untuk melanjutkan ke situs tujuan:';
+        if (btnManual) {
+          btnManual.style.display = 'inline-flex';
+        }
+      }
+    }, 1000);
+
+    // 3. Eksekusi Dual-Action saat tombol diklik (User gesture klik menjamin tab terbuka bebas blokir)
     function executeDualAction(e) {
       if (e) {
         if (e.preventDefault) e.preventDefault();
@@ -256,29 +324,22 @@ export function renderSafeLinkGateway({ slug, destinationUrl, title, seoKeyword 
       if (redirected) return;
       redirected = true;
 
-      // Tab Baru: Buka Google Search SEO secara langsung via user gesture
+      // Tab Baru: Buka Google Search SEO secara langsung
       try {
         window.open(googleUrl, '_blank');
       } catch(err) {}
 
-      // Tab Ini: Alihkan langsung ke URL Tujuan secara sinkron
+      // Tab Ini: Alihkan langsung ke URL Tujuan
       window.location.href = destUrl;
     }
 
-    // 3. Tangani Klik di Mana Saja pada Layar (1-Tap Full Screen Trigger)
+    // 4. Klik di area kartu setelah countdown selesai juga dapat memicu pembukaan
     document.addEventListener('click', function(e) {
+      if (secondsLeft > 0) return;
       if (redirected) return;
       if (e.target.closest('.footer-note')) return;
       executeDualAction(e);
     });
-
-    // 4. Fallback Auto-Redirect setelah 2.5 detik jika tidak ada interaksi klik
-    setTimeout(function() {
-      if (!redirected) {
-        redirected = true;
-        window.location.href = destUrl;
-      }
-    }, 2500);
   </script>
 </body>
 </html>`;

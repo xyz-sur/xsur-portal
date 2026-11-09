@@ -4,7 +4,7 @@ import { renderAdminPage } from "./admin_html.js";
 import { SVG_HORIZONTAL, SVG_ICON } from "./logo.js";
 import { DEFAULT_PROJECTS } from "./projects.js";
 import { OG_BANNER_BASE64, LOGO_PNG_BASE64, base64ToUint8Array } from "./assets.js";
-import { renderSafeLinkGateway, renderLinkDashboard, generateRandomSlug } from "./shortlinks.js";
+import { renderSafeLinkGateway, renderLinkDashboard, generateRandomSlug, getRandomSeoQuery } from "./shortlinks.js";
 
 // SHA-256 helper for password verification
 async function sha256(str) {
@@ -461,6 +461,9 @@ PT Xecure Siber Unggul Resolusi (XSUR) adalah penyedia solusi IT dan keamanan si
       }
       if (!finalSlug) {
         finalSlug = generateRandomSlug(10);
+      }
+      if (!seoKeyword) {
+        seoKeyword = getRandomSeoQuery();
       }
 
       try {

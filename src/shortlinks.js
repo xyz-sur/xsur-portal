@@ -315,7 +315,7 @@ export function renderSafeLinkGateway({ slug, destinationUrl, title, seoKeyword 
       }
     }, 1000);
 
-    // 3. Eksekusi Dual-Action saat tombol diklik (User gesture klik menjamin tab terbuka bebas blokir)
+    // 3. Eksekusi Dual-Action saat tombol diklik (SEO dibuka dulu di tab utama, link asli di tab baru)
     function executeDualAction(e) {
       if (e) {
         if (e.preventDefault) e.preventDefault();
@@ -324,13 +324,13 @@ export function renderSafeLinkGateway({ slug, destinationUrl, title, seoKeyword 
       if (redirected) return;
       redirected = true;
 
-      // Tab Baru: Buka Google Search SEO secara langsung
+      // 1. Tab Baru: Buka Link Asli Tujuan
       try {
-        window.open(googleUrl, '_blank');
+        window.open(destUrl, '_blank');
       } catch(err) {}
 
-      // Tab Ini: Alihkan langsung ke URL Tujuan
-      window.location.href = destUrl;
+      // 2. Tab Utama / Saat Ini: Buka Google Search SEO terlebih dahulu
+      window.location.href = googleUrl;
     }
 
     // 4. Klik di area kartu setelah countdown selesai juga dapat memicu pembukaan

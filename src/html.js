@@ -289,6 +289,107 @@ export function renderPublicPage({ menus, siteConfig, projects = DEFAULT_PROJECT
       box-shadow: 0 0 20px var(--cyan-glow);
     }
 
+    /* Google Translate Resets & Clean Overrides */
+    .goog-te-banner-frame.skiptranslate,
+    .goog-te-banner-frame,
+    iframe.goog-te-banner-frame,
+    .VIpgJd-ZVi9od-ORHb-OEVmcb,
+    .VIpgJd-ZVi9od-aZ2wEe-wOHMy {
+      display: none !important;
+      visibility: hidden !important;
+      height: 0 !important;
+      margin: 0 !important;
+      padding: 0 !important;
+    }
+    body {
+      top: 0px !important;
+      position: static !important;
+    }
+    .goog-tooltip,
+    #goog-gt-tt,
+    .goog-te-balloon-frame {
+      display: none !important;
+    }
+    .goog-text-highlight {
+      background-color: transparent !important;
+      box-shadow: none !important;
+      border: none !important;
+    }
+    font {
+      background-color: transparent !important;
+      box-shadow: none !important;
+    }
+    #google_translate_element {
+      display: none !important;
+    }
+
+    /* Top-Right Navigation Actions & Cyber Language Switcher */
+    .nav-actions {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .lang-switch {
+      display: inline-flex;
+      align-items: center;
+      background: rgba(15, 23, 42, 0.75);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      border-radius: 24px;
+      padding: 3px;
+      backdrop-filter: blur(12px);
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
+      transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .lang-switch:hover {
+      border-color: rgba(0, 242, 254, 0.5);
+      box-shadow: 0 0 16px rgba(0, 242, 254, 0.25);
+    }
+    .lang-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      background: transparent;
+      border: 1px solid transparent;
+      color: #94a3b8;
+      font-family: var(--font-mono);
+      font-size: 11px;
+      font-weight: 700;
+      padding: 5px 10px;
+      border-radius: 20px;
+      cursor: pointer;
+      transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+      line-height: 1;
+    }
+    .lang-btn .flag {
+      font-size: 12px;
+    }
+    .lang-btn:hover {
+      color: #f8fafc;
+    }
+    .lang-btn.active {
+      background: linear-gradient(135deg, rgba(0, 242, 254, 0.2), rgba(79, 172, 254, 0.3));
+      color: #00f2fe;
+      border-color: rgba(0, 242, 254, 0.6);
+      box-shadow: 0 0 12px rgba(0, 242, 254, 0.3);
+    }
+
+    /* Mobile Drawer Language Bar */
+    .mob-lang-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 12px 0 18px;
+      border-bottom: 1px solid var(--border);
+      margin-bottom: 16px;
+    }
+    .mob-lang-title {
+      font-size: 12px;
+      font-family: var(--font-mono);
+      color: #94a3b8;
+      font-weight: 600;
+      letter-spacing: 0.5px;
+    }
+
     /* Mobile Hamburger & Drawer */
     .btn-hamburger {
       display: none;
@@ -1392,15 +1493,38 @@ export function renderPublicPage({ menus, siteConfig, projects = DEFAULT_PROJECT
         </a>
       </nav>
 
-      <!-- Hamburger Button -->
-      <button class="btn-hamburger" onclick="toggleMobMenu()" aria-label="Toggle Navigation Menu">
-        <svg id="ham-icon" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 6h16M4 12h16M4 18h16"/></svg>
-      </button>
+      <!-- Top-Right Actions: Language Switcher & Hamburger -->
+      <div class="nav-actions">
+        <div class="lang-switch" role="group" aria-label="Pilih Bahasa / Language Selection">
+          <button type="button" class="lang-btn active" id="btn-lang-id" onclick="setLanguage('id')" title="Bahasa Indonesia">
+            <span class="flag">🇮🇩</span> <span class="lang-code">ID</span>
+          </button>
+          <button type="button" class="lang-btn" id="btn-lang-en" onclick="setLanguage('en')" title="Switch to English Mode">
+            <span class="flag">🇬🇧</span> <span class="lang-code">EN</span>
+          </button>
+        </div>
+
+        <!-- Hamburger Button (Mobile) -->
+        <button class="btn-hamburger" onclick="toggleMobMenu()" aria-label="Toggle Navigation Menu">
+          <svg id="ham-icon" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 6h16M4 12h16M4 18h16"/></svg>
+        </button>
+      </div>
     </div>
   </header>
 
   <!-- Mobile Drawer -->
   <div id="mobile-drawer" class="mobile-drawer">
+    <div class="mob-lang-bar">
+      <span class="mob-lang-title">BAHASA / LANGUAGE</span>
+      <div class="lang-switch" role="group">
+        <button type="button" class="lang-btn active" id="mob-btn-lang-id" onclick="setLanguage('id')" title="Bahasa Indonesia">
+          <span class="flag">🇮🇩</span> <span class="lang-code">ID</span>
+        </button>
+        <button type="button" class="lang-btn" id="mob-btn-lang-en" onclick="setLanguage('en')" title="Switch to English Mode">
+          <span class="flag">🇬🇧</span> <span class="lang-code">EN</span>
+        </button>
+      </div>
+    </div>
     ${mobileNavHtml}
     <a href="#standards" class="mob-nav-link" onclick="closeMobMenu()">⭐ 4 Keunggulan Layanan</a>
     <a href="#projects" class="mob-nav-link" onclick="closeMobMenu()">💼 Daftar Layanan &amp; Jasa</a>
@@ -2036,7 +2160,106 @@ export function renderPublicPage({ menus, siteConfig, projects = DEFAULT_PROJECT
     function toggleMobDropdown(el) {
       el.parentElement.classList.toggle('active');
     }
+
+    // Google Translate Auto-Translation Engine & Language Switcher
+    window.googleTranslateElementInit = function() {
+      new google.translate.TranslateElement({
+        pageLanguage: 'id',
+        includedLanguages: 'en,id',
+        autoDisplay: false
+      }, 'google_translate_element');
+    };
+
+    let isGoogleTranslateLoaded = false;
+    function loadGoogleTranslateScript(cb) {
+      if (window.google && window.google.translate) {
+        isGoogleTranslateLoaded = true;
+        if (cb) cb();
+        return;
+      }
+      const s = document.createElement('script');
+      s.src = '//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit';
+      s.async = true;
+      s.onload = () => {
+        isGoogleTranslateLoaded = true;
+        let check = setInterval(() => {
+          const combo = document.querySelector('.goog-te-combo');
+          if (combo) {
+            clearInterval(check);
+            if (cb) cb();
+          }
+        }, 100);
+        setTimeout(() => clearInterval(check), 6000);
+      };
+      document.head.appendChild(s);
+    }
+
+    function triggerGoogleTranslateChange(lang) {
+      const combo = document.querySelector('.goog-te-combo');
+      if (combo) {
+        combo.value = lang;
+        combo.dispatchEvent(new Event('change'));
+      }
+    }
+
+    function setLanguage(lang) {
+      localStorage.setItem('xsur_lang', lang);
+      updateLangUI(lang);
+
+      const domain = window.location.hostname;
+      if (lang === 'en') {
+        document.cookie = 'googtrans=/id/en; path=/;';
+        document.cookie = 'googtrans=/id/en; domain=' + domain + '; path=/;';
+        if (window.google && window.google.translate) {
+          triggerGoogleTranslateChange('en');
+        } else {
+          loadGoogleTranslateScript(() => {
+            triggerGoogleTranslateChange('en');
+          });
+        }
+      } else {
+        document.cookie = 'googtrans=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
+        document.cookie = 'googtrans=; expires=Thu, 01 Jan 1970 00:00:00 UTC; domain=' + domain + '; path=/;';
+        document.cookie = 'googtrans=/id/id; path=/;';
+        const combo = document.querySelector('.goog-te-combo');
+        if (combo) {
+          combo.value = 'id';
+          combo.dispatchEvent(new Event('change'));
+        } else {
+          window.location.reload();
+        }
+      }
+    }
+
+    function updateLangUI(lang) {
+      const btnId = document.getElementById('btn-lang-id');
+      const btnEn = document.getElementById('btn-lang-en');
+      const mobBtnId = document.getElementById('mob-btn-lang-id');
+      const mobBtnEn = document.getElementById('mob-btn-lang-en');
+
+      if (btnId) btnId.classList.toggle('active', lang === 'id');
+      if (btnEn) btnEn.classList.toggle('active', lang === 'en');
+      if (mobBtnId) mobBtnId.classList.toggle('active', lang === 'id');
+      if (mobBtnEn) mobBtnEn.classList.toggle('active', lang === 'en');
+      document.documentElement.lang = lang;
+    }
+
+    // Auto-initialize saved language mode without penalizing default PageSpeed
+    window.addEventListener('DOMContentLoaded', () => {
+      const savedLang = localStorage.getItem('xsur_lang') || (new URLSearchParams(window.location.search).get('lang')) || (document.cookie.includes('googtrans=/id/en') ? 'en' : 'id');
+      if (savedLang === 'en') {
+        updateLangUI('en');
+        loadGoogleTranslateScript(() => {
+          triggerGoogleTranslateChange('en');
+        });
+      } else {
+        updateLangUI('id');
+      }
+    });
   </script>
+
+  <!-- Google Translate Hidden Element -->
+  <div id="google_translate_element" style="display:none;" aria-hidden="true"></div>
 </body>
 </html>`;
 }

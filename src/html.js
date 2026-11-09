@@ -1025,7 +1025,363 @@ export function renderPublicPage({ menus, siteConfig, projects = DEFAULT_PROJECT
       color: #94a3b8;
     }
 
-    /* Responsive Breakpoints */
+
+    /* ===================================================
+       ESTETIK REAL-TIME TELEMETRY & STATS COCKPIT
+       =================================================== */
+    .stats-cockpit-frame {
+      position: relative;
+      background: radial-gradient(130% 120% at 50% -10%, rgba(0, 242, 254, 0.08) 0%, rgba(13, 19, 33, 0.8) 45%, rgba(7, 10, 19, 0.96) 100%);
+      border: 1px solid rgba(0, 242, 254, 0.24);
+      border-radius: 24px;
+      padding: 34px 30px 28px;
+      margin-top: 20px;
+      margin-bottom: 70px;
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      box-shadow: 0 25px 60px -15px rgba(0, 0, 0, 0.85), 0 0 45px -12px rgba(0, 242, 254, 0.15), inset 0 1px 0 rgba(255, 255, 255, 0.12);
+      overflow: hidden;
+    }
+    .stats-cockpit-frame::before {
+      content: "";
+      position: absolute;
+      top: -80px;
+      right: -80px;
+      width: 320px;
+      height: 320px;
+      background: radial-gradient(circle, rgba(0, 242, 254, 0.14) 0%, transparent 70%);
+      border-radius: 50%;
+      pointer-events: none;
+      filter: blur(30px);
+    }
+    .stats-cockpit-frame::after {
+      content: "";
+      position: absolute;
+      bottom: -90px;
+      left: -90px;
+      width: 340px;
+      height: 340px;
+      background: radial-gradient(circle, rgba(34, 197, 94, 0.12) 0%, transparent 70%);
+      border-radius: 50%;
+      pointer-events: none;
+      filter: blur(30px);
+    }
+
+    /* Cockpit Top Header Status Bar */
+    .cockpit-top-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 12px;
+      padding-bottom: 22px;
+      margin-bottom: 26px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+      position: relative;
+      z-index: 2;
+    }
+    .cockpit-status-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      background: rgba(0, 242, 254, 0.07);
+      border: 1px solid rgba(0, 242, 254, 0.25);
+      padding: 6px 14px;
+      border-radius: 30px;
+    }
+    .live-radar-ping {
+      position: relative;
+      width: 9px;
+      height: 9px;
+      background: #4ade80;
+      border-radius: 50%;
+      display: inline-block;
+      box-shadow: 0 0 10px #4ade80;
+    }
+    .live-radar-ping::after {
+      content: "";
+      position: absolute;
+      top: -4px;
+      left: -4px;
+      width: 17px;
+      height: 17px;
+      border-radius: 50%;
+      border: 1.5px solid #4ade80;
+      animation: radarRipples 2s infinite cubic-bezier(0, 0.2, 0.8, 1);
+    }
+    @keyframes radarRipples {
+      0% { transform: scale(0.6); opacity: 1; }
+      100% { transform: scale(2.2); opacity: 0; }
+    }
+    .cockpit-title-text {
+      font-family: var(--font-mono);
+      font-size: 11.5px;
+      font-weight: 700;
+      letter-spacing: 1px;
+      color: #e2e8f0;
+      text-transform: uppercase;
+    }
+    .cockpit-edge-tag {
+      font-family: var(--font-mono);
+      font-size: 10px;
+      font-weight: 700;
+      color: var(--cyan);
+      background: rgba(0, 242, 254, 0.15);
+      padding: 2px 8px;
+      border-radius: 6px;
+      border: 1px solid rgba(0, 242, 254, 0.3);
+    }
+    .cockpit-time-chip {
+      font-family: var(--font-mono);
+      font-size: 11.5px;
+      color: #94a3b8;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: rgba(255, 255, 255, 0.04);
+      padding: 6px 14px;
+      border-radius: 20px;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+    }
+
+    /* Sub-section Dividers & Labels */
+    .cockpit-section-label {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-family: var(--font-mono);
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.8px;
+      color: #cbd5e1;
+      text-transform: uppercase;
+      margin-bottom: 16px;
+      position: relative;
+      z-index: 2;
+    }
+    .cockpit-section-label::after {
+      content: "";
+      flex: 1;
+      height: 1px;
+      background: linear-gradient(90deg, rgba(255, 255, 255, 0.12), transparent);
+    }
+
+    /* Cards Grid */
+    .cockpit-cards-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 18px;
+      margin-bottom: 26px;
+      position: relative;
+      z-index: 2;
+    }
+    .cockpit-cards-grid:last-of-type {
+      margin-bottom: 24px;
+    }
+
+    /* Modern Estetik Stat Card */
+    .stat-card-modern {
+      position: relative;
+      background: linear-gradient(145deg, rgba(19, 27, 46, 0.72) 0%, rgba(10, 15, 27, 0.85) 100%);
+      border: 1px solid rgba(255, 255, 255, 0.09);
+      border-radius: 18px;
+      padding: 24px 22px;
+      overflow: hidden;
+      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+      box-shadow: 0 10px 24px -5px rgba(0, 0, 0, 0.5);
+    }
+    .stat-card-modern::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, transparent, var(--card-accent, #00f2fe), transparent);
+      opacity: 0.8;
+      transition: opacity 0.3s ease;
+    }
+    .stat-card-modern:hover {
+      transform: translateY(-5px);
+      border-color: rgba(0, 242, 254, 0.45);
+      box-shadow: 0 18px 35px -8px rgba(0, 0, 0, 0.7), 0 0 25px -5px var(--card-glow, rgba(0, 242, 254, 0.25));
+    }
+    .stat-card-modern:hover::before {
+      opacity: 1;
+      height: 4px;
+    }
+
+    /* Specific Accent Color Themes */
+    .card-theme-emerald {
+      --card-accent: #22c55e;
+      --card-glow: rgba(34, 197, 94, 0.25);
+      background: linear-gradient(145deg, rgba(16, 33, 26, 0.7) 0%, rgba(9, 19, 15, 0.85) 100%);
+      border-color: rgba(34, 197, 94, 0.25);
+    }
+    .card-theme-sky {
+      --card-accent: #38bdf8;
+      --card-glow: rgba(56, 189, 248, 0.25);
+      background: linear-gradient(145deg, rgba(14, 28, 48, 0.7) 0%, rgba(8, 17, 30, 0.85) 100%);
+      border-color: rgba(56, 189, 248, 0.22);
+    }
+    .card-theme-amber {
+      --card-accent: #facc15;
+      --card-glow: rgba(250, 204, 21, 0.25);
+      background: linear-gradient(145deg, rgba(32, 27, 15, 0.7) 0%, rgba(18, 15, 8, 0.85) 100%);
+      border-color: rgba(250, 204, 21, 0.22);
+    }
+    .card-theme-cyan {
+      --card-accent: #00f2fe;
+      --card-glow: rgba(0, 242, 254, 0.3);
+      background: linear-gradient(145deg, rgba(12, 31, 46, 0.75) 0%, rgba(7, 18, 28, 0.88) 100%);
+      border-color: rgba(0, 242, 254, 0.3);
+    }
+    .card-theme-purple {
+      --card-accent: #c084fc;
+      --card-glow: rgba(192, 132, 252, 0.25);
+      background: linear-gradient(145deg, rgba(29, 18, 46, 0.7) 0%, rgba(16, 10, 27, 0.85) 100%);
+      border-color: rgba(192, 132, 252, 0.22);
+    }
+    .card-theme-slate {
+      --card-accent: #94a3b8;
+      --card-glow: rgba(148, 163, 184, 0.25);
+      background: linear-gradient(145deg, rgba(21, 28, 40, 0.7) 0%, rgba(11, 15, 23, 0.85) 100%);
+      border-color: rgba(148, 163, 184, 0.2);
+    }
+
+    /* Card Interior Components */
+    .stat-card-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 16px;
+    }
+    .stat-pill-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-family: var(--font-mono);
+      font-size: 10.5px;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+      padding: 3px 10px;
+      border-radius: 20px;
+      text-transform: uppercase;
+    }
+    .pill-emerald { background: rgba(34, 197, 94, 0.18); color: #4ade80; border: 1px solid rgba(34, 197, 94, 0.35); }
+    .pill-sky { background: rgba(56, 189, 248, 0.18); color: #38bdf8; border: 1px solid rgba(56, 189, 248, 0.35); }
+    .pill-amber { background: rgba(234, 179, 8, 0.18); color: #facc15; border: 1px solid rgba(234, 179, 8, 0.35); }
+    .pill-cyan { background: rgba(0, 242, 254, 0.18); color: #00f2fe; border: 1px solid rgba(0, 242, 254, 0.38); }
+    .pill-purple { background: rgba(192, 132, 252, 0.18); color: #c084fc; border: 1px solid rgba(192, 132, 252, 0.35); }
+    .pill-slate { background: rgba(148, 163, 184, 0.18); color: #cbd5e1; border: 1px solid rgba(148, 163, 184, 0.35); }
+
+    .stat-icon-wrapper {
+      width: 36px;
+      height: 36px;
+      border-radius: 10px;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 18px;
+    }
+
+    .stat-metric-value {
+      font-family: var(--font-mono);
+      font-size: 34px;
+      font-weight: 800;
+      letter-spacing: -1px;
+      line-height: 1.1;
+      margin-bottom: 8px;
+      color: #ffffff;
+      display: flex;
+      align-items: baseline;
+      gap: 6px;
+    }
+    .stat-metric-value .unit-text {
+      font-size: 15px;
+      font-weight: 600;
+      color: var(--cyan);
+      letter-spacing: 0;
+    }
+    .stat-metric-title {
+      font-size: 14.5px;
+      font-weight: 700;
+      color: #f8fafc;
+      margin-bottom: 6px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .stat-metric-desc {
+      font-size: 12.5px;
+      color: #94a3b8;
+      line-height: 1.45;
+      margin: 0;
+    }
+
+    /* Mini Progress or Trend Bar inside Card */
+    .stat-card-footer-indicator {
+      margin-top: 14px;
+      padding-top: 12px;
+      border-top: 1px solid rgba(255, 255, 255, 0.06);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-family: var(--font-mono);
+      font-size: 11px;
+      color: #64748b;
+    }
+    .indicator-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      color: #94a3b8;
+    }
+    .indicator-tag.active {
+      color: #4ade80;
+    }
+    .indicator-sparkline {
+      font-family: var(--font-mono);
+      font-size: 10px;
+      color: var(--cyan);
+      background: rgba(0, 242, 254, 0.08);
+      padding: 2px 7px;
+      border-radius: 4px;
+    }
+
+    /* Cockpit Footer Ticker Strip */
+    .cockpit-footer-strip {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 12px;
+      padding-top: 20px;
+      border-top: 1px solid rgba(255, 255, 255, 0.08);
+      position: relative;
+      z-index: 2;
+    }
+    .footer-guarantee-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 12px;
+      color: #cbd5e1;
+      font-weight: 500;
+    }
+    .dot-indicator {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      display: inline-block;
+    }
+    .dot-indicator.emerald { background: #4ade80; box-shadow: 0 0 6px #4ade80; }
+    .dot-indicator.cyan { background: #00f2fe; box-shadow: 0 0 6px #00f2fe; }
+    .dot-indicator.amber { background: #facc15; box-shadow: 0 0 6px #facc15; }
+
+        /* Responsive Breakpoints */
     @media (max-width: 900px) {
       .nav-links { display: none; }
       .btn-hamburger { display: block; }
@@ -1042,6 +1398,9 @@ export function renderPublicPage({ menus, siteConfig, projects = DEFAULT_PROJECT
       .hero-actions a { width: 100%; justify-content: center; }
       .founder-img-box { width: 180px; height: 180px; }
       .intergram-hint { display: none; }
+      .stats-cockpit-frame { padding: 22px 18px 20px; }
+      .cockpit-top-bar { flex-direction: column; align-items: flex-start; }
+      .stat-metric-value { font-size: 28px; }
     }
   </style>
 </head>
@@ -1452,7 +1811,7 @@ export function renderPublicPage({ menus, siteConfig, projects = DEFAULT_PROJECT
     </div>
 
     <!-- Real-Time Activity & Visitor Counter Section -->
-    <section class="section-head" id="stats" style="margin-top: 60px;">
+    <section class="section-head" id="stats" style="margin-top: 70px;">
       <span class="section-tag">REAL-TIME OPERATIONAL METRICS</span>
       <h2 class="section-title">Aktivitas Layanan &amp; Kunjungan Klien Real-Time</h2>
       <p class="section-desc">
@@ -1460,71 +1819,151 @@ export function renderPublicPage({ menus, siteConfig, projects = DEFAULT_PROJECT
       </p>
     </section>
 
-    <div class="stats-counter-grid">
-      <!-- Card 1: Konsultasi Aktif / Sedang Diproses -->
-      <div class="stat-card stat-card-highlight">
-        <div class="stat-card-header">
-          <span class="stat-live-pulse"><span class="pulse-dot"></span> SEDANG DIPROSES</span>
-          <span class="stat-icon">⚡</span>
+    <!-- ESTETIK COCKPIT SHOWCASE FRAME -->
+    <div class="stats-cockpit-frame">
+      <!-- Top Cockpit Status Bar -->
+      <div class="cockpit-top-bar">
+        <div class="cockpit-status-badge">
+          <span class="live-radar-ping"></span>
+          <span class="cockpit-title-text">TELEMETRY AKTIVITAS &amp; TRAFIK REAL-TIME</span>
+          <span class="cockpit-edge-tag">EDGE D1 LIVE</span>
         </div>
-        <div class="stat-number" id="cnt-active">${visitorStats.active_consultations} <span class="stat-unit">Klien</span></div>
-        <div class="stat-label">Konsultasi Aktif Hari Ini</div>
-        <p class="stat-sub">Klien yang sedang dalam penanganan teknis dan perancangan sistem.</p>
+        <div class="cockpit-time-chip">
+          <span>🕒</span>
+          <span>SINKRONISASI OTOMATIS CLOUDFLARE</span>
+        </div>
       </div>
 
-      <!-- Card 2: Proyek Sukses & Selesai -->
-      <div class="stat-card">
-        <div class="stat-card-header">
-          <span class="stat-badge-done">TERVERIFIKASI</span>
-          <span class="stat-icon">🏆</span>
-        </div>
-        <div class="stat-number" id="cnt-completed">${(visitorStats.completed_projects).toLocaleString('id-ID')}+</div>
-        <div class="stat-label">Proyek Selesai Bergaransi</div>
-        <p class="stat-sub">Jaringan WiFi kantor, website bisnis, bot otomatis, dan pengamanan sistem.</p>
+      <!-- Segment 1: Aktivitas Pengerjaan & Konsultasi Klien -->
+      <div class="cockpit-section-label">
+        <span>⚡ STATUS PENANGANAN KLIEN &amp; PROYEK</span>
       </div>
 
-      <!-- Card 3: Kepuasan Klien -->
-      <div class="stat-card">
-        <div class="stat-card-header">
-          <span class="stat-badge-rating">⭐⭐⭐⭐⭐ RATING</span>
-          <span class="stat-icon">⭐</span>
+      <div class="cockpit-cards-grid">
+        <!-- Card 1: Sedang Diproses -->
+        <div class="stat-card-modern card-theme-emerald">
+          <div class="stat-card-header">
+            <span class="stat-pill-badge pill-emerald"><span class="pulse-dot"></span> SEDANG DIPROSES</span>
+            <div class="stat-icon-wrapper">⚡</div>
+          </div>
+          <div class="stat-metric-value" id="cnt-active">
+            ${visitorStats.active_consultations} <span class="unit-text">Klien Aktif</span>
+          </div>
+          <div class="stat-metric-title">Konsultasi Aktif Hari Ini</div>
+          <p class="stat-metric-desc">Klien yang sedang dalam penanganan teknis langsung bersama tim Bang Mansur.</p>
+          <div class="stat-card-footer-indicator">
+            <span class="indicator-tag active">● Antrean Berjalan Normal</span>
+            <span class="indicator-sparkline">Respon &lt; 15 Mnt</span>
+          </div>
         </div>
-        <div class="stat-number">${visitorStats.client_satisfaction}%</div>
-        <div class="stat-label">Tingkat Kepuasan Klien</div>
-        <p class="stat-sub">Berdasarkan ulasan mitra perkantoran, UMKM, dan perorangan.</p>
+
+        <!-- Card 2: Proyek Selesai -->
+        <div class="stat-card-modern card-theme-sky">
+          <div class="stat-card-header">
+            <span class="stat-pill-badge pill-sky">TERVERIFIKASI</span>
+            <div class="stat-icon-wrapper">🏆</div>
+          </div>
+          <div class="stat-metric-value" id="cnt-completed">
+            ${(visitorStats.completed_projects).toLocaleString('id-ID')}+
+          </div>
+          <div class="stat-metric-title">Proyek Sukses Bergaransi</div>
+          <p class="stat-metric-desc">Jaringan WiFi kantor, website toko online, bot otomatis, dan pengamanan sistem.</p>
+          <div class="stat-card-footer-indicator">
+            <span class="indicator-tag">✓ 100% Tuntas Beres</span>
+            <span class="indicator-sparkline">Garansi Purna Jual</span>
+          </div>
+        </div>
+
+        <!-- Card 3: Rating & Kepuasan -->
+        <div class="stat-card-modern card-theme-amber">
+          <div class="stat-card-header">
+            <span class="stat-pill-badge pill-amber">★★★★★ RATING</span>
+            <div class="stat-icon-wrapper">⭐</div>
+          </div>
+          <div class="stat-metric-value">
+            ${visitorStats.client_satisfaction}%
+          </div>
+          <div class="stat-metric-title">Tingkat Kepuasan Klien</div>
+          <p class="stat-metric-desc">Berdasarkan ulasan mitra perkantoran, ruko, UMKM, dan perorangan di Indonesia.</p>
+          <div class="stat-card-footer-indicator">
+            <span class="indicator-tag">128+ Ulasan Positif</span>
+            <span class="indicator-sparkline">Skor 4.9 / 5.0</span>
+          </div>
+        </div>
       </div>
 
-      <!-- Card 4: Pengunjung Hari Ini (Real Counter) -->
-      <div class="stat-card">
-        <div class="stat-card-header">
-          <span class="stat-badge-real"><span class="pulse-dot blue"></span> LIVE HARI INI</span>
-          <span class="stat-icon">👥</span>
-        </div>
-        <div class="stat-number" id="cnt-today">${(visitorStats.today_views).toLocaleString('id-ID')}</div>
-        <div class="stat-label">Pengunjung Web Hari Ini</div>
-        <p class="stat-sub">Trafik kunjungan real-time yang tercatat langsung di server Cloudflare.</p>
+      <!-- Segment 2: Kunjungan Pengunjung Web Resmi -->
+      <div class="cockpit-section-label" style="margin-top: 10px;">
+        <span>👥 TRAFIK KUNJUNGAN WEBSITE RESMI XSUR</span>
       </div>
 
-      <!-- Card 5: Pengunjung Bulan Ini -->
-      <div class="stat-card">
-        <div class="stat-card-header">
-          <span class="stat-badge-month">BULAN INI</span>
-          <span class="stat-icon">📈</span>
+      <div class="cockpit-cards-grid">
+        <!-- Card 4: Pengunjung Hari Ini (Real Counter) -->
+        <div class="stat-card-modern card-theme-cyan">
+          <div class="stat-card-header">
+            <span class="stat-pill-badge pill-cyan"><span class="pulse-dot blue"></span> LIVE HARI INI</span>
+            <div class="stat-icon-wrapper">👥</div>
+          </div>
+          <div class="stat-metric-value" id="cnt-today">
+            ${(visitorStats.today_views).toLocaleString('id-ID')}
+          </div>
+          <div class="stat-metric-title">Pengunjung Web Hari Ini</div>
+          <p class="stat-metric-desc">Trafik kunjungan riil yang tercatat otomatis di edge server Cloudflare D1.</p>
+          <div class="stat-card-footer-indicator">
+            <span class="indicator-tag active">● Real-time Visitor D1</span>
+            <span class="indicator-sparkline">Live Ticker</span>
+          </div>
         </div>
-        <div class="stat-number" id="cnt-month">${(visitorStats.month_views).toLocaleString('id-ID')}+</div>
-        <div class="stat-label">Kunjungan Bulan Ini</div>
-        <p class="stat-sub">Akses pencarian organik Google dan rujukan klien bisnis.</p>
+
+        <!-- Card 5: Kunjungan Bulan Ini -->
+        <div class="stat-card-modern card-theme-purple">
+          <div class="stat-card-header">
+            <span class="stat-pill-badge pill-purple">BULAN INI</span>
+            <div class="stat-icon-wrapper">📈</div>
+          </div>
+          <div class="stat-metric-value" id="cnt-month">
+            ${(visitorStats.month_views).toLocaleString('id-ID')}+
+          </div>
+          <div class="stat-metric-title">Kunjungan Bulan Ini</div>
+          <p class="stat-metric-desc">Akses pencarian organik Google, rujukan kemitraan, dan klien korporat.</p>
+          <div class="stat-card-footer-indicator">
+            <span class="indicator-tag">🚀 Trafik Terus Naik</span>
+            <span class="indicator-sparkline">SERP Top 10</span>
+          </div>
+        </div>
+
+        <!-- Card 6: Total Kunjungan Kumulatif -->
+        <div class="stat-card-modern card-theme-slate">
+          <div class="stat-card-header">
+            <span class="stat-pill-badge pill-slate">AKUMULATIF</span>
+            <div class="stat-icon-wrapper">🌐</div>
+          </div>
+          <div class="stat-metric-value" id="cnt-total">
+            ${(visitorStats.total_views).toLocaleString('id-ID')}+
+          </div>
+          <div class="stat-metric-title">Total Kunjungan Portal</div>
+          <p class="stat-metric-desc">Dihitung otomatis tanpa rekayasa melalui jaringan database Cloudflare D1.</p>
+          <div class="stat-card-footer-indicator">
+            <span class="indicator-tag">🌍 Global Cloudflare CDN</span>
+            <span class="indicator-sparkline">Verified Hits</span>
+          </div>
+        </div>
       </div>
 
-      <!-- Card 6: Total Kunjungan Web -->
-      <div class="stat-card">
-        <div class="stat-card-header">
-          <span class="stat-badge-total">AKUMULATIF</span>
-          <span class="stat-icon">🌐</span>
+      <!-- Cockpit Footer Ticker Strip -->
+      <div class="cockpit-footer-strip">
+        <div class="footer-guarantee-pill">
+          <span class="dot-indicator emerald"></span>
+          <span>Semua Pengerjaan Diberikan Garansi Tuntas</span>
         </div>
-        <div class="stat-number" id="cnt-total">${(visitorStats.total_views).toLocaleString('id-ID')}+</div>
-        <div class="stat-label">Total Kunjungan Portal</div>
-        <p class="stat-sub">Dihitung otomatis melalui database terdistribusi Cloudflare D1.</p>
+        <div class="footer-guarantee-pill">
+          <span class="dot-indicator cyan"></span>
+          <span>Konsultasi Langsung Bersama Bang Mansur</span>
+        </div>
+        <div class="footer-guarantee-pill">
+          <span class="dot-indicator amber"></span>
+          <span>Data Trafik Transparan di Database Cloudflare</span>
+        </div>
       </div>
     </div>
 
